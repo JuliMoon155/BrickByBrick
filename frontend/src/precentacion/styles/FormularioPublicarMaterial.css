@@ -1,0 +1,53 @@
+
+
+h1, img,h2,p, .Botones, .Encabezado{
+    background: #fff;
+}
+
+hr {
+    border: none; 
+    height: 2px;  
+    background-color: #4D8D31;
+    margin: 20px 0;
+}
+
+.Titulo-Usuario{
+    background-color: #fff;
+    display: flex;
+}
+
+
+.FormularioBad {
+    background-color: #fff;
+    padding: 25px 27.5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.Form{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+label{
+    background-color: #fff;
+    color: #283629;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+input, textarea{
+    padding: 17px 25px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 2px solid #4D8D31;
+    color: #283629;
+    outline: none;
+}
+
+input::placeholder, textarea::placeholder{
+    color: #b5cab6;
+}
