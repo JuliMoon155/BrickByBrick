@@ -1,40 +1,39 @@
-import React from 'react'
-import './Login.css'
+import React from 'react';
+import "../styles/Login.css";
 
-const Login = () => {
+export const Login = () => {
   return (
-    <div className='contenedorPrincipal'>
-      
-      <div className="camino_registro">
-      adios
-      </div>
-
-      <div className='login'>
-        <div className="formulario">
-        <h1>¡BIENVENIDO DE VUELTA!</h1>
-        <div className="separador"></div>
-        <p className="instruccion">Dinos quien eres.</p>
-        <div className="inputs">
-          <input className="input" type="text" placeholder="¿Cual es tu nombre?" />
-          <input className="input" type="text" placeholder="¿Cual es tu apellido?" />
-          <input className="input" type="text" placeholder="¿Qué edad tienes?" />
-          <div className="ComboBox">
-              <select defaultValue="">
-                  <option value="" disabled>
-                      ¿Como te identificas?
-                  </option>
-                  <option>Masculino</option>
-                  <option>Femenino</option>
-                  <option>Batman, yo soy Batman</option>
-              </select>
+    <div className='Login'>
+      <div className="container_logo">
+                <span className="horizontal-text">A Ladrillo</span>
+                <span className="vertical-text">Ladrillo</span>
             </div>
-        </div>
-        <button className="continuar">Continuar</button>
-        </div>
-      </div>
 
+            <div className="cambio-registro">
+                <h2 className="titulo_Log2">¿NO TIENES UNA CUENTA?</h2>
+                <p className="instruccion_res"> 
+                ¿No podemos encontrarte? De pronto no te has registrado aún, 
+                no esperes más, haz click en el siguiente boton para registrate.
+                </p>
+                <button className="Registrate">Registrarme</button>
+            </div>
+
+            <div className="formulario_Log">
+                <h1 className="titulo_Log">¡BIENVENIDO DE VUELTA!</h1>
+                <div className="divisor"></div>
+                <p className="instruccion_Log">Dinos quién eres.</p>
+                <div className="inputs_Log">
+                    <input className="input_Log" type="text" placeholder="Ingresa tu usuario o email" />
+                    <input className="input_Log" type="text" placeholder="¿Cuál es tu contraseña?" />
+                </div>
+                <div className="forgot-password">¿Olvidaste tu contraseña?</div>
+                <button className="continuar_Log">Continuar</button>
+            </div>
+
+            <div className="container_logo2">
+                <span className="vertical-text2">Ladrillo</span>
+                <span className="horizontal-text2">Ladrillo A</span>
+            </div>
     </div>
   )
 }
-
-export default Login
