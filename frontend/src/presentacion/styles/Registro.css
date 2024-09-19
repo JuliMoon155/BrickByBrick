@@ -1,0 +1,125 @@
+.registro {
+    display: flex;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+  .formulario {
+    
+    margin-top: 50px;
+    align-items: center;
+    width: 58%;
+    background-color: #fff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .cambio-login {
+    width: 42%;
+    background-color: #4D8D31;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  h1{
+    color: rgb(0, 0, 0);
+    font-size: 45px;
+    font-weight: 550;
+    margin-bottom: 30px;
+  }
+   h2 {
+    color: #fff;
+    font-size: 45px;
+    font-weight: 550;
+    margin-bottom: 30px;
+  }
+  .indicador-paso {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  .rect-acti, .rect-inac {
+    width: 80px;
+    height: 8px;
+    border-radius: 4px;
+  }
+  .rect-acti {
+    background-color: #4D8D31;
+  }
+
+  .rect-inac {
+    background-color: rgba(77, 141, 49, 0.5);
+  }
+
+  .instruccion {
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  input, select {
+    color: black;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    font-size: 20px;
+  }
+
+  input::placeholder{
+    color: black;
+  }
+
+
+  .ComboBox {
+    position: relative;
+  }
+
+
+  .ComboBox::after {
+    content: '▼';
+    font-size: 20px;
+    top: 15px;
+    right: 10px;
+    position: absolute;
+  }
+
+  select {
+    appearance: none;
+    width: 100%;
+  }
+  button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .continuar {
+    align-self: center;
+    background-color: #4D8D31;
+    color: white;
+  }
+
+.continuar:hover{
+
+}
+
+
+  .cambio-login p {
+    color: white;
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
+  .iniciar-sesion {
+    background-color: white;
+    color: #4D8D31;
+  }
+  
