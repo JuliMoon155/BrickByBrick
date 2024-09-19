@@ -4,8 +4,10 @@ import "../styles/Registro.css";
 export const RegistroPrimerPaso = () => {
     return (
         <div className="registro">
-
-
+            <div class="container_logo">
+                <span class="horizontal-text">A Ladrillo</span>
+                <span class="vertical-text">Ladrillo</span>
+            </div>
             <div className="formulario">
                 <h1>¡REGISTRATE!</h1>
                 <div className="indicador-paso">
@@ -15,9 +17,9 @@ export const RegistroPrimerPaso = () => {
                 </div>
                 <p className="instruccion">Por favor ingresa toda tu info.</p>
                 <div className="inputs">
-                    <input type="text" placeholder="¿Cual es tu nombre?" />
-                    <input type="text" placeholder="¿Cual es tu apellido?" />
-                    <input type="text" placeholder="¿Qué edad tienes?" />
+                    <input className="input" type="text" placeholder="¿Cual es tu nombre?" />
+                    <input className="input" type="text" placeholder="¿Cual es tu apellido?" />
+                    <input className="input" type="text" placeholder="¿Qué edad tienes?" />
                     <div className="ComboBox">
                         <select defaultValue="">
                             <option value="" disabled>
@@ -32,7 +34,6 @@ export const RegistroPrimerPaso = () => {
                 <button className="continuar">Continuar</button>
             </div>
 
-
             <div className="cambio-login">
                 <h2>¿YA TIENES UNA CUENTA?</h2>
                 <p>
@@ -40,6 +41,10 @@ export const RegistroPrimerPaso = () => {
                     cuenta, haz click en el siguiente botón para iniciar sesión.
                 </p>
                 <button className="iniciar-sesion">Iniciar Sesión</button>
+            </div>
+            <div class="container_logo">
+                <span class="horizontal-text">A Ladrillo</span>
+                <span class="vertical-text">Ladrillo</span>
             </div>
         </div>
     );
