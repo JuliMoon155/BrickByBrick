@@ -1,0 +1,24 @@
+.contenedorPrincipal{
+  display: flex;
+  min-width: 100%;
+  text-align: center;
+  
+}
+
+.login{
+  background: #887b7b;  
+  position: absolute;
+  /* left: 0%; */
+  margin-left: 0;  
+  height: 650px;
+  width: 650px;
+  /*display: flex;*/
+  
+}
+
+.camino_registro{
+  background: rgb(15, 126, 15);
+  position: absolute;
+  left: 50%;
+  width: 450px;
+}
