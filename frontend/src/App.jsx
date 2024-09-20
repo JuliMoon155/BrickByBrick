@@ -1,15 +1,24 @@
-
-
-
-import { RegistroPrimerPaso } from './presentacion/components/RegistroPrimerPaso';
-import { Login } from './presentacion/components/Login';
-
+import { Registro } from './components/Registro';
+import { Login } from './components/Login';
+import React, { useState } from 'react';
 
 function App() {
-  return (
-     <RegistroPrimerPaso />
-    // <Login />
-  )
-}
+  const [interfaz, setInterfaz] = useState('Registro');
 
-export default App
+  const cambiarInterfaz= (nuevaInterfaz) =>{
+    setInterfaz(nuevaInterfaz);
+  };
+
+  return (
+    <>
+    {interfaz==='Login'&&(<Login onRegistro={() => cambiarInterfaz('Registro')}/>
+    )}
+    {interfaz==='Registro'&&(<Registro onLogin={() => cambiarInterfaz('Login')}/>
+    )}
+    </>
+    //  <Registro/>
+    // <Login />
+  );
+};
+
+export default App;
