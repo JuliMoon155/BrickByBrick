@@ -1,32 +1,36 @@
 import React, { useState} from "react";
-import "../styles/Registro.css";
+import "..//styles/Registro.css";
+import Beneficiario from "../Negocio/DataBeneficiario";
 
 export const Registro = ({onLogin}) => {
 
+    //setters
     const[rol, setRol] = useState('Beneficiario');
     const[paso, setPaso] = useState(1);
+    const [nombre, setNombre] = useState('');
+    const [cedula, setCedula] = useState('');
+    const [fechaNacimiento, setFechaNacimiento] = useState('');
 
-    const siguientePaso = () => {
-        if(paso < 3){
-            setPaso(paso + 1);
-        }
-    };
+    const [email, setEmail] = useState('');
+    const [confirmarEmail, setConfirmarEmail] = useState('');
+    const [celular, setCelular] = useState('');
 
-    async function guardarUsuario(nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento){
-        const text = 'INSERT INTO BENEFICIARIO (nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento)'
-         +'VALUES($1, $2, $3, $4, $5, $6, $7);';
-         const values = [nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento];
-         try {
-            const res = await pool.query(text, values);
-            console.log('Registro creado:', res.rows[0]);
-          } catch (err) {
-            console.error(err);
-          }
-    }
+    const [usuario, setUsuario] = useState('');
+    const [contraseña, setContraseña] = useState('');
+    const [confirmarContraseña, setConfirmarContraseña] = useState('');
 
-    const anteriorPaso = () => {
-        if(paso > 1){
-            setPaso(paso - 1);
+
+    const siguientePaso = () => {if(paso < 3){setPaso(paso + 1);}};
+    const anteriorPaso = () => {if(paso > 1){setPaso(paso - 1);}};
+    const guardarUsuario =  () => {
+        const data = {nombre, usuario, email, celular, cedula, contraseña, fechaNacimiento};
+        try{
+            //const beneficiario = new Beneficiario();
+            //beneficiario.insertarBeneficiario(data.nombre, data.usuario, data.email, data.cedula, data.cedula, data.contraseña, data.fechaNacimiento);
+            console.log('Usuario guardado correctamente', data);
+            alert('usuario exitosamente creado');
+        } catch (err){
+            console.error('Error al guardar el usuario: ', err);
         }
     };
 
@@ -46,9 +50,11 @@ export const Registro = ({onLogin}) => {
                         <option value="Empresa">Empresa</option>
                     </select>
                     </div>
-                    <input className="input" type="text" placeholder="¿Como te llamas?" />
-                    <input className={rol !== 'Beneficiario' ? 'input_deac' : 'input'} type="text" placeholder="¿Cuál es tu cedula?" disabled={rol !== 'Beneficiario'}/>
-                    <input className={rol !== 'Beneficiario' ? 'input_deac' : 'input'} type="date" placeholder="¿Cuando naciste?" disabled={rol !== 'Beneficiario'}/>
+                    <input className="input" type="text" placeholder="¿Como te llamas?" value={nombre} onChange={(e) => setNombre(e.target.value)}/>
+                    <input className={rol !== 'Beneficiario' ? 'input_deac' : 'input'} type="text" placeholder="¿Cuál es tu cedula?" disabled={rol !== 'Beneficiario'} 
+                    value={cedula} onChange={(e) => setCedula(e.target.value)}/>
+                    <input className={rol !== 'Beneficiario' ? 'input_deac' : 'input'} type="date" placeholder="¿Cuando naciste?" disabled={rol !== 'Beneficiario'}
+                    value={fechaNacimiento} onChange={(e) => setFechaNacimiento(e.target.value)}/>
                     
                     <div className="Botones">
                     {paso < 3 && <button onClick={siguientePaso} className="continuar">Continuar</button>}
@@ -62,9 +68,12 @@ export const Registro = ({onLogin}) => {
                     <p className="instruccion">¿Cómo te contactamos?</p>
                     <div className="inputs">
 
-                    <input className="input" type="email" placeholder="¿Cuál es tu email?" />
-                    <input className="input" type="email" placeholder="Por favor confirma tu email" />
-                    <input className="input" type="number" placeholder="¿Cuál es tu telefono?" />
+                    <input className="input" type="email" placeholder="¿Cuál es tu email?" 
+                    value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <input className="input" type="email" placeholder="Por favor confirma tu email" 
+                    value={confirmarEmail} onChange={(e) => setConfirmarEmail(e.target.value)}/>
+                    <input className="input" type="text" placeholder={rol !== 'Beneficiario' ? "¿Como describirias a tu empresa?" : "¿Cuál es tu telefono?"} 
+                    value={celular} onChange={(e) => setCelular(e.target.value)}/>
 
                     <div className="Botones">
                     {paso > 1 && <button onClick={anteriorPaso} className="regresar">Regresar</button>}
@@ -79,9 +88,12 @@ export const Registro = ({onLogin}) => {
                     <p className="instruccion">¿Cómo te reconocemos?</p>
                     <div className="inputs">
 
-                    <input className="input" type="text" placeholder="¿Cuál va a ser tu usuario?" />
-                    <input className="input" type="password" placeholder="¿Cuál sera tu contraseña?" />
-                    <input className="input" type="password" placeholder="Por favor confirma tu contraseña" />
+                    <input className="input" type="text" placeholder="¿Cuál va a ser tu usuario?" 
+                    value={usuario} onChange={(e) => setUsuario(e.target.value)}/>
+                    <input className="input" type="password" placeholder="¿Cuál sera tu contraseña?" 
+                    value={contraseña} onChange={(e) => setContraseña(e.target.value)}/>
+                    <input className="input" type="password" placeholder="Por favor confirma tu contraseña" 
+                    value={confirmarContraseña} onChange={(e) => setConfirmarContraseña(e.target.value)}/>
 
                     <div className="Botones">
                     {paso > 1 && <button onClick={anteriorPaso} className="regresar">Regresar</button>}
@@ -96,13 +108,7 @@ export const Registro = ({onLogin}) => {
     }
 
 
-    const [formData, setFormData] = useState({
-        nombre: '',
-        email: '',
-        edad: '',
-        comentario: '',
-      });
-
+    
     return (
         <div className="registro">
             <div className="container_logo">
