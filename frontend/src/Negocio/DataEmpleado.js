@@ -1,41 +1,63 @@
-class Empleado{
-    nombre;
-    usuario; 
-    email;
-    celular; 
-    cedula;
-    contraseña;
-    fecha_nacimiento;
+    //import { Pool } from 'pg';
+    const { Pool } = require('pg');
 
-    constructor(nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento){
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.email = email;
-        this.celular = celular;
-        this.cedula = cedula;
-        this.contraseña = contraseña;
-        this.fecha_nacimiento = fecha_nacimiento;
-    }
+    // Configuración de conexión
+    const config = {
+      user: 'postgres',      // El usuario de tu base de datos
+      host: 'localhost',       // El host donde corre PostgreSQL (generalmente localhost)
+      database: 'brick', // El nombre de tu base de datos
+      password: '1234', // La contraseña del usuario
+      port: 5432,              // El puerto de PostgreSQL, por defecto es 5432
+    };
 
+    const pool = new Pool(config);
+
+    const verificarConexion = async () => {
+      try {
+        const res = await pool.query("SELECT NOW()");
+        console.log("Conexión exitosa:", res.rows[0]);
+      } catch (err) {
+        console.error("Error al conectar con la base de datos", err);
+      }
+    };
+    
+    verificarConexion();
+/*
     //metodo para crear un empleado
-    async insertarEmpleado(nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento){
+    function insertarEmpleado(nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento){
         const text = 'INSERT INTO EMPLEADO (nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento)'
          +'VALUES($1, $2, $3, $4, $5, $6, $7);';
          const values = [nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento];
          try {
-            const res = await pool.query(text, values);
+            const res = pool.query(text, values);
             console.log('Registro creado:', res.rows[0]);
+            alert('ya');
           } catch (err) {
             console.error(err);
           }
-    }
+    }*/
 
+    const crearEmpleado = async (req, res) => {
+      const { nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento } = req.body;
+      try {
+        const resultado = await pool.query(
+          'INSERT INTO EMPLEADO (nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento)'
+         +'VALUES($1, $2, $3, $4, $5, $6, $7);',
+          [nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento]
+        );
+        res.json(resultado.rows[0]);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("Error en el servidor");
+      }
+    };
+/*
     //metodo para consultar un empleado
-    async consultarEmpleado(cedula){
+    function consultarEmpleado(cedula){
         const text = 'SELECT * FROM EMPLEADO WHERE cedula = $1;'
          const values = [cedula];
          try {
-            const res = await pool.query(text, values);
+            const res = pool.query(text, values);
             if (res.rows.length > 0) {
                 console.log('Registro encontrado:', res.rows[0]);
                 return res.rows[0]; // Devuelve el primer resultado encontrado
@@ -48,7 +70,7 @@ class Empleado{
     }
 
     //metodo para actualizar un empleado
-    async actualizarEmpleado(cedula, camposParaActualizar){
+    function actualizarEmpleado(cedula, camposParaActualizar){
         if (Object.keys(camposParaActualizar).length === 0) {
             console.log('No se proporcionaron campos para actualizar');
             return;
@@ -72,7 +94,7 @@ class Empleado{
           const text = `UPDATE EMPLEADO SET ${setClause.join(', ')} WHERE cedula = $${index};`;
         
           try {
-            const res = await pool.query(text, values);
+            const res = pool.query(text, values);
             if (res.rowCount > 0) {
               console.log('Registro actualizado');
             } else {
@@ -82,4 +104,5 @@ class Empleado{
             console.error(err);
           }
     }
-}
+
+*/

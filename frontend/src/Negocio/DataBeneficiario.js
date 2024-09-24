@@ -1,83 +1,63 @@
-//const pool = require('../Datos/conexionsPG');
-//import pool from '../Datos/conexionsPG';
+    //import { Pool } from 'pg';
+    const { Pool } = require('pg');
 
-class Beneficiario{
-    nombre;
-    usuario; 
-    email;
-    celular; 
-    cedula;
-    contraseña;
-    fecha_nacimiento;
+    // Configuración de conexión
+    const config = {
+      user: 'postgres',      // El usuario de tu base de datos
+      host: 'localhost',       // El host donde corre PostgreSQL (generalmente localhost)
+      database: 'brick', // El nombre de tu base de datos
+      password: '1234', // La contraseña del usuario
+      port: 5432,              // El puerto de PostgreSQL, por defecto es 5432
+    };
 
-    constructor(){
+    const pool = new Pool(config);
+
+    const verificarConexion = async () => {
+      try {
+        const res = await pool.query("SELECT NOW()");
+        console.log("Conexión exitosa:", res.rows[0]);
+      } catch (err) {
+        console.error("Error al conectar con la base de datos", err);
+      }
+    };
+    
+    verificarConexion();
+
+    const crearBeneficiario = async (req, res) => {
+      const { nombre, usuario, email, celular, cedula, password, fecha_nacimiento } = req.body;
+      try {
+          const resultado = await pool.query(
+              'INSERT INTO BENEFICIARIO (nombre, usuario, email, celular, cedula, password, fecha_nacimiento) ' +
+              'VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *;',
+              [nombre, usuario, email, celular, cedula, password, fecha_nacimiento]
+          );
+  
+          res.status(201).json(resultado.rows[0]); // Devuelve el empleado insertado
+      } catch (error) {
+          console.error('Error al crear beneficiario:', error);
+          res.status(500).json({ message: 'Error en el servidor' }); // Asegúrate de devolver siempre JSON
+      }
+  };
+  
+  const obtenerBeneficiario = async (req, res) => {
+    console.log("Obteniendo beneficiario...");
+    const { usuario } = req.body;
+    try {
+      const resultado = await pool.query("SELECT * FROM BENEFICIARIO WHERE usuario = $1", 
+        [usuario]);
+        console.log(resultado);
+        if (resultado.rows.length === 0) {
+          return res.status(404).json({ message: "Beneficiario no encontrado" });
+        }
+      console.log(resultado.rows[0]);
+      res.json(resultado.rows[0]);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error en el servidor");
     }
+  };
 
-    //metodo para crear un beneficiario
-   async insertarBeneficiario(nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento){
-        const text = 'INSERT INTO BENEFICIARIO (nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento)'
-         +'VALUES($1, $2, $3, $4, $5, $6, $7);';
-         const values = [nombre, usuario, email, celular, cedula, contraseña, fecha_nacimiento];
-         try {
-            const res = await pool.query(text, values);
-            console.log('Registro creado:', res.rows[0]);
-          } catch (err) {
-            console.error(err);
-          }
-    }
-
-    //metodo para consultar un beneficiario
-    async consultarBeneficiario(usuario){
-        const text = 'SELECT * FROM BENEFICIARIO WHERE usuario = $1;'
-         const values = [usuario];
-         try {
-            const res = await pool.query(text, values);
-            if (res.rows.length > 0) {
-                console.log('Registro encontrado:', res.rows[0]);
-                return res.rows[0]; // Devuelve el primer resultado encontrado
-            } else {
-            console.log('No se encontró ningún registro');
-            }
-          } catch (err) {
-            console.error(err);
-          }
-    }
-
-    //metodo para actualizar un beneficiario
-    async actualizarBeneficiario(cedula, camposParaActualizar){
-        if (Object.keys(camposParaActualizar).length === 0) {
-            console.log('No se proporcionaron campos para actualizar');
-            return;
-          }
-        
-          // Construir la consulta SQL dinámicamente
-          let setClause = [];
-          let values = [];
-          let index = 1;
-        
-          // Recorrer los campos para crear la consulta
-          for (const campo in camposParaActualizar) {
-            setClause.push(`${campo} = $${index}`);
-            values.push(camposParaActualizar[campo]);
-            index++;
-          }
-        
-          // Agregar la cédula como último valor para la cláusula WHERE
-          values.push(cedula);
-        
-          const text = `UPDATE BENEFICIARIO SET ${setClause.join(', ')} WHERE cedula = $${index};`;
-        
-          try {
-            const res = await pool.query(text, values);
-            if (res.rowCount > 0) {
-              console.log('Registro actualizado');
-            } else {
-              console.log('No se encontró ningún registro para actualizar');
-            }
-          } catch (err) {
-            console.error(err);
-          }
-    }
-}
-
-export default Beneficiario;
+    module.exports = {
+      crearBeneficiario,
+      obtenerBeneficiario,
+    };
