@@ -69,7 +69,7 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
         {error && <div className="error-message">{error}</div>}
         
         <div className="inputs_Log">
-          <input className="input_Log" type="text" name="usuario" placeholder="Ingresa tu usuario o email" value={credentials.usuario} onChange={handleChange} />
+          <input className="input_Log" type="text" name="usuario" placeholder="Ingresa tu usuario" value={credentials.usuario} onChange={handleChange} />
           <input className="input_Log" type="password" name="password" placeholder="¿Cuál es tu contraseña?" value={credentials.password} onChange={handleChange} />
         </div>
         <div className="forgot-password">¿Olvidaste tu contraseña?</div>
