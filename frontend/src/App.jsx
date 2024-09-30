@@ -2,9 +2,10 @@ import { Registro } from './components/Registro';
 import { Login } from './components/Login';
 import { PublicacionMateriales } from './components/PublicarMaterial';
 import React, { useState } from 'react';
+import VisualizarMaterial from "./components/VisualizarMaterial";
 
 function App() {
-  const [interfaz, setInterfaz] = useState('Registro');
+  const [interfaz, setInterfaz] = useState('VisualizacionMateriales');
 
   const cambiarInterfaz = (nuevaInterfaz) => {
     setInterfaz(nuevaInterfaz);
@@ -24,8 +25,11 @@ function App() {
       {interfaz === 'PublicacionMateriales' && (
         <PublicacionMateriales /> 
       )}
+      {interfaz === 'VisualizacionMateriales' && (
+          <VisualizarMaterial/>
+      )}
     </>
   );
-};
+}
 
 export default App;
