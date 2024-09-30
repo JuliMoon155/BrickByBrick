@@ -4,9 +4,10 @@ import { PublicacionMateriales } from './components/PublicarMaterial';
 import { Perfil } from './components/Perfil';
 import { PublicacionContenido } from './components/publicacionContenido';
 import React, { useState } from 'react';
+import VisualizarMaterial from "./components/VisualizarMaterial";
 
 function App() {
-  const [interfaz, setInterfaz] = useState('Registro');
+  const [interfaz, setInterfaz] = useState('VisualizacionMateriales');
 
   const cambiarInterfaz = (nuevaInterfaz) => {
     setInterfaz(nuevaInterfaz);
@@ -15,7 +16,7 @@ function App() {
   return (
     <>
       <PublicacionContenido/>
-      {/* {interfaz === 'Login' && (
+      {{interfaz === 'Login' && (
         <Login 
           onRegistro={() => cambiarInterfaz('Registro')} 
           onLoginSuccess={() => cambiarInterfaz('PublicacionMateriales')} 
@@ -26,9 +27,13 @@ function App() {
       )}
       {interfaz === 'PublicacionMateriales' && (
         <PublicacionMateriales /> 
-      )} */}
+      )}
+      )}
+      {interfaz === 'VisualizacionMateriales' && (
+          <VisualizarMaterial/>
+      )}
     </>
   );
-};
+}
 
 export default App;
