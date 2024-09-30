@@ -18,28 +18,45 @@ export const Registro = ({ onLogin }) => {
     const [password, setPassword] = useState('');
     const [confirmarContraseña, setConfirmarContraseña] = useState('');
 
+    const [descripcion, setDescripcion] = useState('');
+
+
 
     const siguientePaso = () => { if (paso < 3) { setPaso(paso + 1); } };
     const anteriorPaso = () => { if (paso > 1) { setPaso(paso - 1); } };
 
     const guardarUsuario = async () => {
         try {
-            const NuevoBeneficiario = { 
-                nombre, 
-                usuario,
-                email,
-                celular,
-                cedula,
-                password,
-                Fecha_nacimiento: fechaNacimiento 
-            };
+            let datos;
+            let endpoint;   
+
+            if (rol === 'Beneficiario') {
+                datos = {
+                    nombre, 
+                    usuario,
+                    email,
+                    celular,
+                    cedula,
+                    password,
+                    Fecha_nacimiento: fechaNacimiento 
+                };
+                endpoint = "http://localhost:5000/api/Beneficiarios";
+            } else if (rol === 'Empresa') {
+                datos = {
+                    nombre,
+                    password,
+                    descripcion,
+                    usuario
+                };
+                endpoint = "http://localhost:5000/api/Empresas";
+            }
     
-            const response = await fetch("http://localhost:5000/api/Beneficiarios", {
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // Asegúrate de incluir esto para indicar que estás enviando JSON
+                    'Content-Type': 'application/json', 
                 },
-                body: JSON.stringify(NuevoBeneficiario),
+                body: JSON.stringify(datos),
             });
     
             if (!response.ok) {
@@ -48,8 +65,12 @@ export const Registro = ({ onLogin }) => {
     
             const data = await response.json();
             console.log('Usuario guardado:', data);
+            alert('usuario creado con exito');
+
+            onLogin();
         } catch (error) {
             console.error("Error al guardar el usuario:", error);
+            alert("error");
         }
     };
     
@@ -94,7 +115,7 @@ export const Registro = ({ onLogin }) => {
                             <input className="input" type="email" placeholder="Por favor confirma tu email"
                                 value={confirmarEmail} onChange={(e) => setConfirmarEmail(e.target.value)} />
                             <input className="input" type="text" placeholder={rol !== 'Beneficiario' ? "¿Como describirias a tu empresa?" : "¿Cuál es tu telefono?"}
-                                value={celular} onChange={(e) => setCelular(e.target.value)} />
+                                value={rol !== 'Beneficiario' ? descripcion : celular} onChange={rol !== 'Beneficiario' ? (e) => setDescripcion(e.target.value) : (e) => setCelular(e.target.value)} />
 
                             <div className="Botones">
                                 {paso > 1 && <button onClick={anteriorPaso} className="regresar">Regresar</button>}

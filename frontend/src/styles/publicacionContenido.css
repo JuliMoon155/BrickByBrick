@@ -1,0 +1,45 @@
+.HomePage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    background-color: rgb(196, 196, 196);
+}
+
+.Contenido {
+    display: flex; /* Usar flexbox para alinear los componentes de contenido */
+    flex: 1; /* Ocupa el espacio restante */
+    padding: 10px; /* Espaciado interno */
+    flex-direction: row;
+    margin: 40px 15px;
+}
+
+.perfil {
+    flex: 1; /* Ocupa un tercio del ancho */
+    background-color: rgb(196, 196, 196); /* Color de fondo claro */
+    margin-right: 25px; /* Espacio a la derecha */
+    display: flex;
+    flex-direction: column;
+}
+.infoPersonal{
+    flex: 2;
+    background: linear-gradient(#4D8D31 50%, #fff 50%);
+    margin-bottom: 20px;
+}
+
+.otraInfo{
+    flex: 2;
+    background-color: #fff;
+}
+
+.forYou {
+    flex: 2; /* Ocupa dos tercios del ancho */
+    background-color: white; /* Color de fondo blanco */
+    margin-right: 25px; /* Espacio a la derecha */
+    padding: 10px; /* Espaciado interno */
+}
+
+.extras {
+    flex: 1; /* Ocupa un tercio del ancho */
+    background-color: #f5f8fa; /* Color de fondo claro */
+    padding: 10px; /* Espaciado interno */
+}

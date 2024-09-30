@@ -3,7 +3,7 @@ import '../styles/HeaderPrincipal.css'
 import '../styles/Perfil.css'
 import fotoPerfil from '../imgTemp/foto.jpeg'
 
-const Perfil = () => {
+export const Perfil = () => {
   return (
     <div className='contenedorMain'>
       <nav className='elHeader'>
@@ -85,4 +85,3 @@ const Perfil = () => {
   )
 }
 
-export default Perfil

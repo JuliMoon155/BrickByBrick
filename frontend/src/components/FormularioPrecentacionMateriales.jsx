@@ -11,7 +11,11 @@ export default function FormularioPublicacionMateriales({ material, onCambioMate
 
   const manejarCargaImagen = (e) => {
     if (e.target.files && e.target.files[0]) {
-      const nuevaImagen = URL.createObjectURL(e.target.files[0]);
+      const archivo = e.target.files[0]; // Obtener el archivo original
+      const nuevaImagen = {
+        url: URL.createObjectURL(archivo), // Guardar la URL para la vista previa
+        file: archivo // Guardar el archivo para la subida al servidor
+      };
       onCambioMaterial({ ...material, imagenes: [...material.imagenes, nuevaImagen] });
     }
   };
@@ -35,7 +39,7 @@ export default function FormularioPublicacionMateriales({ material, onCambioMate
         <div className="contenedor-imagenes">
           {material.imagenes.map((img, indice) => (
             <div key={indice} className="preview-imagen">
-              <img src={img} alt={`Vista previa ${indice + 1}`} />
+              <img src={img.url} alt={`Vista previa ${indice + 1}`} /> {/* Usar img.url para la previsualización */}
               <button className="boton-eliminar-imagen" onClick={() => eliminarImagen(indice)}>
                 <X size={16} />
               </button>

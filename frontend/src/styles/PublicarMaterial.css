@@ -1,83 +1,93 @@
 .contenedor-publicacion {
-  min-height: auto;
+  min-height: 100vh;
+  background-color: #4CAF50;
+  display: flex;
+  flex-direction: column;
+}
+
+.cabecera {
+  background-color: #4CAF50;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.enlace-nav {
+  color: white;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+.avatar-usuario {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background-color: white;
-  position: absolute;
-  left: 0;
-  top: 0;
 }
 
-.seccion-formulario,
-.seccion-vista-previa {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  padding: 24px;
-  position: absolute;
-}
-
-.seccion-vista-previa {
-  top: 130px;
-  left: 491px;
-  height: 834px;
-  width: 1077px;
-}
-
-.seccion-formulario {
-  top: 110px;
-  left: 15px;
-  height: 860px;
-  width: 400px;
+.contenido-publicacion {
+  display: flex;
+  flex-grow: 1;
+  padding: 2rem;
+  gap: 2rem;
 }
 
 @media (min-width: 768px) {
   .contenido-publicacion {
     display: flex;
   }
-
-  .seccion-formulario {
-    background-color: white;
-  }
-
-  .seccion-vista-previa {
-    background-color: #f3f4f6;
-  }
 }
 
-.formulario-publicacion {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.seccion-formulario,
+.seccion-vista-previa {
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.seccion-formulario {
+  flex: 0 0 400px;
+}
+
+.seccion-vista-previa {
+  flex-grow: 1;
 }
 
 .titulo-formulario {
   font-size: 24px;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .informacion-autor {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .avatar-autor {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  background-color: #f0f0f0;
 }
 
 .seccion-carga-fotos {
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .contador-fotos {
   font-size: 14px;
   color: #6b7280;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .contenedor-imagenes {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
@@ -103,7 +113,7 @@
   top: -8px;
   right: -8px;
   background-color: white;
-  border: 1px solid #d1d5db;
+  border: 1px solid #000000;
   border-radius: 50%;
   padding: 2px;
   cursor: pointer;
@@ -111,6 +121,8 @@
 
 .placeholder-imagen {
   cursor: pointer;
+  font-size: 24px;
+  color: #d1d5db;
 }
 
 .input-archivo-oculto {
@@ -118,24 +130,28 @@
 }
 
 .campo-entrada {
+  text-align: left;
+  font-size: 15px;
+  background: #FFFF;
   width: 100%;
-  padding: 8px;
+  padding: 0.5rem;
   border: 1px solid #d1d5db;
   border-radius: 4px;
+  margin-bottom: 1rem;
 }
 
 .campo-descripcion {
-  height: 128px;
+  height: 100px;
   resize: vertical;
 }
 
 .contenedor-botones {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
 }
 
 .boton {
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -143,39 +159,42 @@
 }
 
 .boton-primario {
-  background-color: #10B981;
+  background-color: #4CAF50;
   color: white;
 }
 
 .boton-secundario {
-  margin-left: 7vmax;
-  background-color: #EF4444;
+  background-color: #f44336;
   color: white;
 }
 
 .vista-previa-material {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .carrusel-imagenes {
   position: relative;
-  width: auto;
-  height: 450px;
+  width: 100%;
+  height: 400px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .imagen-material {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .boton-navegacion {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.7);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -187,16 +206,11 @@
 }
 
 .boton-navegacion.izquierda {
-  left: 8px;
+  left: 1rem;
 }
 
 .boton-navegacion.derecha {
-  right: 8px;
-}
-
-.icono-navegacion {
-  width: 24px;
-  height: 24px;
+  right: 1rem;
 }
 
 .titulo-material {
@@ -205,7 +219,7 @@
 }
 
 .descripcion-material {
-  color: #6b7280;
+  color: #000000;
 }
 
 .cantidad-material {
@@ -214,11 +228,12 @@
 
 .boton-crear-publicacion {
   width: 100%;
-  background-color: #10B981;
+  background-color: #4CAF50;
   color: white;
-  padding: 12px;
+  padding: 0.75rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  margin-top: 1rem;
 }
