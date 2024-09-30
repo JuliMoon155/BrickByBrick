@@ -16,20 +16,20 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
       alert("Por favor, completa todos los campos.");
       return;
     }
-    
+
     try {
       const response = await fetch("http://localhost:5000/api/ObBeneficiarios", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ usuario: credentials.usuario }), 
+        body: JSON.stringify({ usuario: credentials.usuario }),
       });
-      
+
       if (!response.ok) {
         alert("Error de autenticación");
       }
-      
+
       const data = await response.json();
       console.log(data);
 
@@ -38,7 +38,7 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
       } else {
         alert("Usuario o contraseña incorrectos.");
       }
-      
+
     } catch (error) {
       console.error("Error al obtener los usuarios:", error);
       setError("Hubo un problema al iniciar sesión. Intenta de nuevo más tarde.");
@@ -54,8 +54,8 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
 
       <div className="cambio-registro">
         <h2 className="titulo_Log2">¿NO TIENES UNA CUENTA?</h2>
-        <p className="instruccion_res"> 
-          ¿No podemos encontrarte? De pronto no te has registrado aún, 
+        <p className="instruccion_res">
+          ¿No podemos encontrarte? De pronto no te has registrado aún,
           no esperes más, haz click en el siguiente boton para registrate.
         </p>
         <button className="Registrate" onClick={onRegistro}>Registrarme</button>
@@ -65,9 +65,9 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
         <h1 className="titulo_Log">¡BIENVENIDO DE VUELTA!</h1>
         <div className="divisor"></div>
         <p className="instruccion_Log">Dinos quién eres.</p>
-        
+
         {error && <div className="error-message">{error}</div>}
-        
+
         <div className="inputs_Log">
           <input className="input_Log" type="text" name="usuario" placeholder="Ingresa tu usuario o email" value={credentials.usuario} onChange={handleChange} />
           <input className="input_Log" type="password" name="password" placeholder="¿Cuál es tu contraseña?" value={credentials.password} onChange={handleChange} />
