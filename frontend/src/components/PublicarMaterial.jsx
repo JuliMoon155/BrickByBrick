@@ -5,11 +5,11 @@ import "../styles/PublicarMaterial.css";
 
 export const PublicacionMateriales = () => {
   const [material, setMaterial] = useState({
-    titulo: "Ingrese Un titulo",
-    cantidad: "Ingrese la cantidad en tonelada",
+    titulo: "",
+    cantidad: "",
     descripcion:
-      "Cuentanos detalladamente que tiene tu producto",
-    imagenes: ["/placeholder.svg?height=400&width=400"],
+      "",
+    imagenes: [""],
   });
 
   const manejarCambioMaterial = (materialActualizado) => {
