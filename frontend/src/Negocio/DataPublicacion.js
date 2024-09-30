@@ -22,8 +22,8 @@ const verificarConexion = async () => {
 
 verificarConexion();
 
-const crearBeneficiario = async (req, res) => {
-  const { nombre, usuario, email, celular, cedula, password, fecha_nacimiento } = req.body;
+const crearPublicacion = async (req, res) => {
+ /* const { nombre, usuario, email, celular, cedula, password, fecha_nacimiento } = req.body;
   try {
       const resultado = await pool.query(
           'INSERT INTO BENEFICIARIO (nombre, usuario, email, celular, cedula, password, fecha_nacimiento) ' +
@@ -35,11 +35,11 @@ const crearBeneficiario = async (req, res) => {
   } catch (error) {
       console.error('Error al crear beneficiario:', error);
       res.status(500).json({ message: 'Error en el servidor' }); // Asegúrate de devolver siempre JSON
-  }
+  }*/
 };
 
-const obtenerBeneficiario = async (req, res) => {
-console.log("Obteniendo beneficiario...");
+const obtenerPublicacion = async (req, res) => {
+/*console.log("Obteniendo beneficiario...");
 const { usuario } = req.body;
 try {
   const resultado = await pool.query("SELECT * FROM BENEFICIARIO WHERE usuario = $1", 
@@ -53,10 +53,10 @@ try {
 } catch (error) {
   console.error(error);
   res.status(500).send("Error en el servidor");
-}
+}*/
 };
 
 module.exports = {
-  crearBeneficiario,
-  obtenerBeneficiario,
+    crearPublicacion,
+    obtenerPublicacion,
 };

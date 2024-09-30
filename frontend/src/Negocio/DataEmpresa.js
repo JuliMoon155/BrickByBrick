@@ -1,79 +1,62 @@
-class Empresa{
-    // Id;
-    nombre; 
-    usuario;
-    contraseña;
-    descripción;
-    email;
+const { Pool } = require('pg');
 
+// Configuración de conexión
+const config = {
+user: 'postgres',      // El usuario de tu base de datos
+host: 'localhost',       // El host donde corre PostgreSQL (generalmente localhost)
+database: 'brick2', // El nombre de tu base de datos
+password: '1234', // La contraseña del usuario
+port: 5432,              // El puerto de PostgreSQL, por defecto es 5432
+};
 
-    constructor(){
-    }
+const pool = new Pool(config);
 
-    //metodo para crear un empresa
-    async insertarEmpresa(nombre, usuario, contraseña, descripcion, email){
-        const text = 'INSERT INTO EMPRESA (nombre, usuario, contraseña, descripcion, email)'
-         +'VALUES($1, $2, $3, $4, $5);';
-         const values = [nombre, usuario, contraseña, descripcion, email];
-         try {
-            const res = await pool.query(text, values);
-            console.log('Registro creado:', res.rows[0]);
-          } catch (err) {
-            console.error(err);
-          }
-    }
-
-    //metodo para consultar un empresa
-    async consultarEmpresa(usuario){
-        const text = 'SELECT * FROM EMPRESA WHERE usuario = $1;'
-         const values = [usuario];
-         try {
-            const res = await pool.query(text, values);
-            if (res.rows.length > 0) {
-                console.log('Registro encontrado:', res.rows[0]);
-                return res.rows[0]; // Devuelve el primer resultado encontrado
-            } else {
-            console.log('No se encontró ningún registro');
-            }
-          } catch (err) {
-            console.error(err);
-          }
-    }
-
-    //metodo para actualizar un empresa
-    async actualizarEmpresa(cedula, camposParaActualizar){
-        if (Object.keys(camposParaActualizar).length === 0) {
-            console.log('No se proporcionaron campos para actualizar');
-            return;
-          }
-        
-          // Construir la consulta SQL dinámicamente
-          let setClause = [];
-          let values = [];
-          let index = 1;
-        
-          // Recorrer los campos para crear la consulta
-          for (const campo in camposParaActualizar) {
-            setClause.push(`${campo} = $${index}`);
-            values.push(camposParaActualizar[campo]);
-            index++;
-          }
-        
-          // Agregar la cédula como último valor para la cláusula WHERE
-          values.push(cedula);
-        
-          const text = `UPDATE EMPRESA SET ${setClause.join(', ')} WHERE cedula = $${index};`;
-        
-          try {
-            const res = await pool.query(text, values);
-            if (res.rowCount > 0) {
-              console.log('Registro actualizado');
-            } else {
-              console.log('No se encontró ningún registro para actualizar');
-            }
-          } catch (err) {
-            console.error(err);
-          }
-    }
-
+const verificarConexion = async () => {
+try {
+const res = await pool.query("SELECT NOW()");
+console.log("Conexión exitosa:", res.rows[0]);
+} catch (err) {
+console.error("Error al conectar con la base de datos", err);
 }
+};
+
+verificarConexion();
+
+const crearEmpresa = async (req, res) => {
+  const {nombre, password, descripcion, usuario} = req.body;
+  try {
+      const resultado = await pool.query(
+          'INSERT INTO EMPRESA (nombre, password, descripcion, usuario) ' +
+          'VALUES($1, $2, $3, $4) RETURNING *;',
+          [nombre, password, descripcion, usuario]
+      );
+
+      res.status(201).json(resultado.rows[0]); // Devuelve el beneficiario insertado
+  } catch (error) {
+      console.error('Error al crear empresa:', error);
+      res.status(500).json({ message: 'Error en el servidor' }); // Asegúrate de devolver siempre JSON
+  }
+};
+
+const obtenerEmpresa = async (req, res) => {
+console.log("Obteniendo empresa...");
+const { usuario } = req.body;
+try {
+  const resultado = await pool.query("SELECT * FROM EMPRESA WHERE usuario = $1", 
+    [usuario]);
+    console.log(resultado);
+    if (resultado.rows.length === 0) {
+      return res.status(404).json({ message: "Empresa no encontrada" });
+    }
+  console.log(resultado.rows[0]);
+  res.json(resultado.rows[0]);
+} catch (error) {
+  console.error(error);
+  res.status(500).send("Error en el servidor");
+}
+};
+
+module.exports = {
+  crearEmpresa,
+  obtenerEmpresa,
+};

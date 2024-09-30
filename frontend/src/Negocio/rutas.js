@@ -1,5 +1,12 @@
 // rutas.js
 const express = require("express");
+const { crearBeneficiario, obtenerBeneficiario } = require("./DataBeneficiario");
+const { obtenerEmpresa, crearEmpresa } = require("./DataEmpresa");
+const { crearPublicacion } = require("./DataPublicacionDonacion");
+const { agregarImagen } = require("./DataImagen");
+const { agregarMateriales } = require("./DataMateriales");
+
+
 const path = require("path");
 const multer = require("multer");
 const upload = multer({
@@ -18,19 +25,14 @@ const upload = multer({
   },
 });
 
-const {
-  crearBeneficiario,
-  obtenerBeneficiario,
-} = require("./DataBeneficiario");
-const { crearPublicacion } = require("./DataPublicacionDonacion");
-const { agregarImagen } = require("./DataImagen");
-const { agregarMateriales } = require("./DataMateriales");
 
 const router = express.Router();
 
 // Rutas
 router.post("/ObBeneficiarios", obtenerBeneficiario);
 router.post("/Beneficiarios", crearBeneficiario);
+router.post("/ObEmpresas", obtenerEmpresa);
+router.post("/Empresas", crearEmpresa);
 router.post("/crearpublicacion", crearPublicacion);
 router.post("/crearimagen", upload.single("imagen"), agregarImagen);
 
