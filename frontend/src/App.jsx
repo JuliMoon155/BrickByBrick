@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Registro } from './components/Registro';
+import { Login } from './components/Login';
+import { PublicacionMateriales } from './components/PublicarMaterial';
+import React, { useState } from 'react';
+import VisualizarMaterial from "./components/VisualizarMaterial";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [interfaz, setInterfaz] = useState('VisualizacionMateriales');
+
+  const cambiarInterfaz = (nuevaInterfaz) => {
+    setInterfaz(nuevaInterfaz);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {interfaz === 'Login' && (
+        <Login 
+          onRegistro={() => cambiarInterfaz('Registro')} 
+          onLoginSuccess={() => cambiarInterfaz('PublicacionMateriales')} 
+        />
+      )}
+      {interfaz === 'Registro' && (
+        <Registro onLogin={() => cambiarInterfaz('Login')} />
+      )}
+      {interfaz === 'PublicacionMateriales' && (
+        <PublicacionMateriales /> 
+      )}
+      {interfaz === 'VisualizacionMateriales' && (
+          <VisualizarMaterial/>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
