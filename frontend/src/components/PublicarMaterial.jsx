@@ -3,7 +3,7 @@ import FormularioPublicacionMateriales from "./FormularioPrecentacionMateriales"
 import VistaPreviewMateriales from "./PreViewPublicacionMateriales";
 import "../styles/PublicarMaterial.css";
 
-export const PublicacionMateriales = () => {
+export const PublicacionMateriales = ({ userId, usuario }) => {
   const [material, setMaterial] = useState({
     titulo: "",
     cantidad: "",
@@ -23,10 +23,11 @@ export const PublicacionMateriales = () => {
           <FormularioPublicacionMateriales
             material={material}
             onCambioMaterial={manejarCambioMaterial}
+            usuario={usuario}
           />
         </div>
         <div className="seccion-vista-previa">
-          <VistaPreviewMateriales material={material} />
+          <VistaPreviewMateriales material={material} userId={userId} />
         </div>
       </div>
     </div>

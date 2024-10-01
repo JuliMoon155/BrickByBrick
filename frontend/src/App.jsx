@@ -7,28 +7,45 @@ import React, { useState } from 'react';
 import VisualizarMaterial from "./components/VisualizarMaterial";
 
 function App() {
-  const [interfaz, setInterfaz] = useState('VisualizacionMateriales');
+  const [interfaz, setInterfaz] = useState('Registro');
+  const [userId, setUserId] = useState(null);
+  const [usuario, setUsuario] = useState(null);
+  const [userRol, setUserRol] = useState(null);
 
   const cambiarInterfaz = (nuevaInterfaz) => {
     setInterfaz(nuevaInterfaz);
   };
 
+  const handleLoginSuccess = (id, rol, usuario) => {
+    setUserId(id);
+    setUsuario(usuario);
+    setUserRol(rol);
+    console.log(id+" id"+usuario+" usuario"+rol+" rol");
+    if (rol === 'Beneficiario') { 
+      cambiarInterfaz('PublicacionContenido');
+    } else if (rol === 'Empresa'){
+      cambiarInterfaz('PublicacionMateriales');
+    }
+  };
+
   return (
     <>
-      <PublicacionContenido/>
-      {{interfaz === 'Login' && (
+      {interfaz === 'Login' && (
         <Login 
           onRegistro={() => cambiarInterfaz('Registro')} 
-          onLoginSuccess={() => cambiarInterfaz('PublicacionMateriales')} 
+          onLoginSuccess={handleLoginSuccess} 
         />
       )}
       {interfaz === 'Registro' && (
         <Registro onLogin={() => cambiarInterfaz('Login')} />
       )}
+      {interfaz === 'PublicacionContenido' && (
+        <PublicacionContenido /> 
+      )} 
       {interfaz === 'PublicacionMateriales' && (
-        <PublicacionMateriales /> 
-      )}
-      )}
+
+        <PublicacionMateriales usuario={usuario} userId={userId}/> 
+      )} 
       {interfaz === 'VisualizacionMateriales' && (
           <VisualizarMaterial/>
       )}

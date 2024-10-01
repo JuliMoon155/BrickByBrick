@@ -22,31 +22,32 @@ const verificarConexion = async () => {
 
 verificarConexion();
 
-const crearPublicacion = async (req, res) => {
- /* const { nombre, usuario, email, celular, cedula, password, fecha_nacimiento } = req.body;
+const crearPublicacionBen = async (req, res) => {
+  const { contenido, fk_idbeneficiario} = req.body;
+   const fechaPublicacion = new Date();
   try {
       const resultado = await pool.query(
-          'INSERT INTO BENEFICIARIO (nombre, usuario, email, celular, cedula, password, fecha_nacimiento) ' +
-          'VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *;',
-          [nombre, usuario, email, celular, cedula, password, fecha_nacimiento]
+          'INSERT INTO PUBLICACIONBEN (contenido, fecha_publicacion, fk_idbeneficiario) ' +
+          'VALUES($1, $2, $3) RETURNING *;',
+          [contenido, fechaPublicacion, fk_idbeneficiario]
       );
 
       res.status(201).json(resultado.rows[0]); // Devuelve el beneficiario insertado
   } catch (error) {
-      console.error('Error al crear beneficiario:', error);
+      console.error('Error al crear la publicacion:', error);
       res.status(500).json({ message: 'Error en el servidor' }); // Asegúrate de devolver siempre JSON
-  }*/
+  }
 };
 
-const obtenerPublicacion = async (req, res) => {
-/*console.log("Obteniendo beneficiario...");
-const { usuario } = req.body;
+const obtenerPublicacionesBen = async (req, res) => {
+console.log("Obteniendo publicacion...");
+/*const { fk_idbeneficiario } = req.body;
 try {
-  const resultado = await pool.query("SELECT * FROM BENEFICIARIO WHERE usuario = $1", 
-    [usuario]);
+  const resultado = await pool.query("SELECT * FROM PUBLICACIONBEN", 
+    [fk_idbeneficiario]);
     console.log(resultado);
     if (resultado.rows.length === 0) {
-      return res.status(404).json({ message: "Beneficiario no encontrado" });
+      return res.status(404).json({ message: "no hay publicaciones" });
     }
   console.log(resultado.rows[0]);
   res.json(resultado.rows[0]);
@@ -57,6 +58,6 @@ try {
 };
 
 module.exports = {
-    crearPublicacion,
-    obtenerPublicacion,
+    crearPublicacionBen,
+    obtenerPublicacionesBen,
 };
