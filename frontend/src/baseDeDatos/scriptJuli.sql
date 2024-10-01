@@ -63,5 +63,3 @@ CREATE TABLE Imagenes_Material (
   FOREIGN KEY (FK_ID_Material) REFERENCES Material_Donar(ID_Material),
   UNIQUE (FK_ID_Material, ID_Imagen) -- Garantiza que cada imagen tenga un ID único por material
 );
-
-

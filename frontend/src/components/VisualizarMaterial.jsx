@@ -1,4 +1,4 @@
-import '../styles/VisualizarMaterial.css';
+import '../styles/VisualizarMaterial.module.css';
 import VistaPreviaMaterial from "./VistaPreviaMaterial";
 
 function VisualizarMaterial() {

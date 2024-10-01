@@ -23,7 +23,7 @@ function App() {
     console.log(id+" id"+usuario+" usuario"+rol+" rol");
     if (rol === 'Beneficiario') { 
       cambiarInterfaz('PublicacionContenido');
-    } else if (rol === 'Empresa'){
+    } else if (rol === 'Empresario'){
       cambiarInterfaz('PublicacionMateriales');
     }
   };

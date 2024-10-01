@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/* .contenedor-visualizacion {
-=======
-/*.contenedor-visualizacion {
->>>>>>> 6596c2a84fb08f6a7973077d48cdedb0ada1d65e
+.contenedor-visualizacion {
     display: flex;
     min-height: auto;
     background-color: white;
@@ -175,4 +171,4 @@
     margin-left: 7vmax;
     background-color: #EF4444;
     color: white;
-} */
+} 

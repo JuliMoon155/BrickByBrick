@@ -1,6 +1,6 @@
-import '../styles/VisualizarMaterial.css';
+import '../styles/VisualizarMaterial.module.css';
 import '../styles/HeaderPrincipal.css';
-import '../styles/detalleMatConst.css';
+import '../styles/detalleMatConst.module.css';
 //import 
 import PropTypes, { func } from "prop-types";
 //import Popup from 'reactjs-popup';

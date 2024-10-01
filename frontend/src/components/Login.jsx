@@ -4,13 +4,27 @@ import "../styles/Login.css";
 
 export const Login = ({ onRegistro, onLoginSuccess }) => {
   const [credentials, setCredentials] = useState({ usuario: '', password: '' });
+  const [endpoint, setEndpoint] = useState("http://localhost:5000/api/ObBeneficiarios");
   const [error, setError] = useState('');
-  const [rol, setRol] = useState('Empresa');
-  const [idEmpresa, setIdEmpresa] = useState(null);
+  const [rol, setRol] = useState('Beneficiario');
+  const [textoCambioRol, setTextoCambioRol] = useState('Para Empresas');
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials(prev => ({ ...prev, [name]: value }));
+  };
+  
+  const handelClickCambioRol = () =>{
+    if (textoCambioRol === 'Para Empresas') {
+      setRol('Empresario')
+      setEndpoint("http://localhost:5000/api/ObEmpresas")
+      setTextoCambioRol('Para Beneficiarios')
+    }else if (textoCambioRol === 'Para Beneficiarios') {
+      setRol('Beneficiario')
+      setEndpoint("http://localhost:5000/api/ObBeneficiarios")
+      setTextoCambioRol('Para Empresas')
+    };
   };
 
   const obtenerUsuarios = async () => {
@@ -20,7 +34,7 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/ObBeneficiarios", {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,11 +76,11 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
         </p>
         <button className="Registrate" onClick={onRegistro}>Registrarme</button>
       </div>
-
+      <div className="CambioRol" onClick={handelClickCambioRol}>{textoCambioRol}</div>
       <div className="formulario_Log">
         <h1 className="titulo_Log">¡BIENVENIDO DE VUELTA!</h1>
         <div className="divisor"></div>
-        <p className="instruccion_Log">Dinos quién eres.</p>
+        <p className="instruccion_Log">Hola <span className="Idendidad">{rol}</span>, dinos quién eres.</p>
 
         {error && <div className="error-message">{error}</div>}
 
