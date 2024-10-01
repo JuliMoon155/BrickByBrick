@@ -21,6 +21,8 @@ CREATE TABLE PublicacionBen (
   ID SERIAL PRIMARY KEY,
   Contenido VARCHAR(500) NOT NULL,
   fecha_publicacion DATE 
+  FK_idBeneficiario INTEGER NOT NULL,
+  FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
 );
 
 
@@ -60,7 +62,7 @@ CREATE TABLE PublicacionDon (
   Cantidad_Disponible INTEGER NOT NULL,
   Fecha_Cierre DATE NOT NULL,
   FK_idEmpresa INTEGER NOT NULL,
-  FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa(ID_Empresa)
+  FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa(ID)
 );
 
 CREATE TABLE Material_Donar (
