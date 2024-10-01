@@ -3,7 +3,7 @@ import '../styles/HeaderPrincipal.css';
 import '../styles/detalleMatConst.css';
 //import 
 import PropTypes, { func } from "prop-types";
-import Popup from 'reactjs-popup';
+//import Popup from 'reactjs-popup';
 
 function VistaPreviaMaterial({ material }) {
     // let vistaPrevMat = () => {

@@ -46,9 +46,9 @@ function App() {
 
         <PublicacionMateriales usuario={usuario} userId={userId}/> 
       )} 
-      {interfaz === 'VisualizacionMateriales' && (
+      {/* {interfaz === 'VisualizacionMateriales' && (
           <VisualizarMaterial/>
-      )}
+      )} */}
     </>
   );
 }
