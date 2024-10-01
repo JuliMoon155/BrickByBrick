@@ -18,6 +18,7 @@
 
 .contenedor-vista-previa:hover {
     background-color: lightgray;
+    cursor: pointer;
 }
 
 .contenedor-categorias ul {
