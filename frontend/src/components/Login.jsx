@@ -5,7 +5,7 @@ import "../styles/Login.css";
 export const Login = ({ onRegistro, onLoginSuccess }) => {
   const [credentials, setCredentials] = useState({ usuario: '', password: '' });
   const [error, setError] = useState('');
-  const [rol, setRol] = useState('Beneficiario');
+  const [rol, setRol] = useState('Empresa');
   const [idEmpresa, setIdEmpresa] = useState(null);
 
   const handleChange = (e) => {
@@ -36,7 +36,7 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
       console.log(data);
 
       if (credentials.usuario === data.usuario && credentials.password === data.password) {
-        onLoginSuccess(data.id,rol,data.usuario);
+        onLoginSuccess(data.id, rol, data.usuario);
       } else {
         alert("Usuario o contraseña incorrectos.");
       }

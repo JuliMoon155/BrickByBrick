@@ -34,26 +34,6 @@ CREATE TABLE Imagen (
   FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen(ID)
 );
 
-
-
-
-
-
-
-
-
-
-
-CREATE TABLE Empleado (
-  ID_Empleado SERIAL PRIMARY KEY,
-  Cedula_Emp BIGINT,
-  Nombre_Emp VARCHAR(100),
-  Apellido_Emp VARCHAR(100),
-  Telefono_Emp VARCHAR(100),
-  Direccion_Emp VARCHAR(300),
-  Correo_Emp VARCHAR(200)
-);
-
 CREATE TABLE PublicacionDon (
   Id_Publicacion SERIAL PRIMARY KEY,
   Fecha_Publicacion DATE NOT NULL,

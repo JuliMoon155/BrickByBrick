@@ -1,10 +1,33 @@
+<<<<<<< HEAD
 /* .contenedor-visualizacion {
+=======
+/*.contenedor-visualizacion {
+>>>>>>> 6596c2a84fb08f6a7973077d48cdedb0ada1d65e
     display: flex;
     min-height: auto;
     background-color: white;
     position: absolute;
     left: 0;
     top: 0;
+}
+
+.titulo-material{
+  color: #874328;
+  font-size: 50px;
+}
+
+.botondelPopUp{
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .contenedor-vista-previa {

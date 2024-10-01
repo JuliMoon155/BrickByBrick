@@ -4,13 +4,42 @@ import "../styles/PublicarMaterial.css";
 
 export default function VistaPreviewMateriales({ material }) {
   const [indiceImagenActual, setIndiceImagenActual] = useState(0);
-  
+
   const siguienteImagen = () => {
     setIndiceImagenActual((indiceAnterior) => (indiceAnterior + 1) % material.imagenes.length);
   };
-  const userId = 1;
+
+  const imagenAnterior = () => {
+    setIndiceImagenActual((indiceAnterior) => (indiceAnterior - 1 + material.imagenes.length) % material.imagenes.length);
+  };
+
+  const validarCampos = () => {
+    if (!material.titulo || material.titulo.trim() === "") {
+      alert("Por favor ingresa un título.");
+      return false;
+    }
+    if (!material.cantidad || isNaN(material.cantidad) || Number(material.cantidad) <= 0) {
+      alert("Por favor ingresa una cantidad válida.");
+      return false;
+    }
+    if (!material.descripcion || material.descripcion.trim() === "") {
+      alert("Por favor ingresa una descripción.");
+      return false;
+    }
+    if (material.imagenes.length === 0) {
+      alert("Por favor sube al menos una imagen.");
+      return false;
+    }
+    return true;
+  };
+
   const obtenerUsuarios = async () => {
+    if (!validarCampos()) {
+      return; // Si la validación falla, no se sigue con la creación de la publicación
+    }
+
     try {
+      const userId = 1; // ID del usuario (esto puede cambiar dependiendo de cómo lo manejes)
       // 1. Crear la publicación del material
       const responseMaterial = await fetch('http://localhost:5000/api/crearpublicacion', {
         method: 'POST',
@@ -21,7 +50,7 @@ export default function VistaPreviewMateriales({ material }) {
           titulo: material.titulo,
           cantidad: material.cantidad,
           descripcion: material.descripcion,
-          empresaId: userId, // Incluimos el ID del empresario
+          empresaId: userId,
         }),
       });
 
@@ -31,22 +60,15 @@ export default function VistaPreviewMateriales({ material }) {
 
       const materialCreado = await responseMaterial.json();
       const idMaterial = materialCreado.id_material; // Obtener el ID del material creado
-      console.log(materialCreado);
-      console.log(material.imagenes);
-      console.log(material.imagenes.length);
+
+      // Subir las imágenes asociadas al material
       for (const imagenObj of material.imagenes) {
         const formData = new FormData();
-
-        // Acceder al archivo original en lugar de la URL
-        const archivoImagen = imagenObj.file; // Aquí 'file' será el archivo real
+        const archivoImagen = imagenObj.file;
 
         if (archivoImagen instanceof File) {
-          formData.append('imagen', archivoImagen); // Añadir el archivo
-          formData.append('idMaterial', idMaterial); // Añadir el ID del material
-
-          console.log('Archivo:', archivoImagen);
-          console.log('Tipo de Archivo:', archivoImagen instanceof File ? 'File' : 'Otro tipo');
-          console.log('Nombre de Archivo:', archivoImagen.name || 'No tiene nombre');
+          formData.append('imagen', archivoImagen);
+          formData.append('idMaterial', idMaterial);
 
           const responseImagen = await fetch(`http://localhost:5000/api/crearimagen`, {
             method: 'POST',
@@ -56,8 +78,6 @@ export default function VistaPreviewMateriales({ material }) {
           if (!responseImagen.ok) {
             throw new Error('Fallo al subir la imagen');
           }
-        } else {
-          console.error('La imagen no es un archivo válido.');
         }
       }
 
@@ -68,14 +88,10 @@ export default function VistaPreviewMateriales({ material }) {
     }
   };
 
-  const imagenAnterior = () => {
-    setIndiceImagenActual((indiceAnterior) => (indiceAnterior - 1 + material.imagenes.length) % material.imagenes.length);
-  };
-
   return (
     <div className="vista-previa-material">
       <div className="carrusel-imagenes">
-        <img src={material.imagenes[indiceImagenActual]?.url} alt="Material" className="imagen-material" /> {/* Usar el url para la previsualización */}
+        <img src={material.imagenes[indiceImagenActual]?.url} alt="Material" className="imagen-material" />
         <button className="boton-navegacion izquierda" onClick={imagenAnterior}>
           <ChevronLeft className="icono-navegacion" />
         </button>

@@ -1,12 +1,20 @@
+<<<<<<< HEAD
 /* .container-popup{ 
   display: inline;  
+=======
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.elPopUp{
+>>>>>>> 6596c2a84fb08f6a7973077d48cdedb0ada1d65e
   background-color: #fff;
 }
 
 .material{
+  display: inline;
+  border-bottom: 3px solid #000;  
+  background-color: #fff; 
   width: 200px;
   height: 550px;
-  border: 3px solid #000;
   position: relative;
 }
 
@@ -22,11 +30,11 @@ img{
 .btn-detalle-material{
   place-items: center;
 }
-h1 {
+.h1tit {
   color: #874328;
   text-align: center;
 }
-p{
+.cantp, .statusp, .descriptionp{
   font-size: 24px;
   font-weight: 100;
   text-align: center;

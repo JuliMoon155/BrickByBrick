@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import { Upload, X } from 'lucide-react';
 import "../styles/PublicarMaterial.css";
 
-export default function FormularioPublicacionMateriales({ material, onCambioMaterial , usuario }) {
+export default function FormularioPublicacionMateriales({ material, onCambioMaterial, usuario }) {
   const referenciaInputArchivo = useRef(null);
-  console.log(usuario+" El supuesto usuario");
+  console.log(usuario + " El supuesto usuario");
   const manejarCambioCampo = (e) => {
     onCambioMaterial({ ...material, [e.target.name]: e.target.value });
   };
