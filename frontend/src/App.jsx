@@ -15,8 +15,8 @@ function App() {
 
   return (
     <>
-      <PublicacionContenido/>
-      {{interfaz === 'Login' && (
+      {/* <PublicacionContenido/> */}
+      {interfaz === 'Login' && (
         <Login 
           onRegistro={() => cambiarInterfaz('Registro')} 
           onLoginSuccess={() => cambiarInterfaz('PublicacionMateriales')} 
@@ -27,7 +27,6 @@ function App() {
       )}
       {interfaz === 'PublicacionMateriales' && (
         <PublicacionMateriales /> 
-      )}
       )}
       {interfaz === 'VisualizacionMateriales' && (
           <VisualizarMaterial/>

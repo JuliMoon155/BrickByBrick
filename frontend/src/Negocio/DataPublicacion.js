@@ -47,7 +47,7 @@ try {
     console.log(resultado);
     if (resultado.rows.length === 0) {
       return res.status(404).json({ message: "Beneficiario no encontrado" });
-    }
+    } 
   console.log(resultado.rows[0]);
   res.json(resultado.rows[0]);
 } catch (error) {
