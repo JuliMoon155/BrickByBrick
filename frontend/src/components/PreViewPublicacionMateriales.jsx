@@ -4,12 +4,11 @@ import "../styles/PublicarMaterial.css";
 
 export default function VistaPreviewMateriales({ material }) {
   const [indiceImagenActual, setIndiceImagenActual] = useState(0);
-  const idEmpresa = 1; // ID local del empresario, por ahora estático
-
+  
   const siguienteImagen = () => {
     setIndiceImagenActual((indiceAnterior) => (indiceAnterior + 1) % material.imagenes.length);
   };
-
+  const userId = 1;
   const obtenerUsuarios = async () => {
     try {
       // 1. Crear la publicación del material
@@ -22,7 +21,7 @@ export default function VistaPreviewMateriales({ material }) {
           titulo: material.titulo,
           cantidad: material.cantidad,
           descripcion: material.descripcion,
-          empresaId: idEmpresa, // Incluimos el ID del empresario
+          empresaId: userId, // Incluimos el ID del empresario
         }),
       });
 

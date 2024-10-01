@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import { Upload, X } from 'lucide-react';
 import "../styles/PublicarMaterial.css";
 
-export default function FormularioPublicacionMateriales({ material, onCambioMaterial }) {
+export default function FormularioPublicacionMateriales({ material, onCambioMaterial , usuario }) {
   const referenciaInputArchivo = useRef(null);
-
+  console.log(usuario+" El supuesto usuario");
   const manejarCambioCampo = (e) => {
     onCambioMaterial({ ...material, [e.target.name]: e.target.value });
   };
@@ -32,7 +32,7 @@ export default function FormularioPublicacionMateriales({ material, onCambioMate
       <h2 className="titulo-formulario">Publicación de contenido</h2>
       <div className="informacion-autor">
         <img src="/placeholder.svg?height=40&width=40" alt="Avatar" className="avatar-autor" />
-        <span>Doctora Paticos</span>
+        <span>{usuario}</span>
       </div>
       <div className="seccion-carga-fotos">
         <p className="contador-fotos">Fotos {material.imagenes.length}/10. Usted puede agregar un máximo de 10 fotos</p>
