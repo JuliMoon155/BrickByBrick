@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+body {
+  font-family: "Inter", sans-serif;
+  margin: 5px;
+  padding: 20px;
+  background: #fff;
+}
+
+.contenedorMain{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  padding-top: 70px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100% - 40px;
+  height: 100%;
+  background: #ebebebeb;
+}
+
+.vistaPerfil{
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5;
+  width: 303px;
+  height: 280px;
+  margin-left: 20px;
+  margin-top: 20px;
+  background: linear-gradient(#4D8B31 50%, #fff 50%);
+  font-weight: 600;
+}
+
+.imgCont{
+  width: 110px;
+  height: 110px;
+  vertical-align: middle;
+  grid-row: span 2 / span 2;
+}
+
+.imgUsr{
+  position: absolute;
+  top: 30%;
+  left: 15px;
+  width: 110px;
+  height: 110px;
+  border-radius: 150%;
+  border: #000 solid;
+}
+
+.nombreUsr{
+  position: absolute;
+  top: 40%;
+  color: #fff;
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+
+.tipoUsr{
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+.despuesIzq{
+  grid-column-start: 1;
+  grid-row-start: 2;
+  position: relative;
+  width: 303px;
+  height: 576px;
+  background: #fff;
+  margin-top: -140px;
+  margin-left: 20px;
+}
+
+.despuesCent{
+  grid-row: span 2 / span 2;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  position: relative;
+  width: 580px;
+  height: 876px;
+  background: #fff;
+  margin-top: 20px; 
+  margin-bottom: 20px;
+}
+
+.despuesDer{
+  grid-row: span 2 / span 2;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  position: relative;
+  width: 303px;
+  height: 876px;
+  background: #fff;
+  margin-left: 40px;
+  /* margin-right: 20px; */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.temp{
+  position: absolute;
+  top: 50%;
+}
+
+.temp1{
+  position: absolute;
+  top: 20%;
+}
