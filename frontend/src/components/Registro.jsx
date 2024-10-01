@@ -4,7 +4,7 @@ import "..//styles/Registro.css";
 export const Registro = ({ onLogin }) => {
 
     //setters
-    const [rol, setRol] = useState('Beneficiario');
+    const [rol, setRol] = useState('Empresa');
     const [paso, setPaso] = useState(1);
     const [nombre, setNombre] = useState('');
     const [cedula, setCedula] = useState('');
@@ -28,17 +28,17 @@ export const Registro = ({ onLogin }) => {
     const guardarUsuario = async () => {
         try {
             let datos;
-            let endpoint;   
+            let endpoint;
 
             if (rol === 'Beneficiario') {
                 datos = {
-                    nombre, 
+                    nombre,
                     usuario,
                     email,
                     celular,
                     cedula,
                     password,
-                    Fecha_nacimiento: fechaNacimiento 
+                    Fecha_nacimiento: fechaNacimiento
                 };
                 endpoint = "http://localhost:5000/api/Beneficiarios";
             } else if (rol === 'Empresa') {
@@ -50,19 +50,19 @@ export const Registro = ({ onLogin }) => {
                 };
                 endpoint = "http://localhost:5000/api/Empresas";
             }
-    
+
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', 
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(datos),
             });
-    
+
             if (!response.ok) {
                 throw new Error('Error en el servidor');
             }
-    
+
             const data = await response.json();
             console.log('Usuario guardado:', data);
             alert('usuario creado con exito');
@@ -73,7 +73,7 @@ export const Registro = ({ onLogin }) => {
             alert("error");
         }
     };
-    
+
 
 
     const pasosDeRegistro = () => {
