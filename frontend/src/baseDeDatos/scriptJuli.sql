@@ -20,7 +20,7 @@ CREATE TABLE Empresa (
 CREATE TABLE PublicacionBen (
   ID SERIAL PRIMARY KEY,
   Contenido VARCHAR(500) NOT NULL,
-  fecha_publicacion DATE 
+  fecha_publicacion DATE,
   FK_idBeneficiario INTEGER NOT NULL,
   FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
 );
