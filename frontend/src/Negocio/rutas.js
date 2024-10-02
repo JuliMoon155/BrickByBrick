@@ -33,9 +33,10 @@ router.post("/ObBeneficiarios", obtenerBeneficiario);
 router.post("/Beneficiarios", crearBeneficiario);
 router.post("/ObEmpresas", obtenerEmpresa);
 router.post("/Empresas", crearEmpresa);
+router.post("/crearMaterial", agregarMateriales);
 router.post("/crearpublicacion", crearPublicacion);
 router.post("/crearimagen", upload.single("imagen"), agregarImagen);
-router.post("/ObPublicacionesBen", obtenerPublicacionesBen);
+router.get("/ObPublicacionesBen", obtenerPublicacionesBen);
 router.post("/PublicacionesBen", crearPublicacionBen);
 
 module.exports = router;

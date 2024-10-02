@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from './Header';
 import '../styles/publicacionContenido.css';
 
@@ -9,6 +9,7 @@ const [showPopup, setShowPopup] = useState(false);
 const [contenido, setContenido] = useState(''); 
 const [fecha_publicacion, setFecha_publicacion] = useState(''); 
 const [fk_idbeneficiario, setFk_idbeneficiario] = useState(1);
+const [publicaciones, setPublicaciones] = useState([]);
 
   const handlePopup = () => {
     setShowPopup(!showPopup); 
@@ -47,6 +48,34 @@ const [fk_idbeneficiario, setFk_idbeneficiario] = useState(1);
     setShowPopup(false); 
   };
 
+  useEffect(() => {
+    const fetchPublicaciones = async () => {
+      try {
+
+        let endpoint = 'http://localhost:5000/api/ObPublicacionesBen';
+
+        const response = await fetch(endpoint, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          //body: JSON.stringify({fk_idbeneficiario}),
+        });
+
+        if (!response.ok) throw new Error('Error al obtener publicaciones');
+  
+        const data = await response.json();
+        console.log(data);
+        setPublicaciones(data);
+        
+      } catch (error) {
+        console.error('Error al obtener publicaciones:', error);
+      }
+    };
+
+    fetchPublicaciones();
+  }, [fk_idbeneficiario]);
+
   return (
     <div className='HomePage'>
       <Header />
@@ -57,7 +86,15 @@ const [fk_idbeneficiario, setFk_idbeneficiario] = useState(1);
         </div>
         <div className='forYou'>
           <button className='addPublicacion' onClick={handlePopup}>+</button>
-          <div className='PublicacionesExistentes'></div>
+          <div className='PublicacionesExistentes'>
+          {/* Mapeo de publicaciones */}
+          {publicaciones.map((publicacion) => (
+              <div className='PublicacionBen' key={publicacion.idpublicacion}>
+                <p className='contenido_PublicacionBen'>{publicacion.contenido}</p>
+                <p className='fecha_PublicacionBen'>{new Date(publicacion.fecha_publicacion).toLocaleDateString()}</p>
+              </div>
+            ))}
+          </div>
         </div>
         <div className='extras'></div>
       </div>

@@ -4,17 +4,17 @@ import "../styles/PublicarMaterial.css";
 
 export default function FormularioPublicacionMateriales({ material, onCambioMaterial, usuario }) {
   const referenciaInputArchivo = useRef(null);
-  console.log(usuario + " El supuesto usuario");
+
   const manejarCambioCampo = (e) => {
     onCambioMaterial({ ...material, [e.target.name]: e.target.value });
   };
 
   const manejarCargaImagen = (e) => {
     if (e.target.files && e.target.files[0]) {
-      const archivo = e.target.files[0]; // Obtener el archivo original
+      const archivo = e.target.files[0];
       const nuevaImagen = {
-        url: URL.createObjectURL(archivo), // Guardar la URL para la vista previa
-        file: archivo // Guardar el archivo para la subida al servidor
+        url: URL.createObjectURL(archivo),
+        file: archivo
       };
       onCambioMaterial({ ...material, imagenes: [...material.imagenes, nuevaImagen] });
     }
@@ -39,7 +39,7 @@ export default function FormularioPublicacionMateriales({ material, onCambioMate
         <div className="contenedor-imagenes">
           {material.imagenes.map((img, indice) => (
             <div key={indice} className="preview-imagen">
-              <img src={img.url} alt={`Vista previa ${indice + 1}`} /> {/* Usar img.url para la previsualización */}
+              <img src={img.url} alt={`Vista previa ${indice + 1}`} />
               <button className="boton-eliminar-imagen" onClick={() => eliminarImagen(indice)}>
                 <X size={16} />
               </button>
@@ -82,6 +82,21 @@ export default function FormularioPublicacionMateriales({ material, onCambioMate
         value={material.descripcion}
         onChange={manejarCambioCampo}
       ></textarea>
+
+      {/* Dropdown for Category */}
+      <select
+        name="categoria"
+        className="campo-entrada"
+        value={material.categoria}
+        onChange={manejarCambioCampo}
+      >
+        <option value="">Seleccione una categoría</option>
+        <option value="aglomerantes">Aglomerantes</option>
+        <option value="aglomerados">Aglomerados</option>
+        <option value="metálicos">Metálicos</option>
+        <option value="orgánicos">Orgánicos</option>
+      </select>
+
       <div className="contenedor-botones">
         <button className="boton boton-primario">Otro material</button>
         <button className="boton boton-secundario">Eliminar material</button>

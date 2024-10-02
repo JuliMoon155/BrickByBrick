@@ -1,37 +1,42 @@
-// Importar el módulo 'pg' para la conexión con PostgreSQL
-const { Pool } = require("pg");
+const { Pool } = require('pg');
 
-// Configuración de conexión a la base de datos
+// Configuración de conexión
 const config = {
-  user: "postgres",
-  host: "localhost",
-  database: "brick2",
-  password: "1234",
-  port: 5432,
+  user: 'postgres',      // El usuario de tu base de datos
+  host: 'localhost',       // El host donde corre PostgreSQL (generalmente localhost)
+  database: 'brick2', // El nombre de tu base de datos
+  password: '1234', // La contraseña del usuario
+  port: 5432,              // El puerto de PostgreSQL, por defecto es 5432
 };
 
 const pool = new Pool(config);
 
-// Controlador para agregar materiales a una publicación existente
 const agregarMateriales = async (req, res) => {
-  const { id_publicacion, titulo, cantidad, descripcion } = req.body;
+  const {id_publicacion, titulo, cantidad, descripcion, categoria } = req.body;
+
+  const estado = "Activo";
+  console.log("no me mando School"+id_publicacion);
+  const fechaPublicacion = new Date();
+  const fechaCierre = new Date(fechaPublicacion);
+  fechaCierre.setMonth(fechaCierre.getMonth() + 1);
 
   try {
-    // Insertar los nuevos materiales asociados a la publicación existente
-    const resultado = await pool.query(
-      "INSERT INTO Material_Donar (Nombre, Cantidad, Descripcion, FK_idPublicacionDon) " +
-        "VALUES ($1, $2, $3, $4) RETURNING ID_Material;",
-      [titulo, cantidad, descripcion, id_publicacion]
+
+    const resultadoMaterial = await pool.query(
+      "INSERT INTO Material_Donar (Nombre, Cantidad, Estado_Material, Descripcion, Categoria, FK_idPublicacionDon) " +
+      "VALUES ($1, $2, $5, $3, $6, $4) RETURNING ID_Material;",
+      [titulo, cantidad, descripcion, id_publicacion, estado, categoria]
     );
 
-    const id_material = resultado.rows[0].id_material;
+    const id_material = resultadoMaterial.rows[0].id_material;
 
-    // Responder con el ID del nuevo material agregado
-    res.status(201).json({ id_material });
+    res.status(201).json({ id_publicacion, id_material });
   } catch (error) {
-    console.error("Error al agregar material a la publicación:", error);
+    console.error("Error ACAAAAAAAAAAAAA:", error);
     res.status(500).json({ message: "Error en el servidor" });
   }
 };
 
-module.exports = { agregarMateriales };
+module.exports ={
+  agregarMateriales,
+};

@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-
 // Configuración de conexión
 const config = {
 user: 'postgres',      // El usuario de tu base de datos
@@ -23,8 +22,9 @@ console.error("Error al conectar con la base de datos", err);
 verificarConexion();
 
 const crearEmpresa = async (req, res) => {
-  const {nombre, password, descripcion, usuario} = req.body;
+  const {nombre, password, descripcion, usuario} = req.body;  
   try {
+
       const resultado = await pool.query(
           'INSERT INTO EMPRESA (nombre, password, descripcion, usuario) ' +
           'VALUES($1, $2, $3, $4) RETURNING *;',

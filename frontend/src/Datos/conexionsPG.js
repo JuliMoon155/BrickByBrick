@@ -6,7 +6,7 @@ const { Pool } = require('pg');
 const config = {
   user: 'postgres',      // El usuario de tu base de datos
   host: 'localhost',       // El host donde corre PostgreSQL (generalmente localhost)
-  database: 'birck2', // El nombre de tu base de datos
+  database: 'brick2', // El nombre de tu base de datos
   password: '1234', // La contraseña del usuario
   port: 5432,              // El puerto de PostgreSQL, por defecto es 5432
 };
@@ -14,5 +14,5 @@ const config = {
 const pool = new Pool(config);
 
 // Exportamos el pool de conexiones para usar en otras partes de la aplicación
-module.exports = pool;
+exports.pool = pool;
 //export default pool;
