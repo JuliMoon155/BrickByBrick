@@ -1,10 +1,8 @@
 import { Registro } from './components/Registro';
 import { Login } from './components/Login';
 import { PublicacionMateriales } from './components/PublicarMaterial';
-import { Perfil } from './components/Perfil';
 import { HomePage } from './components/HomePage';
 import React, { useState } from 'react';
-import BusquedaEvento from "./components/BusquedaEvento";
 
 function App() {
   const [interfaz, setInterfaz] = useState('Login');
@@ -45,9 +43,6 @@ function App() {
       {interfaz === 'PublicacionMateriales' && (
       <PublicacionMateriales usuario={usuario} userId={userId}/> 
       )} 
-      {interfaz === 'BusquedaEvento' && (
-        <BusquedaEvento/>
-      )}
     </>
   );
 }

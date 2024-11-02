@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Header } from './Header';
 import { Contenido } from './Contenido';
 import  '../styles/HomePage.css';
+import {Donaciones} from "./Donaciones";
 
 export const HomePage = () => {
-
   const [contenido_foryou, setContenido_foryou] = useState(<Contenido />);
-/*
-  const handleContenidoForyou = (nombre) => {
-    if (nombre=='Contenido') {
-      setContenido_foryou(<Contenido />);
-    }if(nombre=='Donaciones') {
-      console.log('se cambio');
-    }
-  };
-  */
+
   return (
     <div className='HomePage'>
       <Header />
@@ -28,7 +20,7 @@ export const HomePage = () => {
           <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido />)}}>
             <text>Contenido</text>
           </div>
-          <div className='seleccion_separador2' onClick={()=>{console.log('se cambio')}} >
+          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones />)}} >
             <text>Donaciones</text>
             </div>
           </div>
