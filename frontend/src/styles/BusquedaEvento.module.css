@@ -1,4 +1,4 @@
-.contenedor-visualizacion {
+.contenedor_visualizacion {
     display: flex;
     min-height: auto;
     background-color: white;
@@ -7,10 +7,43 @@
     top: 0;
 }
 
-.titulo-material{
+.titulo_material{
   color: #874328;
   font-size: 50px;
 }
+
+/* Cosas que tocó traer */
+
+.elPopUp {
+    background-color: #fff;
+}
+
+.material{
+    display: inline;
+    border-bottom: 3px solid #000;
+    background-color: #fff;
+    width: 200px;
+    height: 550px;
+    position: relative;
+}
+
+.info {
+    width: 100%;
+    float: left;
+}
+
+.h1tit {
+    color: #874328;
+    text-align: center;
+}
+
+.cantp, .statusp, .descriptionp{
+    font-size: 24px;
+    font-weight: 100;
+    text-align: center;
+}
+
+/* Hasta acá */
 
 .botondelPopUp{
   background-color: #4CAF50;
@@ -26,32 +59,32 @@
   border-radius: 4px;
 }
 
-.contenedor-vista-previa {
+.contenedor_vista_previa {
     display: flex;
 }
 
-.contenedor-vista-previa img {
-    max-width: 400px;
-    max-height: 600px;
+.contenedor_vista_previa img {
+    max-width: 300px;
+    max-height: 300px;
 }
 
-.contenedor-vista-previa:hover {
+.contenedor_vista_previa:hover {
     background-color: lightgray;
     cursor: pointer;
 }
 
-.contenedor-categorias ul {
+.contenedor_categorias ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: scroll;
 }
 
-.contenedor-categorias li {
+.contenedor_categorias li {
     float: left;
 }
 
-.contenedor-categorias li a {
+.contenedor_categorias li a {
     display: block;
     color: black;
     text-align: center;
@@ -59,39 +92,39 @@
     text-decoration: none;
 }
 
-.contenedor-categorias li a:hover {
+.contenedor_categorias li a:hover {
     background-color: lightgray;
 }
 
-.contenedor-ubicacion {
+.contenedor_ubicacion {
     display: flex;
 }
 
-.marginado-filtros {
+.marginado_filtros {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
 
-.contenedor-cantidades {
+.contenedor_cantidades {
     display: flex;
 }
 
-.seccion-formulario,
-.seccion-resultados {
+.seccion_formulario,
+.seccion_resultados {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     padding: 24px;
     position: absolute;
 }
 
-.seccion-formulario {
+.seccion_formulario {
     top: 110px;
     left: 15px;
     height: 860px;
     width: 400px;
 }
 
-.seccion-resultados {
+.seccion_resultados {
     overflow: scroll;
     top: 130px;
     left: 491px;
@@ -99,24 +132,24 @@
     width: 1077px;
 }
 
-.formulario-busqueda {
+.formulario_busqueda {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.titulo-formulario {
+.titulo_formulario {
     font-size: 24px;
     font-weight: bold;
 }
 
-.subtitulo-formulario {
+.subtitulo_formulario {
     font-size: 18px;
     font-weight: bold;
 }
 
-.preview-imagen,
-.placeholder-imagen {
+.preview_imagen,
+.placeholder_imagen {
     width: 80px;
     height: 80px;
     border: 2px dashed #d1d5db;
@@ -126,29 +159,29 @@
     position: relative;
 }
 
-.preview-imagen img {
+.preview_imagen img {
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
 }
 
-.placeholder-imagen {
+.placeholder_imagen {
     cursor: pointer;
 }
 
-.campo-entrada {
+.campo_entrada {
     width: 100%;
     padding: 8px;
     border: 1px solid #d1d5db;
     border-radius: 4px;
 }
 
-.campo-descripcion {
+.campo_descripcion {
     height: 128px;
     resize: vertical;
 }
 
-.contenedor-botones {
+.contenedor_botones {
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -162,12 +195,12 @@
     font-weight: bold;
 }
 
-.boton-primario {
+.boton_primario {
     background-color: #10B981;
     color: white;
 }
 
-.boton-secundario {
+.boton_secundario {
     margin-left: 7vmax;
     background-color: #EF4444;
     color: white;

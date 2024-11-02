@@ -1,6 +1,6 @@
 // db.js
-//import { Pool } from 'pg';
-const { Pool } = require('pg');
+import { Pool } from 'pg';
+// const { Pool } = require('pg');
 
 // Configuración de conexión
 const config = {
@@ -14,5 +14,5 @@ const config = {
 const pool = new Pool(config);
 
 // Exportamos el pool de conexiones para usar en otras partes de la aplicación
-exports.pool = pool;
-//export default pool;
+// exports.pool = pool;
+export default pool;

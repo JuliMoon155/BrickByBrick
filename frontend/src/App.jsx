@@ -4,10 +4,10 @@ import { PublicacionMateriales } from './components/PublicarMaterial';
 import { Perfil } from './components/Perfil';
 import { PublicacionContenido } from './components/publicacionContenido';
 import React, { useState } from 'react';
-import VisualizarMaterial from "./components/VisualizarMaterial";
+import BusquedaEvento from "./components/BusquedaEvento";
 
 function App() {
-  const [interfaz, setInterfaz] = useState('Registro');
+  const [interfaz, setInterfaz] = useState('BusquedaEvento');
   const [userId, setUserId] = useState(null);
   const [usuario, setUsuario] = useState(null);
   const [userRol, setUserRol] = useState(null);
@@ -46,9 +46,9 @@ function App() {
 
         <PublicacionMateriales usuario={usuario} userId={userId}/> 
       )} 
-      {/* {interfaz === 'VisualizacionMateriales' && (
-          <VisualizarMaterial/>
-      )} */}
+      {interfaz === 'BusquedaEvento' && (
+          <BusquedaEvento/>
+      )}
     </>
   );
 }

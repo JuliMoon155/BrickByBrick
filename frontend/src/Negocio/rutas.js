@@ -2,7 +2,7 @@
 const express = require("express");
 const { crearBeneficiario, obtenerBeneficiario } = require("./DataBeneficiario");
 const { obtenerEmpresa, crearEmpresa } = require("./DataEmpresa");
-const { crearPublicacion } = require("./DataPublicacionDonacion");
+const { crearPublicacion, buscarPublicacion} = require("./DataPublicacionDonacion");
 const { agregarImagen } = require("./DataImagen");
 const { agregarMateriales } = require("./DataMateriales");
 const { crearPublicacionBen,obtenerPublicacionesBen } = require('./DataPublicacion');
@@ -38,5 +38,6 @@ router.post("/crearpublicacion", crearPublicacion);
 router.post("/crearimagen", upload.single("imagen"), agregarImagen);
 router.get("/ObPublicacionesBen", obtenerPublicacionesBen);
 router.post("/PublicacionesBen", crearPublicacionBen);
+router.post("/BuscarPublicacion", buscarPublicacion);
 
 module.exports = router;

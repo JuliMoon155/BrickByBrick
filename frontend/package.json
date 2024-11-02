@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "main": "./src/Negocio/DataBeneficiario.js",
   "scripts": {
-    "start": "node index.js",
     "db": "nodemon ./src/Negocio/server.js",
     "react-start": "react-scripts start",
     "dev": "concurrently \"npm run start\" \"vite\"",
