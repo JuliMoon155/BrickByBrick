@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import BusquedaEvento from "./components/BusquedaEvento";
 
 function App() {
-  const [interfaz, setInterfaz] = useState('BusquedaEvento');
+  const [interfaz, setInterfaz] = useState('Login');
   const [userId, setUserId] = useState(null);
   const [usuario, setUsuario] = useState(null);
   const [userRol, setUserRol] = useState(null);
@@ -43,11 +43,10 @@ function App() {
         <HomePage /> 
       )} 
       {interfaz === 'PublicacionMateriales' && (
-
-        <PublicacionMateriales usuario={usuario} userId={userId}/> 
+      <PublicacionMateriales usuario={usuario} userId={userId}/> 
       )} 
       {interfaz === 'BusquedaEvento' && (
-          <BusquedaEvento/>
+        <BusquedaEvento/>
       )}
     </>
   );
