@@ -2,7 +2,7 @@ import { Registro } from './components/Registro';
 import { Login } from './components/Login';
 import { PublicacionMateriales } from './components/PublicarMaterial';
 import { Perfil } from './components/Perfil';
-import { PublicacionContenido } from './components/publicacionContenido';
+import { HomePage } from './components/HomePage';
 import React, { useState } from 'react';
 import VisualizarMaterial from "./components/VisualizarMaterial";
 
@@ -22,7 +22,7 @@ function App() {
     setUserRol(rol);
     console.log(id+" id"+usuario+" usuario"+rol+" rol");
     if (rol === 'Beneficiario') { 
-      cambiarInterfaz('PublicacionContenido');
+      cambiarInterfaz('HomePage');
     } else if (rol === 'Empresario'){
       cambiarInterfaz('PublicacionMateriales');
     }
@@ -39,8 +39,8 @@ function App() {
       {interfaz === 'Registro' && (
         <Registro onLogin={() => cambiarInterfaz('Login')} />
       )}
-      {interfaz === 'PublicacionContenido' && (
-        <PublicacionContenido /> 
+      {interfaz === 'HomePage' && (
+        <HomePage /> 
       )} 
       {interfaz === 'PublicacionMateriales' && (
 
