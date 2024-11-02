@@ -51,7 +51,6 @@ CREATE TABLE Material_Donar (
   Cantidad INTEGER NOT NULL, -- Nueva columna para la cantidad
   Estado_Material VARCHAR(100) NOT NULL,
   Descripcion VARCHAR(100) NOT NULL,
-  Categoria VARCHAR(100) NOT NULL,
   FK_idPublicacionDon INTEGER NOT NULL,
   FOREIGN KEY (FK_idPublicacionDon) REFERENCES PublicacionDon(Id_Publicacion)
 );

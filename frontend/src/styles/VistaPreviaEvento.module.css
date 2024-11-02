@@ -1,0 +1,17 @@
+.contenedor_vista_previa {
+    display: flex;
+}
+
+.contenedor_vista_previa:hover {
+    background-color: lightgray;
+}
+
+.contenedor_informacion {
+
+}
+
+.contenedor_popup {
+    min-width: 400px;
+    min-height: 400px;
+    background-color: lightgray;
+}
