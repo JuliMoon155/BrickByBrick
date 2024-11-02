@@ -37,9 +37,12 @@ const crearPublicacion = async (req, res) => {
 };
 
 const buscarPublicacion = async (req, res) => {
-    const {texto} = req.body;
+    const {texto, categorias, cantidad_minima, cantidad_maxima} = req.body;
+    for (let i = 0; i < categorias.length; i++) {
+        categorias[i] = "'" + categorias[i].toUpperCase() + "'";
+    }
     try {
-        const result = await pool.query("select * from buscar($1)", [texto])
+        const result = await pool.query(`select * from buscar($1, array[${categorias.join("','")}]::text[], $2, $3)`, [texto, cantidad_minima, cantidad_maxima])
         if (result.rows.length === 0) {
             return res.status(404).json({message: "No hay resultados de búsqueda."});
         }

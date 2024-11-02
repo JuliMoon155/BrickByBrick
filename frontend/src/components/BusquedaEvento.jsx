@@ -29,11 +29,6 @@ function BusquedaEvento() {
                         }}><a>{categoria[0].toUpperCase() + categoria.substring(1)}</a></li>)}
                     </ul>
                 </div>
-                <h3 className={styles.subtitulo_formulario}>Ubicación</h3>
-                <div className={styles.contenedor_ubicacion}>
-                    <p>Máximo</p><input type="number" className={styles.marginado_filtros + " " + styles.campo_entrada}
-                                        name="distancia"/><p>kilómetros de distancia.</p>
-                </div>
                 <h3 className={styles.subtitulo_formulario}>Cantidad</h3>
                 <div className={styles.contenedor_cantidades}>
                     <p>Desde</p><input type="number" className={styles.marginado_filtros + " " + styles.campo_entrada}
@@ -45,30 +40,26 @@ function BusquedaEvento() {
                 <div className={styles.contenedor_botones}>
                     <button className={styles.boton + " " + styles.boton_primario} onClick={async () => {
                         let elementoBusqueda = document.getElementsByName("busqueda")[0];
-                        let elementoDistancia = document.getElementsByName("distancia")[0];
                         let elementoMinimaCantidad = document.getElementsByName("minima-cantidad")[0];
                         let elementoMaximaCantidad = document.getElementsByName("maxima-cantidad")[0];
                         let busqueda = {
-                            palabraClave: elementoBusqueda.value,
+                            texto: elementoBusqueda.value,
                             categorias: listaCategorias,
-                            maximaDistancia: elementoDistancia.value,
-                            minimaCantidad: elementoMinimaCantidad.value,
-                            maximaCantidad: elementoMaximaCantidad.value,
+                            cantidad_minima: elementoMinimaCantidad.value === "" ? "-1" : elementoMinimaCantidad.value,
+                            cantidad_maxima: elementoMaximaCantidad.value === "" ? "-1" : elementoMaximaCantidad.value,
                         }
                         const respuestaBusqueda = await fetch("http://localhost:5000/api/BuscarPublicacion", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
                             },
-                            body: JSON.stringify({
-                                texto: elementoBusqueda.value,
-                            }),
+                            body: JSON.stringify(busqueda),
                         })
                         if (!respuestaBusqueda.ok) {
                             throw new Error('Error al buscar');
                         }
-                        console.log(await respuestaBusqueda.json());
-                        // setResultados(await respuestaBusqueda.json());
+                        // console.log(await respuestaBusqueda.json());
+                        setResultados(await respuestaBusqueda.json());
                     }}>Buscar
                     </button>
                 </div>

@@ -1,6 +1,6 @@
 import styles from "../styles/VistaPreviaEvento.module.css";
 
-import PropTypes, { func } from "prop-types";
+import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
 
 function VistaPreviaEvento({ publicacion, empresa, materiales }) {
@@ -21,14 +21,15 @@ function VistaPreviaEvento({ publicacion, empresa, materiales }) {
 
 VistaPreviaEvento.propTypes = {
     publicacion: PropTypes.shape({
-        id: PropTypes.number,
         descripcion: PropTypes.string,
         fecha_cierre: PropTypes.string,
         fecha_publicacion: PropTypes.string,
+        id: PropTypes.number,
         titulo: PropTypes.string,
     }),
     empresa: PropTypes.shape({
         descripcion: PropTypes.string,
+        id: PropTypes.number,
         nombre: PropTypes.string,
     }),
     materiales: PropTypes.arrayOf(PropTypes.shape({
@@ -36,6 +37,7 @@ VistaPreviaEvento.propTypes = {
         categoria: PropTypes.string,
         descripcion: PropTypes.string,
         estado: PropTypes.string,
+        id: PropTypes.number,
         nombre: PropTypes.string,
     })),
 }

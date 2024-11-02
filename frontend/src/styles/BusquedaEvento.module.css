@@ -96,10 +96,6 @@
     background-color: lightgray;
 }
 
-.contenedor_ubicacion {
-    display: flex;
-}
-
 .marginado_filtros {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
