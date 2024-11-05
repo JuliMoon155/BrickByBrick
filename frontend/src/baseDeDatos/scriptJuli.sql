@@ -36,6 +36,7 @@ CREATE TABLE Imagen (
 
 CREATE TABLE PublicacionDon (
   Id_Publicacion SERIAL PRIMARY KEY,
+  Titulo VARCHAR(500) NOT NULL,
   Fecha_Publicacion DATE NOT NULL,
   Estado VARCHAR(100) NOT NULL,
   Descripcion VARCHAR(100) NOT NULL,
@@ -51,6 +52,7 @@ CREATE TABLE Material_Donar (
   Cantidad INTEGER NOT NULL, -- Nueva columna para la cantidad
   Estado_Material VARCHAR(100) NOT NULL,
   Descripcion VARCHAR(100) NOT NULL,
+  Categoria VARCHAR(100) NOT NULL,
   FK_idPublicacionDon INTEGER NOT NULL,
   FOREIGN KEY (FK_idPublicacionDon) REFERENCES PublicacionDon(Id_Publicacion)
 );
@@ -63,3 +65,18 @@ CREATE TABLE Imagenes_Material (
   FOREIGN KEY (FK_ID_Material) REFERENCES Material_Donar(ID_Material),
   UNIQUE (FK_ID_Material, ID_Imagen) -- Garantiza que cada imagen tenga un ID único por material
 );
+
+
+CREATE TABLE Inscripcion (
+  ID_Inscripcion SERIAL PRIMARY KEY,
+  FK_idPublicacionDon INTEGER NOT NULL,
+  FK_idBeneficiario INTEGER NOT NULL,
+  Nombre VARCHAR(100) NOT NULL,
+  Apellido VARCHAR(100) NOT NULL,
+  Celular VARCHAR(100) NOT NULL,
+  Correo VARCHAR(100) UNIQUE NOT NULL,
+  FOREIGN KEY (FK_idPublicacionDon) REFERENCES PublicacionDon(Id_Publicacion),
+  FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
+);
+
+
