@@ -1,4 +1,4 @@
-import '../styles/VisualizarMaterial.module.css';
+import '../styles/VistaPreviaEvento.module.css';
 import '../styles/HeaderPrincipal.css';
 import '../styles/detalleMatConst.module.css';
 import { useState, useEffect } from 'react';
