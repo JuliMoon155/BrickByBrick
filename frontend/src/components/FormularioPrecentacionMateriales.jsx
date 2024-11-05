@@ -96,11 +96,6 @@ export default function FormularioPublicacionMateriales({ material, onCambioMate
         <option value="metálicos">Metálicos</option>
         <option value="orgánicos">Orgánicos</option>
       </select>
-
-      <div className="contenedor-botones">
-        <button className="boton boton-primario">Otro material</button>
-        <button className="boton boton-secundario">Eliminar material</button>
-      </div>
     </div>
   );
 }

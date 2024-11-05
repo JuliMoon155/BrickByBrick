@@ -3,11 +3,12 @@ import { Login } from './components/Login';
 import { PublicacionMateriales } from './components/PublicarMaterial';
 import { Perfil } from './components/Perfil';
 import { HomePage } from './components/HomePage';
+import Inscripcion from './components/Inscripcion';
 import React, { useState } from 'react';
 import BusquedaEvento from "./components/BusquedaEvento";
 
 function App() {
-  const [interfaz, setInterfaz] = useState('BusquedaEvento');
+  const [interfaz, setInterfaz] = useState('Login');
   const [userId, setUserId] = useState(null);
   const [usuario, setUsuario] = useState(null);
   const [userRol, setUserRol] = useState(null);
@@ -44,10 +45,13 @@ function App() {
       )} 
       {interfaz === 'PublicacionMateriales' && (
 
-        <PublicacionMateriales usuario={usuario} userId={userId}/> 
+        <PublicacionMateriales usuario={usuario} userId={userId} cambiarInterfaz={cambiarInterfaz}/> 
       )} 
       {interfaz === 'BusquedaEvento' && (
           <BusquedaEvento/>
+      )}
+      {interfaz === 'Inscripcion' && (
+          <Inscripcion fk_idPublicacionDon={"1"} userId={userId} cambiarInterfaz={cambiarInterfaz}/>
       )}
     </>
   );
