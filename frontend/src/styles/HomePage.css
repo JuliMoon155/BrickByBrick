@@ -5,6 +5,41 @@
     background-color: rgb(255, 255, 255);
 }
 
+.Categorias {
+    border: #4D8D31 solid 1px;
+}
+
+.Categorias ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.Categorias li {
+    display: inline-flex;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
+
+.Categorias li:hover {
+    background-color: lightgray;
+}
+
+.Categorias input[type=checkbox] {
+    display: none;
+}
+
+.Categorias input[type=checkbox]:checked + label {
+    background-color: #4D8D31;
+    color: white;
+}
+
+.Categorias label {
+    padding: 16px;
+}
+
 .Contenido {
     display: flex; /* Usar flexbox para alinear los componentes de contenido */
     flex: 1; /* Ocupa el espacio restante */
@@ -118,7 +153,6 @@
     width: 90%;
     max-height: 60vh; /* Set a max-height for internal scrolling */
     height: auto; /* Allow it to adapt within the given space */
-    overflow-y: auto;
 }
 
   

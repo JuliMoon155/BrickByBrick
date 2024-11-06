@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Header } from './Header';
 import { Contenido } from './Contenido';
 import  '../styles/HomePage.css';
+
+import {Donaciones} from "./Donaciones";
+
 import profileDefault from '../imgTemp/profileDefault.png';
 
 
@@ -36,7 +39,7 @@ export const HomePage = ({ userId, usuario, userRol}) => {
           <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido />)}}>
             <span>Contenido</span>
           </div>
-          <div className='seleccion_separador2' onClick={()=>{console.log('se cambio')}} >
+          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones />)}} >
             <span>Donaciones</span>
             </div>
           </div>
