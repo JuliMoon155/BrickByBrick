@@ -13,25 +13,26 @@
     margin: 40px 15px;
 }
 
+
 .perfil {
-    flex: 1; /* Ocupa un tercio del ancho */
-    background-color: rgb(255, 255, 255); /* Color de fondo claro */
-    margin-right: 25px; /* Espacio a la derecha */
-    display: flex;
-    flex-direction: column;
-    border-right: solid 2px #4D8D31;
+  flex: 1; /* Ocupa un tercio del ancho */
+  background-color: rgb(255, 255, 255); /* Color de fondo claro */
+  margin-right: 25px; /* Espacio a la derecha */
+  display: flex;
+  flex-direction: column;
+  border-right: solid 2px #4D8D31;
 
 }
 .infoPersonal{
-    flex: 2;
-    background: linear-gradient(#4D8D31 50%, #fff 50%);
-    margin-bottom: 20px;
-    border-bottom: solid 2px #4D8D31;
+  flex: 2;
+  background: linear-gradient(#4D8D31 50%, #fff 50%);
+  margin-bottom: 30px;
+  border-bottom: solid 2px #4D8D31;
 }
 
 .otraInfo{
-    flex: 2;
-    background-color: #fff;
+  flex: 2;
+  background-color: #fff;
 }
 
 .forYou {
@@ -103,46 +104,6 @@
     display: flex;
     justify-content: space-between;
   }
-/* 
-  .PublicacionesExistentes{
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    padding-top: 10px;
-    padding-left: 10px;
-    border-top: 3px solid #4D8D31;
-    margin-top: 20px;
-    margin-left: 30px;
-    background-color: #ffffff;
-    width: 90%;
-    height: 85%;
-  }
-
-  .PublicacionBen{
-    border-radius: 6px;
-    width: 96%;
-    flex: 2;
-    background-color: #fff;
-    outline: 2px solid #4D8D31;
-    padding: 5px;
-    margin-bottom: 10px;
-    display: flex; /* Usar flexbox 
-    flex-direction: column; /* Organizar en columnas 
-    position: relative; 
-  }
-
-  .contenido_PublicacionBen{
-    font-size: 18px;
-    flex: 1;
-  }
-
-  .fecha_PublicacionBen{
-    font-size: 12px;
-    color: #4D8D31;
-    position: absolute; /* Posicionamiento absoluto 
-    bottom: 5px; /* Espacio desde la parte inferior 
-    right: 5px;
-  } */
 
   .PublicacionesExistentes {
     overflow-y: auto;
@@ -223,6 +184,21 @@
     cursor: pointer;
   }
 
+  #like img{
+    width: 30px;
+    height: 30px;
+  }
+
+  #comment img{
+    width: 30px;
+    height: 30px;
+  }
+
+  #share img{
+    width: 30px;
+    height: 30px;
+  }
+
   .buscar{
     height: 0.5%;
     width: 60%;
@@ -300,3 +276,124 @@
   .seleccion_separador2:hover{
     background-color: #ccc;
   }
+
+
+  /*maycol*/
+
+  
+.fotoPerfil{
+  position: relative;
+  top: 25%;
+  left: 5%;
+  width: 130px;
+  height: 130px;
+  border-radius: 150%;
+  border: solid 2px;
+  border-color:#4D8D31;
+}
+
+
+.nombreUsuario{
+  position: relative;
+  left: 48%;
+  top: -17%;
+  color: #000;
+  font-weight: 550;
+  }
+  
+  
+.rolUsuario{
+  position: relative;
+  left: 48%;
+  top: -10%;
+  color: #000;
+  font-weight: 450;
+  }
+
+.titCambiarInfo{
+  position: relative;
+  left: 25%;
+  font-weight: 700;
+  margin-bottom: 5%;
+}
+
+.titNameAct{
+  position: absolute;
+  font-weight: 600;
+  margin-top: 1%;
+}
+
+.nameAct{
+  position: relative;
+  margin-top: 3%;
+  height: 0.5%;
+  width: 65%;
+  margin-left: 22%;
+  background-color: rgba(128, 128, 128, 0.235) ;
+  font-size: small;
+} 
+.titCorreoAct{
+  position: absolute;
+  font-weight: 600;
+  margin-top: 1%;
+}
+
+.correoAct{
+  position: relative;
+  margin-top: 3%;
+  height: 0.5%;
+  width: 65%;
+  margin-left: 22%;
+  background-color: rgba(128, 128, 128, 0.235) ;
+  font-size: small;
+}
+
+.titCelularAct{
+  position: absolute;
+  font-weight: 600;
+  margin-top: 1%;
+}
+
+.celularAct{
+  position: relative;
+  margin-top: 3%;
+  height: 0.5%;
+  width: 65%;
+  margin-left: 22%;
+  background-color: rgba(128, 128, 128, 0.235) ;
+  font-size: small;
+}
+
+.titClaveAct{
+  position: absolute;
+  font-weight: 600;
+  margin-top: 1%;
+}
+
+.claveAct{
+  position: relative;
+  margin-top: 3%;
+  height: 0.5%;
+  width: 65%;
+  margin-left: 22%;
+  background-color: rgba(128, 128, 128, 0.235) ;
+  font-size: small;
+}
+
+.actDatos{
+  width: 40%;
+  justify-content: center;
+  padding: 5px;
+  margin-left: 25%;
+  background-color: #4D8D31;
+  border-color: #4D8D31;
+  border-radius: 9px;
+  color: #fff;
+  font-size: medium;
+}
+
+.actDatos:hover{
+  outline: 2px solid #4D8D31;
+  background-color: #fff;
+  color: #4D8D31;
+}

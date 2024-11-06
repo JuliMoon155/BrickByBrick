@@ -144,29 +144,6 @@
   }
 
 
-  .ComboBox {
-    position: relative;
-  }
-
-
-  .ComboBox::after {
-    content: '▼';
-    font-size: 20px;
-    top: 15px;
-    right: 10px;
-    position: absolute;
-  }
-
-  select {
-    font-size: 18px;
-    appearance: none;
-    border: none;
-    border-bottom: 2px solid black;
-    background: transparent;
-    outline: none;
-    width: 100%;
-  }
-
   .Botones{
     display: flex;
     margin: auto;
@@ -236,4 +213,22 @@
   border-bottom: 2px solid gray;
   background: rgba(146, 145, 145, 0.33);
   outline: none;
+}
+
+.CambioRol2 {
+  font-size: 18px;
+  position: absolute;
+  background-color: #fff;
+  left: 0;
+  bottom: 0;
+  color: #4D8D31;
+  text-decoration: underline;
+  margin-left: 50px;
+  margin-bottom: 30px;
+
+}
+
+.CambioRol2:hover{
+  text-decoration: none;
+  font-weight: 500;
 }
