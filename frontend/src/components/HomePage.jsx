@@ -4,7 +4,6 @@ import { Contenido } from './Contenido';
 import  '../styles/HomePage.css';
 
 import {Donaciones} from "./Donaciones";
-
 import profileDefault from '../imgTemp/profileDefault.png';
 
 
