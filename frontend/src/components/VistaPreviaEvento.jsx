@@ -93,9 +93,12 @@ VistaPreviaEvento.propTypes = {
     publicacion: PropTypes.shape({
         descripcion: PropTypes.string,
         fecha_cierre: PropTypes.string,
+        fecha_evento: PropTypes.string,
         fecha_publicacion: PropTypes.string,
+        hora_evento: PropTypes.string,
         id: PropTypes.number,
         titulo: PropTypes.string,
+        ubicacion_evento: PropTypes.string,
     }),
     empresa: PropTypes.shape({
         descripcion: PropTypes.string,

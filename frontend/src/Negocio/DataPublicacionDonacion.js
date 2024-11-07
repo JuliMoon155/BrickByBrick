@@ -12,7 +12,7 @@ const config = {
 const pool = new Pool(config);
 
 const crearPublicacion = async (req, res) => {
-    const {descripcion, userId, categoria, titulo} = req.body;
+    const {titulo, userId, descripcion, fechaEvento, horaEvento, ubicacionEvento} = req.body;
 
     const estado = "Activo";
     const cantidad = "5000";
@@ -22,9 +22,9 @@ const crearPublicacion = async (req, res) => {
 
     try {
         const publicacionResultado = await pool.query(
-            "INSERT INTO PublicacionDon (Titulo, Fecha_Publicacion, Estado, Descripcion, Cantidad_Disponible, Fecha_Cierre, FK_idEmpresa) " +
-            "VALUES ($7,$1, $2, $3, $4, $5, $6) RETURNING Id_Publicacion;",
-            [fechaPublicacion, estado, descripcion, cantidad, fechaCierre, userId, titulo]
+            "INSERT INTO PublicacionDon (Titulo, Fecha_Publicacion, Fecha_Evento, hora_evento, ubicacion_evento, Estado, Descripcion, Cantidad_Disponible, Fecha_Cierre, FK_idEmpresa) " +
+            "VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING Id_Publicacion;",
+            [titulo, fechaPublicacion, fechaEvento, horaEvento, ubicacionEvento, estado, descripcion, cantidad, fechaCierre, userId]
         );
 
         const id_publicacion = publicacionResultado.rows[0].id_publicacion;
@@ -47,7 +47,7 @@ const buscarPublicacion = async (req, res) => {
             return res.status(404).json({message: "No hay resultados de búsqueda."});
         }
         console.log(result.rows[0].buscar);
-        res.json(result.rows[0].buscar);
+        res.status(201).json(result.rows[0].buscar);
     } catch (error) {
         console.error("Error ACAAAAAAAAAAAAA:", error);
         res.status(500).json({message: "Error en el servidor"});
