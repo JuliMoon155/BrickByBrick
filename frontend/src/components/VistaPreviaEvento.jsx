@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-function VistaPreviaEvento({ idPublicacion }) {
+function VistaPreviaMaterial({ idPublicacion,Inscript }) {
   const [materiales, setMateriales] = useState([]);
-  const [materialActual, setMaterialActual] = useState(0); // Index of the current material
-  const [imagenActual, setImagenActual] = useState(0); // Index of the current image within a material
+  const [materialActual, setMaterialActual] = useState(0);
+  const [imagenActual, setImagenActual] = useState(0);
 
   useEffect(() => {
     const obtenerMateriales = async () => {
@@ -83,15 +83,18 @@ function VistaPreviaEvento({ idPublicacion }) {
             </div>
           )}
         </div>
+        <button className="boton" onClick={() => Inscript(idPublicacion)}>
+              Ir a Inscripción
+            </button>
       </div>
     </div>
   );
 }
 
-VistaPreviaEvento.propTypes = {
+VistaPreviaMaterial.propTypes = {
   idPublicacion: PropTypes.string.isRequired,
 };
 
-export default VistaPreviaEvento;
+export default VistaPreviaMaterial;
 
 
