@@ -6,10 +6,6 @@ import PropTypes from "prop-types";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 
 function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Inscript}) {
-    const [materiales, setMateriales] = useState([]);
-    const [materialActual, setMaterialActual] = useState(0);
-    const [imagenActual, setImagenActual] = useState(0);
-
     /*useEffect(() => {
         const obtenerMateriales = async () => {
             try {
@@ -26,69 +22,59 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
         obtenerMateriales();
     }, [idPublicacion]);*/
 
-    const cambiarImagen = (direccion) => {
-        const totalImagenes = materiales[materialActual].Imagenes.length;
-        setImagenActual((prev) => (prev + direccion + totalImagenes) % totalImagenes);
-    };
-
-    const cambiarMaterial = (direccion) => {
-        const totalMateriales = materiales.length;
-        setMaterialActual((prev) => (prev + direccion + totalMateriales) % totalMateriales);
-        setImagenActual(0); // Reset image index when changing material
-    };
-
-    if (materiales.length === 0) return <p>Cargando...</p>;
-
-    const material = materiales[materialActual];
-    const imagenBase64 = material.Imagenes[imagenActual];
-
     return (
         <div className="contenedor-vista-previa">
             <div className="material-info">
-                {imagenBase64 && (
-                    <img
-                        src={`data:image/jpeg;base64,${imagenBase64}`}
-                        alt={`${material.Nombre} imagen ${imagenActual + 1}`}
-                        className="imagen-material"
-                    />
-                )}
+                <img
+                    src={`https://picsum.photos/200/300?random=${publicacion.id}`}
+                    alt={`Una imagen random`}
+                    className="imagen-material"
+                />
                 <div className="contenedor-vista-previa-informacion">
-                    <h2 className="titulo-material">{material.Nombre}</h2>
-                    <p className="descripcion-material">{material.Descripcion}</p>
+                    <h2 className="titulo-material">{publicacion.titulo}</h2>
+                    <p className="descripcion-material">{publicacion.descripcion}</p>
                     <div className="detalles-material">
-                        <p><strong>Cantidad:</strong> {material.Cantidad}</p>
-                        <p><strong>Estado:</strong> {material.Estado_Material}</p>
-                        <p><strong>Categoría:</strong> {material.Categoria}</p>
+                        {materiales.map((material) =>
+                            <>
+                                <h2>Material {material.id}</h2>
+                                <p><strong>Nombre:</strong> {material.nombre}</p>
+                                <p><strong>Descripción:</strong> {material.descripcion}</p>
+                                <p><strong>Cantidad:</strong> {material.cantidad}</p>
+                                <p><strong>Estado:</strong> {material.estado}</p>
+                                <p><strong>Categoría:</strong> {material.categoria}</p>
+                            </>
+                        )}
                     </div>
 
-                    {material.Imagenes.length > 1 && (
-                        <div className="navegacion-imagenes">
-                            <button onClick={() => cambiarImagen(-1)}>
-                                <ChevronLeft/>
-                            </button>
-                            <button onClick={() => cambiarImagen(1)}>
-                                <ChevronRight/>
-                            </button>
-                        </div>
-                    )}
+                    {/*{materiales[0].Imagenes.length > 1 && (*/}
+                    {/*    <div className="navegacion-imagenes">*/}
+                    {/*        <button onClick={() => cambiarImagen(-1)}>*/}
+                    {/*            <ChevronLeft/>*/}
+                    {/*        </button>*/}
+                    {/*        <button onClick={() => cambiarImagen(1)}>*/}
+                    {/*            <ChevronRight/>*/}
+                    {/*        </button>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
 
-                    {materiales.length > 1 && (
-                        <div className="navegacion-materiales">
-                            <button onClick={() => cambiarMaterial(-1)}>
-                                Material Anterior
-                            </button>
-                            <button onClick={() => cambiarMaterial(1)}>
-                                Material Siguiente
-                            </button>
-                        </div>
-                    )}
+                    {/*{materiales.length > 1 && (*/}
+                    {/*    <div className="navegacion-materiales">*/}
+                    {/*        <button onClick={() => cambiarMaterial(-1)}>*/}
+                    {/*            Material Anterior*/}
+                    {/*        </button>*/}
+                    {/*        <button onClick={() => cambiarMaterial(1)}>*/}
+                    {/*            Material Siguiente*/}
+                    {/*        </button>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </div>
                 <button className="boton" onClick={() => Inscript(publicacion.id)}>
                     Ir a Inscripción
                 </button>
             </div>
         </div>
-    );
+    )
+        ;
 }
 
 VistaPreviaEvento.propTypes = {

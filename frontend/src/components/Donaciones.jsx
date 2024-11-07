@@ -128,7 +128,7 @@ export function Donaciones() {
             <div className="PublicacionesExistentes">
                 {resultados.map(
                     (resultado) =>
-                        <VistaPreviaEvento key={resultado.publicacion.id} publicacion={resultado.publicacion}
+                        <VistaPreviaEvento key={resultado.publicacion.id} idPublicacion={resultado.publicacion.id.toString()} publicacion={resultado.publicacion}
                                            empresa={resultado.empresa} materiales={resultado.materiales}/>
                 )}
             </div>

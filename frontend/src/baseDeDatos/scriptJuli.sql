@@ -205,7 +205,7 @@ insert into beneficiario
 values (default, 'andrés moreno', 'andmoreduro', 'safic913@gmail.com', '3045879324', '1193228375', 'contravivir',
         '2002-05-10');
 insert into beneficiario
-values (default, 'Pul', 'teo', 'spdpsdad', '2313131', '1000101', '1234', '');
+values (default, 'Pul', 'teo', 'spdpsdad', '2313131', '1000101', '1234', now());
 
 insert into empresa
 values (default, 'basureros del centro', 'centro', 'recogemos basura, adivinado dónde, en el centro', 'centro');
@@ -256,13 +256,13 @@ insert into publicaciondon
 values (default, 'más ladrillos', now(), 'ok', 10, 'esta es la tercera publicación', now() + interval '30 day', 3);
 insert into material_donar
 values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero plateado', 'AGLOMERADOS', 2);
+        'como los ladrillos grises, pero plateado', 'AGLOMERADOS', 3);
 insert into material_donar
 values (default, 'ladrillo dorado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero dorado', 'AGLOMERADOS', 2);
+        'como los ladrillos grises, pero dorado', 'AGLOMERADOS', 3);
 insert into material_donar
 values (default, 'ladrillo carmesí', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero carmesí', 'AGLOMERADOS', 2);
+        'como los ladrillos grises, pero carmesí', 'AGLOMERADOS', 3);
 insert into material_donar
 values (default, 'ladrillo rosado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero rosado', 'AGLOMERADOS', 2);
+        'como los ladrillos grises, pero rosado', 'AGLOMERADOS', 3);
