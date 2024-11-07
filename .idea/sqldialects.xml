@@ -2,6 +2,6 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/frontend/src/Negocio/DataBeneficiario.js" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/frontend/src/baseDeDatos/scriptJuli.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/frontend/src/baseDeDatos/scriptJuli.sql" dialect="PostgreSQL" />
   </component>
 </project>
