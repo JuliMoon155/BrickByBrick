@@ -2,10 +2,8 @@ import { Registro } from './components/Registro';
 import { Login } from './components/Login';
 import { PublicacionMateriales } from './components/PublicarMaterial';
 import { HomePage } from './components/HomePage';
-import React, { useState, useEffect } from 'react';
-import BusquedaEvento from "./components/BusquedaEvento";
-import { Contenido } from './components/Contenido';  
-
+import React, { useState } from 'react';
+import {Contenido} from "./components/Contenido";
 
 function App() {
   const [interfaz, setInterfaz] = useState('Login');
@@ -21,6 +19,7 @@ function App() {
     setUserId(id);
     setUserUsuario(usuario);
     setUserRol(rol);
+    console.log(id+" id"+usuario+" usuario"+rol+" rol");
     if (rol === 'Beneficiario') { 
       cambiarInterfaz('HomePage');
     } else if (rol === 'Empresario'){
@@ -40,14 +39,11 @@ function App() {
         <Registro onLogin={() => cambiarInterfaz('Login')} />
       )}
       {interfaz === 'HomePage' && (
-        <HomePage usuario={userUsuario} userId={userId} userRol={userRol} /> 
+        <HomePage usuario={userUsuario} userId={userId} userRol={userRol} />
       )}
       {interfaz === 'PublicacionMateriales' && (
-      <PublicacionMateriales usuario={userUsuario} userId={userId}/> 
+      <PublicacionMateriales usuario={userUsuario} userId={userId}/>
       )} 
-      {interfaz === 'BusquedaEvento' && (
-        <BusquedaEvento/>
-      )}
       {/* Paso el userId a Contenido */}
       {interfaz === 'Contenido' && (
         <Contenido usuario={userUsuario} userId={userId} />
@@ -57,4 +53,3 @@ function App() {
 }
 
 export default App;
-

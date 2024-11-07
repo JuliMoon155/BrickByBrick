@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-function VistaPreviaMaterial({ idPublicacion }) {
+function VistaPreviaEvento({ idPublicacion }) {
   const [materiales, setMateriales] = useState([]);
   const [materialActual, setMaterialActual] = useState(0); // Index of the current material
   const [imagenActual, setImagenActual] = useState(0); // Index of the current image within a material
@@ -88,10 +88,10 @@ function VistaPreviaMaterial({ idPublicacion }) {
   );
 }
 
-VistaPreviaMaterial.propTypes = {
+VistaPreviaEvento.propTypes = {
   idPublicacion: PropTypes.string.isRequired,
 };
 
-export default VistaPreviaMaterial;
+export default VistaPreviaEvento;
 
 
