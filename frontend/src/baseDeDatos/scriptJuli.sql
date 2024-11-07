@@ -46,6 +46,7 @@ create table publicaciondon
     id_publicacion      serial primary key,
     titulo              varchar(100) not null,
     fecha_publicacion   date         not null,
+    fecha_evento        date         not null,
     estado              varchar(100) not null,
     cantidad_disponible integer      not null,
     descripcion         varchar(100) not null,
@@ -82,6 +83,7 @@ create type publicacion_parcial as
     titulo            varchar(100),
     descripcion       varchar(100),
     fecha_publicacion date,
+    fecha_evento      date,
     fecha_cierre      date
 );
 
@@ -144,6 +146,8 @@ begin
                                                             material_donar.nombre ~* texto or
                                                             material_donar.descripcion ~* texto)
                                                          and (
+                                                            publicaciondon.fecha_cierre >= now())
+                                                         and (
                                                             upper(material_donar.categoria) = any
                                                             (categorias) or
                                                             cardinality(categorias) = 0)
@@ -190,7 +194,8 @@ begin
             -- se asignan los valores al resultado
             resultado.publicacion
                 := (publicacion.id_publicacion, publicacion.titulo, publicacion.descripcion,
-                    publicacion.fecha_publicacion, publicacion.fecha_cierre)::publicacion_parcial;
+                    publicacion.fecha_publicacion, publicacion.fecha_evento,
+                    publicacion.fecha_cierre)::publicacion_parcial;
             resultado.empresa
                 := vempresa;
             resultado.materiales
@@ -225,7 +230,8 @@ insert into empresa
 values (default, 'Paulo', '1234', 'Una empresa feliz', 'Juan');
 
 insert into publicaciondon
-values (default, 'ladrillos de varios colores', now(), 'ok', 10, 'esta es la primera publicación',
+values (default, 'ladrillos de varios colores', now(), now() + interval '1 day', 'ok', 10,
+        'esta es la primera publicación',
         now() + interval '10 day', 1);
 insert into material_donar
 values (default, 'ladrillo rojo', floor(random() * 25 - 10 + 1) + 10, 'nuevo', 'como los ladrillos grises, pero rojo',
@@ -240,7 +246,8 @@ insert into material_donar
 values (default, 'ladrillo morado', 20, 'nuevo', 'como los ladrillos grises, pero morado', 'AGLOMERADOS', 1);
 
 insert into publicaciondon
-values (default, 'ladrillos de colores varios', now(), 'ok', 10, 'esta es la segunda publicación',
+values (default, 'ladrillos de colores varios', now(), now() + interval '1 day', 'ok', 10,
+        'esta es la segunda publicación',
         now() + interval '20 day', 2);
 insert into material_donar
 values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
@@ -257,7 +264,8 @@ values (default, 'ladrillo rosado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
 
 
 insert into publicaciondon
-values (default, 'más ladrillos', now(), 'ok', 10, 'esta es la tercera publicación', now() + interval '30 day', 3);
+values (default, 'más ladrillos', now(), now() + interval '1 day', 'ok', 10, 'esta es la tercera publicación',
+        now() + interval '30 day', 3);
 insert into material_donar
 values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
         'como los ladrillos grises, pero plateado', 'AGLOMERADOS', 3);

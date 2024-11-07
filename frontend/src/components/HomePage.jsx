@@ -30,7 +30,7 @@ export const HomePage = ({ userId, usuario, userRol}) => {
             <h4 className="titCorreoAct">Email</h4><input type="email" placeholder='UserEmail' className='correoAct'></input>
             <h4 className="titCelularAct">Celular</h4><input type="number" placeholder='UserPhone' className='celularAct'></input>
             <h4 className="titClaveAct">Clave</h4><input type="password" placeholder='Contraseña' className='claveAct'></input>
-            <button className='actDatos' onClick={anyways}>Actualizar</button>
+            <button className='actDatos'>Actualizar</button>
           </div>
         </div>
         <div className='forYou'>

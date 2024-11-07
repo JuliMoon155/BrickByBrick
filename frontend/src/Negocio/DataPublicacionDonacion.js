@@ -12,7 +12,7 @@ const config = {
 const pool = new Pool(config);
 
 const crearPublicacion = async (req, res) => {
-    const {descripcion, userId, categoria, titulo} = req.body;
+    const {titulo, userId, descripcion, fechaEvento} = req.body;
 
     const estado = "Activo";
     const cantidad = "5000";
@@ -22,9 +22,9 @@ const crearPublicacion = async (req, res) => {
 
     try {
         const publicacionResultado = await pool.query(
-            "INSERT INTO PublicacionDon (Titulo, Fecha_Publicacion, Estado, Descripcion, Cantidad_Disponible, Fecha_Cierre, FK_idEmpresa) " +
-            "VALUES ($7,$1, $2, $3, $4, $5, $6) RETURNING Id_Publicacion;",
-            [fechaPublicacion, estado, descripcion, cantidad, fechaCierre, userId, titulo]
+            "INSERT INTO PublicacionDon (Titulo, Fecha_Publicacion, Fecha_Evento, Estado, Descripcion, Cantidad_Disponible, Fecha_Cierre, FK_idEmpresa) " +
+            "VALUES ($7, $1, $8, $2, $3, $4, $5, $6) RETURNING Id_Publicacion;",
+            [fechaPublicacion, estado, descripcion, cantidad, fechaCierre, userId, titulo, fechaEvento]
         );
 
         const id_publicacion = publicacionResultado.rows[0].id_publicacion;

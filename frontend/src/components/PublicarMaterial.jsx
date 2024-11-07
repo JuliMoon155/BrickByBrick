@@ -64,6 +64,7 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
         return;
       }
 
+      let elementoFechaEvento = document.getElementById("entrada-fecha-evento");
       const userId = 1; // Cambia esto según sea necesario
       // 1. Crear la publicación principal
       const responsePublicacion = await fetch('http://localhost:5000/api/crearpublicacion', {
@@ -75,6 +76,7 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
           titulo: TituloPubli,
           userId, // Usuario que crea la publicación
           descripcion: descripcionPublicacion, // Enviar la descripción capturada desde el popup
+          fechaEvento: elementoFechaEvento.value,
         }),
       });
 
@@ -147,6 +149,8 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
               onCambioMaterial={manejarCambioMaterial}
               usuario={usuario}
             />
+            <label htmlFor="entrada-fecha-evento">Fecha del evento</label>
+            <input type="date" className="campo-entrada" id="entrada-fecha-evento"/>
             <button className="boton boton-primario" onClick={crearNuevoMaterial}>
               Otro material
             </button>
