@@ -153,6 +153,8 @@ begin
                                                          and (
                                                             material_donar.cantidad <= cantidad_maxima or
                                                             cantidad_maxima = -1)
+                                                         and (
+                                                            material_donar.cantidad != 0)
                                                          and publicaciondon.estado != 'false')
         order by fecha_publicacion
         limit 100
@@ -177,6 +179,8 @@ begin
                   and (
                     material_donar.cantidad <= cantidad_maxima or
                     cantidad_maxima = -1)
+                  and (
+                    material_donar.cantidad != 0)
                 loop
                     materiales := array_append(materiales, (material.id_material, material.nombre, material.descripcion,
                                                             material.categoria, material.estado_material,

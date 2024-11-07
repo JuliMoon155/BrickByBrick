@@ -37,6 +37,36 @@ const agregarMateriales = async (req, res) => {
   }
 };
 
+const setCantidadMaterial = async (req, res) => {
+  const {cantidad, idMaterial} = req.body;
+  try {
+    const resultadoMaterial = await pool.query(
+        "UPDATE material_donar SET cantidad=$1 WHERE id_material=$2 RETURNING *",
+        [cantidad, idMaterial]
+    );
+    res.status(201).json(resultadoMaterial.rows[0]);
+  } catch (error) {
+    console.error("Error ACAAAAAAAAAAAAA:", error);
+    res.status(500).json({ message: "Error en el servidor" });
+  }
+}
+
+const obtenerMaterialesDonados = async (req, res) => {
+  const {idEmpresa} = req.body;
+  try {
+    const resultadosMateriales = await pool.query(
+        "SELECT material_donar.* FROM material_donar INNER JOIN publicaciondon ON publicaciondon.fk_idempresa=$1 AND material_donar.fk_idpublicaciondon=publicaciondon.id_publicacion ORDER BY material_donar.id_material",
+        [idEmpresa]
+    )
+    res.status(201).json(resultadosMateriales.rows);
+  } catch (error) {
+    console.error("Error ACAAAAAAAAAAAAA:", error);
+    res.status(500).json({ message: "Error en el servidor" });
+  }
+}
+
 module.exports ={
   agregarMateriales,
+  obtenerMaterialesDonados,
+  setCantidadMaterial,
 };
