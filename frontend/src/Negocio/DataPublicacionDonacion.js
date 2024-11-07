@@ -47,7 +47,7 @@ const buscarPublicacion = async (req, res) => {
             return res.status(404).json({message: "No hay resultados de búsqueda."});
         }
         console.log(result.rows[0].buscar);
-        res.json(result.rows[0].buscar);
+        res.status(201).json(result.rows[0].buscar);
     } catch (error) {
         console.error("Error ACAAAAAAAAAAAAA:", error);
         res.status(500).json({message: "Error en el servidor"});
