@@ -5,18 +5,17 @@ import  '../styles/HomePage.css';
 import profileDefault from '../imgTemp/profileDefault.png';
 
 
-export const HomePage = () => {
+export const HomePage = ({idUser, rolUser}) => {
 
   const [contenido_foryou, setContenido_foryou] = useState(<Contenido />);
   
-  const obtenerUsuario = async() => {
-    try {
+  // const obtenerUsuario = async() => {
+  //   try {
       
-    } catch (error) {
+  //   } catch (error) {
       
-    }
-  }
-
+  //   }
+  // }
   /*
   const handleContenidoForyou = (nombre) => {
     if (nombre=='Contenido') {
@@ -26,6 +25,11 @@ export const HomePage = () => {
     }
   };
   */
+
+  function anyways(){
+    //const user = localStorage.getItem("usuarioActivo");
+    console.log({rolUser});
+  }
   return (
     <div className='HomePage'>
       <Header />
@@ -42,7 +46,7 @@ export const HomePage = () => {
             <h4 className="titCorreoAct">Email</h4><input type="email" placeholder='UserEmail' className='correoAct'></input>
             <h4 className="titCelularAct">Celular</h4><input type="number" placeholder='UserPhone' className='celularAct'></input>
             <h4 className="titClaveAct">Clave</h4><input type="password" placeholder='Contraseña' className='claveAct'></input>
-            <button className='actDatos' onClick="#">Actualizar</button>
+            <button className='actDatos' onClick={anyways}>Actualizar</button>
           </div>
         </div>
         <div className='forYou'>  

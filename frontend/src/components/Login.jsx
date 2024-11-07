@@ -52,6 +52,7 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
 
       if (credentials.usuario === data.usuario && credentials.password === data.password) {
         onLoginSuccess(data.id, rol, data.usuario);
+        localStorage.setItem("usuarioActivo", data); //Cosas de Maycol para la vista de perfil, los amo
       } else {
         alert("Usuario o contraseña incorrectos.");
       }
