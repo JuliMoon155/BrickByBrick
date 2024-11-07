@@ -11,14 +11,14 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
     <Popup trigger={
       <div className="detalles-material">
       {materiales.map((material) =>
-          <>
+          <div key={material.id}>
               <h2>Material {material.id}</h2>
               <p><strong>Nombre:</strong> {material.nombre}</p>
               <p><strong>Descripción:</strong> {material.descripcion}</p>
               <p><strong>Cantidad:</strong> {material.cantidad}</p>
               <p><strong>Estado:</strong> {material.estado}</p>
               <p><strong>Categoría:</strong> {material.categoria}</p>
-          </>
+          </div>
       )}
   </div>
     } position={"center center"}>
