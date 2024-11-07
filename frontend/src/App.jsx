@@ -11,6 +11,7 @@ function App() {
   const [interfaz, setInterfaz] = useState('Login');
   const [userId, setUserId] = useState(null);
   const [usuario, setUsuario] = useState(null);
+  const [idPublicacion, setIdPublicacion] = useState(null);
   const [userRol, setUserRol] = useState(null);
 
   const cambiarInterfaz = (nuevaInterfaz) => {
@@ -28,6 +29,11 @@ function App() {
       cambiarInterfaz('PublicacionMateriales');
     }
   };
+
+  const InscripcionDatos = (IdPubli) =>{
+    setIdPublicacion(IdPubli);
+    cambiarInterfaz('Inscripcion');
+  }
 
   return (
     <>
@@ -48,10 +54,10 @@ function App() {
         <PublicacionMateriales usuario={usuario} userId={userId} cambiarInterfaz={cambiarInterfaz}/> 
       )} 
       {interfaz === 'BusquedaEvento' && (
-          <BusquedaEvento/>
+          <BusquedaEvento InscriptId={InscripcionDatos} />
       )}
       {interfaz === 'Inscripcion' && (
-          <Inscripcion fk_idPublicacionDon={"1"} userId={userId} cambiarInterfaz={cambiarInterfaz}/>
+          <Inscripcion fk_idPublicacionDon={idPublicacion} userId={userId} cambiarInterfaz={cambiarInterfaz}/>
       )}
     </>
   );

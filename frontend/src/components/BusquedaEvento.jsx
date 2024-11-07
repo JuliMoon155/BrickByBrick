@@ -2,7 +2,7 @@ import styles from '../styles/BusquedaEvento.module.css';
 import {useState} from "react";
 import VistaPreviaEvento from "./VistaPreviaEvento";
 
-function BusquedaEvento() {
+function BusquedaEvento(InscriptId) {
     const [resultados, setResultados] = useState([]);
     const categoriasDisponibles = ["aglomerantes", "aglomerados", "metálicos", "orgánicos"];
     const listaCategorias = [];
@@ -65,7 +65,7 @@ function BusquedaEvento() {
                 </div>
             </div>
             <div id={"resultados-busqueda-eventos"} className={styles.seccion_resultados}>
-                {resultados.map((resultado) => <VistaPreviaEvento key={resultado.publicacion.id} publicacion={resultado.publicacion} empresa={resultado.empresa} materiales={resultado.materiales}/>)}
+                {resultados.map((resultado) => <VistaPreviaEvento key={resultado.publicacion.id} publicacion={resultado.publicacion} empresa={resultado.empresa} materiales={resultado.materiales} cambiarInterfaz={cambiarInterfaz}/>)}
             </div>
         </div>
     );

@@ -160,10 +160,6 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
                 Crear Publicación
               </button>
             </div>
-            {/* Botón para ir a Inscripción */}
-            <button className="boton" onClick={() => cambiarInterfaz('Inscripcion')}>
-              Ir a Inscripción
-            </button>
           </div>
           <div className="seccion-vista-previa">
             <div className="vista-previa-material">
