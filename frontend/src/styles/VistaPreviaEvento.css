@@ -1,0 +1,43 @@
+.contenedor-vista-previa {
+    display:flex;
+}
+
+.contenedor-vista-previa:hover {
+    background-color: lightgray;
+}
+
+/* .contenedor_informacion {
+
+} */
+
+.detalles-material{
+    min-width: 350px;
+    height: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: solid #874328;
+}
+
+.imagen-material{
+    height: 100px;
+}
+
+.detalle-material-btn{
+    background-color: #4D8B31;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.nombreMat, .descriMat, .cantMat, .estadoMat, .catMat{
+    font-weight: 600;
+}

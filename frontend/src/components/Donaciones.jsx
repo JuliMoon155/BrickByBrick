@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import VistaPreviaEvento from "./VistaPreviaEvento";
 
-export function Donaciones() {
+export function Donaciones( {inscript} ) {
     const categoriasDisponibles = ["aglomerantes", "aglomerados", "metálicos", "orgánicos"];
 
     const [textoBusqueda, setTextoBusqueda] = useState("");
@@ -129,7 +129,7 @@ export function Donaciones() {
                 {resultados.map(
                     (resultado) =>
                         <VistaPreviaEvento key={resultado.publicacion.id} idPublicacion={resultado.publicacion.id.toString()} publicacion={resultado.publicacion}
-                                           empresa={resultado.empresa} materiales={resultado.materiales}/>
+                                           empresa={resultado.empresa} materiales={resultado.materiales} Inscript={inscript}/>
                 )}
             </div>
             {popup}

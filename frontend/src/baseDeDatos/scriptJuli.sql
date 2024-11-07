@@ -211,6 +211,9 @@ values (default, 'andrés moreno', 'andmoreduro', 'safic913@gmail.com', '3045879
 insert into beneficiario
 values (default, 'Pul', 'teo', 'spdpsdad', '2313131', '1000101', '1234', now());
 
+insert into beneficiario
+values (default, 'Maycol', 'maiz', 'spdpsdad', '2313131', '1000101', '1', now());
+
 insert into empresa
 values (default, 'basureros del centro', 'centro', 'recogemos basura, adivinado dónde, en el centro', 'centro');
 insert into empresa

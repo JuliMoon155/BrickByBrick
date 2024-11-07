@@ -7,7 +7,7 @@ import {Donaciones} from "./Donaciones";
 import profileDefault from '../imgTemp/profileDefault.png';
 
 
-export const HomePage = ({ userId, usuario, userRol}) => {
+export const HomePage = ({ userId, usuario, userRol, inscript }) => {
     const [contenido_foryou, setContenido_foryou] = useState(<Contenido userId={userId} usuario={usuario} />);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export const HomePage = ({ userId, usuario, userRol}) => {
             <h4 className="titCorreoAct">Email</h4><input type="email" placeholder='UserEmail' className='correoAct'></input>
             <h4 className="titCelularAct">Celular</h4><input type="number" placeholder='UserPhone' className='celularAct'></input>
             <h4 className="titClaveAct">Clave</h4><input type="password" placeholder='Contraseña' className='claveAct'></input>
-            <button className='actDatos' onClick={anyways}>Actualizar</button>
+            <button className='actDatos' onClick="#">Actualizar</button>
           </div>
         </div>
         <div className='forYou'>
@@ -38,7 +38,7 @@ export const HomePage = ({ userId, usuario, userRol}) => {
           <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido />)}}>
             <span>Contenido</span>
           </div>
-          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones />)}} >
+          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones inscript = {inscript} />)}} >
             <span>Donaciones</span>
             </div>
           </div>
