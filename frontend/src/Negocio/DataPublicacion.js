@@ -57,6 +57,26 @@ const obtenerPublicacionesBen = async (req, res) => {
     }
 };
 
+//interactuar con la publicacion
+
+const likePublicacionBen = async (req, res) => {
+    console.log("Obteniendo publicacion...");
+    const {fk_idbeneficiario} = req.body;
+    try {
+        const resultado = await pool.query("SELECT * FROM PUBLICACIONBEN");
+        // [fk_idbeneficiario]);
+        console.log(resultado);
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({message: "No hay publicaciones existentes"});
+        }
+        console.log(resultado.rows);
+        res.json(resultado.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
 module.exports = {
     crearPublicacionBen,
     obtenerPublicacionesBen,
