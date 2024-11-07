@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import LikeIcon from '../imgTemp/icons8-me-gusta-50.png';
+import DislikeIcon from '../imgTemp/icons8-me-gusta-relleno-50.png';
+import CommentIcon from '../imgTemp/icon-comment.png';
+import FilledCommentIcon from '../imgTemp/icon-comment-clicked.png';
+import ShareIcon from '../imgTemp/icon-share.png';
+import UserIcon from '../imgTemp/icons8-usuario-50.png';
 
-export const Contenido = () => {
+
+export const Contenido = ({ userId, usuario }) => {
 
 // const fechaActual = new Date();
 const [showPopup, setShowPopup] = useState(false); 
@@ -10,6 +17,42 @@ const [fk_idbeneficiario, setFk_idbeneficiario] = useState(1);
 const [publicaciones, setPublicaciones] = useState([]);
 const [dropdownStates, setDropdownStates] = useState([]); // Array to track each dropdown
 
+//interacciones
+const [likeStates, setLikeStates] = useState([]);
+const [dislikeStates, setDislikeStates] = useState([]);
+
+
+  const fetchPublicaciones = async () => {
+    try {
+      const endpoint = 'http://localhost:5000/api/ObPublicacionesBen';
+      const response = await fetch(endpoint, { method: 'GET' });
+      if (!response.ok) throw new Error('Error al obtener publicaciones');
+      
+      const data = await response.json();
+      setPublicaciones(data);
+      setDropdownStates(new Array(data.length).fill(false));
+    } catch (error) {
+      console.error('Error al obtener publicaciones:', error);
+    }
+  };
+
+  const toggleLike = (index) => {
+    setLikeStates((prevStates) => {
+      const newStates = [...prevStates];
+      newStates[index] = !newStates[index];
+      console.log(newStates);
+      return newStates;
+    });
+  };
+
+  const toggleDislike = (index) => {
+    setDislikeStates((prevStates) => {
+      const newStates = [...prevStates];
+      newStates[index] = !newStates[index];
+      console.log(newStates);
+      return newStates;
+    });
+  };
 
   const handlePopup = () => {
     setShowPopup(!showPopup); 
@@ -41,11 +84,13 @@ const [dropdownStates, setDropdownStates] = useState([]); // Array to track each
         console.log('Publicacion Creada:', data);
         alert('Publicacion creada con exito');
 
+        setShowPopup(false);
+        fetchPublicaciones(); 
     } catch (error) {
         console.error("Error al guardar la publicacion:", error);
         alert("error");
     }
-    setShowPopup(false); 
+    
   };
 
   const toggleDropdown = (index) => {  // Using index here
@@ -58,32 +103,11 @@ const [dropdownStates, setDropdownStates] = useState([]); // Array to track each
 
 
     useEffect(() => {
-        const fetchPublicaciones = async () => {
-          try {
-    
-            let endpoint = 'http://localhost:5000/api/ObPublicacionesBen';
-    
-            const response = await fetch(endpoint, {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              //body: JSON.stringify({fk_idbeneficiario}),
-            });
-    
-            if (!response.ok) throw new Error('Error al obtener publicaciones');
-      
-            const data = await response.json();
-            console.log(data);
-            setPublicaciones(data);
-            setDropdownStates(new Array(data.length).fill(false));
-          } catch (error) {
-            console.error('Error al obtener publicaciones:', error);
-          }
-        };
-    
+      if (userId && usuario) {
+        setFk_idbeneficiario(userId);
         fetchPublicaciones();
-      }, [fk_idbeneficiario]);
+      }
+    }, [userId, usuario]);
 
 
     return (
@@ -92,10 +116,10 @@ const [dropdownStates, setDropdownStates] = useState([]); // Array to track each
         <input className='buscar' placeholder='Buscar'></input>
         <div className='PublicacionesExistentes'>
         {/* Mapeo de publicaciones */}
-        {publicaciones.map((publicacion, index) => ( // Using index from .map()
+        {publicaciones.map((publicacion, index) => ( 
           <div className='PublicacionBen' key={publicacion.idpublicacion}>
             <div className="header_PublicacionBen">
-              <img src="../imgTemp/15.jpg" alt="User Icon" className="userIcon_PublicacionBen" />
+              <img src={UserIcon} alt="User Icon" className="userIcon_PublicacionBen" />
               <span className="userName_PublicacionBen">Username</span>
               <div 
                 className="menuIcon" 
@@ -112,9 +136,14 @@ const [dropdownStates, setDropdownStates] = useState([]); // Array to track each
             <p className='contenido_PublicacionBen'>{publicacion.contenido}</p>
             <p className='fecha_PublicacionBen'>{new Date(publicacion.fecha_publicacion).toLocaleDateString()}</p>
             <div className="interactionIcons_PublicacionBen">
-              <span className="icon">💬</span>
-              <span className="icon">🔄</span>
-              <span className="icon">❤️</span>
+              <span className="icon" id='share'><img src={ShareIcon}/></span>
+              <span className="icon" id='comment'><img src={CommentIcon}/></span>
+              <span className="icon" id='like' onClick={() => toggleLike(index)}>
+                <img 
+                  src={likeStates[index] ? DislikeIcon : LikeIcon} 
+                  alt="Like Icon" 
+                />
+              </span>
             </div>
           </div>
         ))}

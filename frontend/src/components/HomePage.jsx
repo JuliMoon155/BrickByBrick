@@ -1,44 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Header } from './Header';
 import { Contenido } from './Contenido';
 import  '../styles/HomePage.css';
+
+import {Donaciones} from "./Donaciones";
 import profileDefault from '../imgTemp/profileDefault.png';
 
 
-export const HomePage = ({idUser, rolUser}) => {
+export const HomePage = ({ userId, usuario, userRol}) => {
+    const [contenido_foryou, setContenido_foryou] = useState(<Contenido userId={userId} usuario={usuario} />);
 
-  const [contenido_foryou, setContenido_foryou] = useState(<Contenido />);
-  
-  // const obtenerUsuario = async() => {
-  //   try {
-      
-  //   } catch (error) {
-      
-  //   }
-  // }
-  /*
-  const handleContenidoForyou = (nombre) => {
-    if (nombre=='Contenido') {
-      setContenido_foryou(<Contenido />);
-    }if(nombre=='Donaciones') {
-      console.log('se cambio');
-    }
-  };
-  */
+    useEffect(() => {
+      setContenido_foryou(<Contenido userId={userId} usuario={usuario} />);
+    }, [userId, usuario]);
 
-  function anyways(){
-    //const user = localStorage.getItem("usuarioActivo");
-    console.log({rolUser});
-  }
   return (
     <div className='HomePage'>
       <Header />
       <div className='Contenido'>
-        <div className='perfil'>
+      <div className='perfil'>
           <div className='infoPersonal'>
               <img src={profileDefault} alt="Imagen de perfil" className='fotoPerfil' />
-              <h3 className="nombreUsuario">UserName</h3>
-              <h3 className="rolUsuario">UserRol</h3>
+              <h3 className="nombreUsuario">@{usuario}</h3>
+              <h3 className="rolUsuario">{userRol}</h3>
           </div>
           <div className='otraInfo'>
             <h3 className="titCambiarInfo">Actualizar Datos</h3>
@@ -49,13 +33,13 @@ export const HomePage = ({idUser, rolUser}) => {
             <button className='actDatos' onClick={anyways}>Actualizar</button>
           </div>
         </div>
-        <div className='forYou'>  
+        <div className='forYou'>
           <div className='Separador'>
           <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido />)}}>
-            <text>Contenido</text>
+            <span>Contenido</span>
           </div>
-          <div className='seleccion_separador2' onClick={()=>{console.log('se cambio')}} >
-            <text>Donaciones</text>
+          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones />)}} >
+            <span>Donaciones</span>
             </div>
           </div>
           {contenido_foryou}

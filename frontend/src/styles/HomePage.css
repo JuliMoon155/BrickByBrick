@@ -5,6 +5,41 @@
     background-color: rgb(255, 255, 255);
 }
 
+.Categorias {
+    border: #4D8D31 solid 1px;
+}
+
+.Categorias ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.Categorias li {
+    display: inline-flex;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
+
+.Categorias li:hover {
+    background-color: lightgray;
+}
+
+.Categorias input[type=checkbox] {
+    display: none;
+}
+
+.Categorias input[type=checkbox]:checked + label {
+    background-color: #4D8D31;
+    color: white;
+}
+
+.Categorias label {
+    padding: 16px;
+}
+
 .Contenido {
     display: flex; /* Usar flexbox para alinear los componentes de contenido */
     flex: 1; /* Ocupa el espacio restante */
@@ -13,25 +48,26 @@
     margin: 40px 15px;
 }
 
+
 .perfil {
-    flex: 1; /* Ocupa un tercio del ancho */
-    background-color: rgb(255, 255, 255); /* Color de fondo claro */
-    margin-right: 25px; /* Espacio a la derecha */
-    display: flex;
-    flex-direction: column;
-    border-right: solid 2px #4D8D31;
+  flex: 1; /* Ocupa un tercio del ancho */
+  background-color: rgb(255, 255, 255); /* Color de fondo claro */
+  margin-right: 25px; /* Espacio a la derecha */
+  display: flex;
+  flex-direction: column;
+  border-right: solid 2px #4D8D31;
 
 }
 .infoPersonal{
-    flex: 2;
-    background: linear-gradient(#4D8D31 50%, #fff 50%);
-    margin-bottom: 20px;
-    border-bottom: solid 2px #4D8D31;
+  flex: 2;
+  background: linear-gradient(#4D8D31 50%, #fff 50%);
+  margin-bottom: 30px;
+  border-bottom: solid 2px #4D8D31;
 }
 
 .otraInfo{
-    flex: 2;
-    background-color: #fff;
+  flex: 2;
+  background-color: #fff;
 }
 
 .forYou {
@@ -69,245 +105,212 @@
 }
 
 .popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro tras el popup */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-inner {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  max-width: 90%;
-}
-
-.popup-inner h2 {
-  margin-bottom: 15px;
-}
-
-.popup-inner textarea {
-  width: 100%;
-  height: 100px;
-  margin-bottom: 15px;
-}
-
-.popup-actions {
-  display: flex;
-  justify-content: space-between;
-} 
-/* 
-.PublicacionesExistentes{
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  padding-top: 10px;
-  padding-left: 10px;
-  border-top: 3px solid #4D8D31;
-  margin-top: 20px;
-  margin-left: 30px;
-  background-color: #ffffff;
-  width: 90%;
-  height: 85%;
-}
-.PublicacionBen{
-  border-radius: 6px;
-  width: 96%;
-  flex: 2;
-  background-color: #fff;
-  outline: 2px solid #4D8D31;
-  padding: 5px;
-  margin-bottom: 10px;
-  display: flex; /* Usar flexbox 
-  flex-direction: column; /* Organizar en columnas 
-  position: relative; 
-}
-.contenido_PublicacionBen{
-  font-size: 18px;
-  flex: 1;
-}
-.fecha_PublicacionBen{
-  font-size: 12px;
-  color: #4D8D31;
-  position: absolute; /* Posicionamiento absoluto 
-  bottom: 5px; /* Espacio desde la parte inferior 
-  right: 5px;
-} */
-
-.PublicacionesExistentes {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  padding-top: 10px;
-  padding-left: 10px;
-  border-top: 3px solid #4D8D31;
-  margin-top: 20px;
-  margin-left: 30px;
-  background-color: #ffffff;
-  width: 90%;
-  max-height: 60vh; /* Set a max-height for internal scrolling */
-  height: auto; /* Allow it to adapt within the given space */
-  overflow-y: auto;
-}
-
-/* Styling each post */
-.PublicacionBen {
-  border-radius: 6px;
-  width: 96%;
-  background-color: #fff;
-  outline: 2px solid #4D8D31;
-  padding: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-/* Header styling for user info */
-.header_PublicacionBen {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.userIcon_PublicacionBen {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.userName_PublicacionBen {
-  font-weight: bold;
-  color: #333;
-  font-size: 16px;
-}
-
-/* Content styling */
-.contenido_PublicacionBen {
-  font-size: 18px;
-  flex: 1;
-  margin-bottom: 10px;
-}
-
-/* Date styling */
-.fecha_PublicacionBen {
-  font-size: 12px;
-  color: #4D8D31;
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-}
-
-/* Interaction icons styling */
-.interactionIcons_PublicacionBen {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 10px;
-  font-size: 18px;
-  color: #4D8D31;
-}
-
-.icon {
-  cursor: pointer;
-}
-.buscar{
-  height: 0.5%;
-  width: 60%;
-  margin-left: 6%;
-  background-color: rgba(128, 128, 128, 0.235) ;
-  font-size: small;
-  border-radius: 4px;
-}
-.menuIcon {
-  cursor: pointer;
-  margin-left: auto;
-}
-
-.dropdownMenu {
-  position: absolute;
-  top: 30px;
-  right: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 5px 10px;
-  display: block;
-  z-index: 1000; /* Ensure it’s above other elements */
-}
-
-.dropdownMenu button {
-  background: none;
-  border: none;
-  padding: 8px 12px;
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.dropdownMenu button:hover {
-  background-color: #f0f0f0;
-}
-
-.Separador{
-  align-items: center;
-  border-bottom: solid 2px #4D8D31 ;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.seleccion_separador1{
-  flex: 1;
-  display: flex;
-  height: 35px;
-  width: 20%;
-  padding: 5px 5px 5px 5px;
-  justify-content: center;
-  align-items: center;
-}
-.seleccion_separador1:hover{
-  background-color: #ccc;
-}
-.seleccion_separador2{
-  border-left: solid 2px #4D8D31;
-  flex: 1;
-  display: flex;
-  height: 35px;
-  width: 20%;
-  padding: 5px 5px 5px 5px;
-  justify-content: center;
-  align-items: center;
-}
-.seleccion_separador2:hover{
-  background-color: #ccc;
-}
-.fotoPerfil{
-  position: relative;
-  top: 30%;
-  left: 5%;
-  width: 130px;
-  height: 130px;
-  border-radius: 150%;
-  border: solid 2px;
-  border-color:#4D8D31;
-}
-.nombreUsuario{
-  position: relative;
-  left: 48%;
-  top: -1%;
-  color: #fff;
-  font-weight: 550;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro tras el popup */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
+  .popup-inner {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+  }
+  
+  .popup-inner h2 {
+    margin-bottom: 15px;
+  }
+  
+  .popup-inner textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+  
+  .popup-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .PublicacionesExistentes {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-top: 3px solid #4D8D31;
+    margin-top: 20px;
+    margin-left: 30px;
+    background-color: #ffffff;
+    width: 90%;
+    max-height: 60vh; /* Set a max-height for internal scrolling */
+    height: auto; /* Allow it to adapt within the given space */
+}
+
+  
+  /* Styling each post */
+  .PublicacionBen {
+    border-radius: 6px;
+    width: 96%;
+    background-color: #fff;
+    outline: 2px solid #4D8D31;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  /* Header styling for user info */
+  .header_PublicacionBen {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .userIcon_PublicacionBen {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .userName_PublicacionBen {
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  /* Content styling */
+  .contenido_PublicacionBen {
+    font-size: 18px;
+    flex: 1;
+    margin-bottom: 10px;
+  }
+  
+  /* Date styling */
+  .fecha_PublicacionBen {
+    font-size: 12px;
+    color: #4D8D31;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+  
+  /* Interaction icons styling */
+  .interactionIcons_PublicacionBen {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+    font-size: 18px;
+    color: #4D8D31;
+  }
+  
+  .icon {
+    cursor: pointer;
+  }
+
+  #like img{
+    width: 30px;
+    height: 30px;
+  }
+
+  #comment img{
+    width: 30px;
+    height: 30px;
+  }
+
+  #share img{
+    width: 30px;
+    height: 30px;
+  }
+
+  .buscar{
+    height: 0.5%;
+    width: 60%;
+    margin-left: 6%;
+    background-color: rgba(128, 128, 128, 0.235) ;
+    font-size: small;
+    border-radius: 4px;
+  }
+
+  .menuIcon {
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    display: block;
+    z-index: 1000; /* Ensure it’s above other elements */
+  }
+  
+  .dropdownMenu button {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .dropdownMenu button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .Separador{
+    align-items: center;
+    border-bottom: solid 2px #4D8D31 ;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .seleccion_separador1{
+    flex: 1;
+    display: flex;
+    height: 35px;
+    width: 20%;
+    padding: 5px 5px 5px 5px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .seleccion_separador1:hover{
+    background-color: #ccc;
+  }
+
+  .seleccion_separador2{
+    border-left: solid 2px #4D8D31;
+    flex: 1;
+    display: flex;
+    height: 35px;
+    width: 20%;
+    padding: 5px 5px 5px 5px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .seleccion_separador2:hover{
+    background-color: #ccc;
+  }
+
 .rolUsuario{
   position: relative;
   left: 48%;
@@ -337,7 +340,84 @@
   margin-left: 22%;
   background-color: rgba(128, 128, 128, 0.235) ;
   font-size: small;
-} 
+}
+.titCorreoAct{
+  position: absolute;
+  font-weight: 600;
+  margin-top: 1%;
+}
+
+.correoAct{
+  position: relative;
+  margin-top: 3%;
+  height: 0.5%;
+  width: 65%;
+  margin-left: 22%;
+  background-color: rgba(128, 128, 128, 0.235) ;
+  font-size: small;
+}
+
+.titCelularAct{
+  position: absolute;
+  font-weight: 600;
+  margin-top: 1%;
+}
+
+
+  /*maycol*/
+
+
+.fotoPerfil{
+  position: relative;
+  top: 25%;
+  left: 5%;
+  width: 130px;
+  height: 130px;
+  border-radius: 150%;
+  border: solid 2px;
+  border-color:#4D8D31;
+}
+
+
+.nombreUsuario{
+  position: relative;
+  left: 48%;
+  top: -17%;
+  color: #000;
+  font-weight: 550;
+  }
+
+
+.rolUsuario{
+  position: relative;
+  left: 48%;
+  top: -10%;
+  color: #000;
+  font-weight: 450;
+  }
+
+.titCambiarInfo{
+  position: relative;
+  left: 25%;
+  font-weight: 700;
+  margin-bottom: 5%;
+}
+
+.titNameAct{
+  position: absolute;
+  font-weight: 600;
+  margin-top: 1%;
+}
+
+.nameAct{
+  position: relative;
+  margin-top: 3%;
+  height: 0.5%;
+  width: 65%;
+  margin-left: 22%;
+  background-color: rgba(128, 128, 128, 0.235) ;
+  font-size: small;
+}
 .titCorreoAct{
   position: absolute;
   font-weight: 600;

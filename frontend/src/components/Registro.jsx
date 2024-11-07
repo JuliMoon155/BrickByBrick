@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import "..//styles/Registro.css";
+import '../styles/Registro.css';
 
 export const Registro = ({ onLogin }) => {
 
     //setters
     const [rol, setRol] = useState('Beneficiario');
+    const [textoCambioRol, setTextoCambioRol] = useState('Para Empresas');
+
     const [paso, setPaso] = useState(1);
     const [nombre, setNombre] = useState('');
     const [cedula, setCedula] = useState('');
@@ -24,6 +26,18 @@ export const Registro = ({ onLogin }) => {
 
     const siguientePaso = () => { if (paso < 3) { setPaso(paso + 1); } };
     const anteriorPaso = () => { if (paso > 1) { setPaso(paso - 1); } };
+
+
+    const handelClickCambioRol = () =>{
+        if (textoCambioRol === 'Para Empresas') {
+          setRol('Empresario')
+          setTextoCambioRol('Para Beneficiarios')
+        }else if (textoCambioRol === 'Para Beneficiarios') {
+          setRol('Beneficiario')
+          setTextoCambioRol('Para Empresas')
+        };
+      };
+    
 
     const guardarUsuario = async () => {
         try {
@@ -83,15 +97,7 @@ export const Registro = ({ onLogin }) => {
                     <>
                         <p className="instruccion">Por favor ingresa toda tu info.</p>
                         <div className="inputs">
-                            <div className="ComboBox">
-                                <select defaultValue="" onChange={(e) => setRol(e.target.value)}>
-                                    <option value="" disabled>
-                                        ¿Qué rol ocupas?
-                                    </option>
-                                    <option value="Beneficiario">Beneficiario</option>
-                                    <option value="Empresa">Empresa</option>
-                                </select>
-                            </div>
+                            <input className="input" id="input_rol" placeholder={rol} disabled/>
                             <input className="input" type="text" placeholder="¿Como te llamas?" value={nombre} onChange={(e) => setNombre(e.target.value)} />
                             <input className={rol !== 'Beneficiario' ? 'input_deac' : 'input'} type="text" placeholder="¿Cuál es tu cedula?" disabled={rol !== 'Beneficiario'}
                                 value={cedula} onChange={(e) => setCedula(e.target.value)} />
@@ -166,6 +172,7 @@ export const Registro = ({ onLogin }) => {
                 </div>
                 {pasosDeRegistro()}
             </div>
+            <div className="CambioRol2" onClick={handelClickCambioRol}>{textoCambioRol}</div>
 
             <div className="cambio-login">
                 <h2 className="Titulo2">¿YA TIENES UNA CUENTA?</h2>

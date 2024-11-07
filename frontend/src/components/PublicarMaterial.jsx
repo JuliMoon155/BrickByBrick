@@ -3,9 +3,10 @@ import FormularioPublicacionMateriales from "./FormularioPrecentacionMateriales"
 import VistaPreviewMateriales from "./PreViewPublicacionMateriales";
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import "../styles/PublicarMaterial.css";
+import '../styles/HeaderPrincipal.css';
 import { Header } from './Header';
 
-export const PublicacionMateriales = ({ userId, usuario }) => {
+export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
   // Estado para la lista de materiales y el índice del material seleccionado
   const [materiales, setMateriales] = useState([{
     titulo: "",
@@ -57,6 +58,11 @@ export const PublicacionMateriales = ({ userId, usuario }) => {
         alert("La descripción no puede estar vacía.");
         return;
       }
+      const TituloPubli = prompt("Por favor, ingrese el titulo de la Publicacion: ");
+      if (!TituloPubli || TituloPubli.trim() === "") {
+        alert("El Titulo no puede estar vacío.");
+        return;
+      }
 
       const userId = 1; // Cambia esto según sea necesario
       // 1. Crear la publicación principal
@@ -66,6 +72,7 @@ export const PublicacionMateriales = ({ userId, usuario }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          titulo: TituloPubli,
           userId, // Usuario que crea la publicación
           descripcion: descripcionPublicacion, // Enviar la descripción capturada desde el popup
         }),
@@ -134,24 +141,26 @@ export const PublicacionMateriales = ({ userId, usuario }) => {
       <Header />
       <div className="contenedor-publicacion">
         <div className="contenido-publicacion">
-          {/* Formulario Section */}
           <div className="seccion-formulario">
             <FormularioPublicacionMateriales
               material={materiales[indiceMaterialSeleccionado]}
               onCambioMaterial={manejarCambioMaterial}
               usuario={usuario}
             />
-            <button className="boton-primario" onClick={crearNuevoMaterial}>
-              Añadir Nuevo Material
+            <button className="boton boton-primario" onClick={crearNuevoMaterial}>
+              Otro material
             </button>
             {materiales.length > 1 && (
-              <button className="boton-secundario" onClick={eliminarMaterial}>
-                Eliminar Material
+              <button className="boton boton-secundario" onClick={eliminarMaterial}>
+                Eliminar material
               </button>
             )}
+            <div className="seccion-boton-publicacion">
+              <button className="boton-crear-publicacion" onClick={crearPublicacion}>
+                Crear Publicación
+              </button>
+            </div>
           </div>
-
-          {/* Vista Previa Section */}
           <div className="seccion-vista-previa">
             <div className="vista-previa-material">
               <button
@@ -161,9 +170,7 @@ export const PublicacionMateriales = ({ userId, usuario }) => {
               >
                 <ChevronUp className="icono-navegacion" />
               </button>
-
               <VistaPreviewMateriales material={materiales[indiceMaterialSeleccionado]} userId={userId} />
-
               <button
                 className="boton-navegacion abajo"
                 onClick={seleccionarMaterialSiguiente}
@@ -174,14 +181,8 @@ export const PublicacionMateriales = ({ userId, usuario }) => {
             </div>
           </div>
         </div>
-
-        {/* Botón único para crear la publicación completa */}
-        <div className="seccion-boton-publicacion">
-          <button className="boton-crear-publicacion" onClick={crearPublicacion}>
-            Crear Publicación
-          </button>
-        </div>
       </div>
     </>
   );
 };
+

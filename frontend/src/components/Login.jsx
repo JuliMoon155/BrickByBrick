@@ -48,7 +48,6 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
       }
 
       const data = await response.json();
-      console.log(data);
 
       if (credentials.usuario === data.usuario && credentials.password === data.password) {
         onLoginSuccess(data.id, rol, data.usuario);
