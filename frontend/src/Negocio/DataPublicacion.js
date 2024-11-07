@@ -58,26 +58,48 @@ const obtenerPublicacionesBen = async (req, res) => {
 };
 
 //interactuar con la publicacion
-
+// Agregar un like
 const likePublicacionBen = async (req, res) => {
-    console.log("Obteniendo publicacion...");
-    const {fk_idbeneficiario} = req.body;
+    const { id_beneficiario, id_contenidoBeneficiario } = req.body;
+    const tipo = 'like';
+
     try {
-        const resultado = await pool.query("SELECT * FROM PUBLICACIONBEN");
-        // [fk_idbeneficiario]);
-        console.log(resultado);
-        if (resultado.rows.length === 0) {
-            return res.status(404).json({message: "No hay publicaciones existentes"});
-        }
-        console.log(resultado.rows);
-        res.json(resultado.rows);
+        const resultado = await pool.query(
+            'INSERT INTO INTERACCION (tipo, id_beneficiario, id_contenidoBeneficiario) OUTPUT INSERTED.* VALUES (@tipo, @id_beneficiario, @id_contenidoBeneficiario);',
+            [tipo, id_beneficiario, id_contenidoBeneficiario]
+        );
+        res.status(201).json(resultado.recordset[0]);
     } catch (error) {
-        console.error(error);
-        res.status(500).send("Error en el servidor");
+        console.error('Error al agregar like:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
     }
 };
+
+// Eliminar un like
+const removeLikePublicacionBen = async (req, res) => {
+    const { id_interaccion } = req.body;
+
+    try {
+        const resultado = await pool.query(
+            'DELETE FROM INTERACCION OUTPUT DELETED.* WHERE id_interaccion = @id_interaccion;',
+            [id_interaccion]
+        );
+
+        if (resultado.rowsAffected > 0) {
+            res.status(200).json({ message: 'Like eliminado correctamente' });
+        } else {
+            res.status(404).json({ message: 'No se encontró el like para eliminar' });
+        }
+    } catch (error) {
+        console.error('Error al eliminar like:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+
 
 module.exports = {
     crearPublicacionBen,
     obtenerPublicacionesBen,
+    likePublicacionBen,
+    removeLikePublicacionBen,
 };

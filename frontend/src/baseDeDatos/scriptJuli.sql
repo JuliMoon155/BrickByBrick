@@ -34,6 +34,18 @@ CREATE TABLE Imagen (
   FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen(ID)
 );
 
+
+
+CREATE TABLE INTERACCION(
+  Id_interaccion SERIAL PRIMARY KEY,
+  Tipo VARCHAR(100) NOT NULL,
+  FK_idPublicacionBen INTEGER NOT NULL,
+  FK_idBeneficiario INTEGER NOT NULL,
+  FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen(ID),
+  FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
+);
+
+
 CREATE TABLE PublicacionDon (
   Id_Publicacion SERIAL PRIMARY KEY,
   Fecha_Publicacion DATE NOT NULL,
