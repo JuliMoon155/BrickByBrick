@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "..//styles/Registro.css";
+//import '../styles/Registro.css';
 
 export const Registro = ({ onLogin }) => {
 

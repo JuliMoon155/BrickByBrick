@@ -6,6 +6,8 @@ const { crearPublicacion, buscarPublicacion} = require("./DataPublicacionDonacio
 const { agregarImagen } = require("./DataImagen");
 const { agregarMateriales } = require("./DataMateriales");
 const { crearPublicacionBen,obtenerPublicacionesBen } = require('./DataPublicacion');
+const { crearInscripcion } = require("./DataInscripcion");
+
 
 const path = require("path");
 const multer = require("multer");
@@ -39,5 +41,6 @@ router.post("/crearimagen", upload.single("imagen"), agregarImagen);
 router.get("/ObPublicacionesBen", obtenerPublicacionesBen);
 router.post("/PublicacionesBen", crearPublicacionBen);
 router.post("/BuscarPublicacion", buscarPublicacion);
+router.post("/CrearInscripcion", crearInscripcion);
 
 module.exports = router;

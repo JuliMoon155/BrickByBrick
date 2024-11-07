@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+
 export default function VistaPreviewMateriales({ material }) {
   const [indiceImagenActual, setIndiceImagenActual] = useState(0);
 

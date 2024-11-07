@@ -2,13 +2,14 @@ import { Registro } from './components/Registro';
 import { Login } from './components/Login';
 import { PublicacionMateriales } from './components/PublicarMaterial';
 import { HomePage } from './components/HomePage';
+import Inscripcion from './components/Inscripcion';
 import React, { useState } from 'react';
 import {Contenido} from "./components/Contenido";
 
 function App() {
   const [interfaz, setInterfaz] = useState('Login');
   const [userId, setUserId] = useState(null);
-  const [userUsuario, setUserUsuario] = useState(null);
+  const [usuario, setUsuario] = useState(null);
   const [userRol, setUserRol] = useState(null);
 
   const cambiarInterfaz = (nuevaInterfaz) => {
@@ -17,7 +18,7 @@ function App() {
 
   const handleLoginSuccess = (id, rol, usuario) => {
     setUserId(id);
-    setUserUsuario(usuario);
+    setUsuario(usuario);
     setUserRol(rol);
     console.log(id+" id"+usuario+" usuario"+rol+" rol");
     if (rol === 'Beneficiario') { 
@@ -39,14 +40,18 @@ function App() {
         <Registro onLogin={() => cambiarInterfaz('Login')} />
       )}
       {interfaz === 'HomePage' && (
-        <HomePage usuario={userUsuario} userId={userId} userRol={userRol} />
+        <HomePage usuario={usuario} userId={userId} userRol={userRol} />
       )}
       {interfaz === 'PublicacionMateriales' && (
-      <PublicacionMateriales usuario={userUsuario} userId={userId}/>
+
+        <PublicacionMateriales usuario={usuario} userId={userId} cambiarInterfaz={cambiarInterfaz}/>
       )} 
       {/* Paso el userId a Contenido */}
       {interfaz === 'Contenido' && (
-        <Contenido usuario={userUsuario} userId={userId} />
+        <Contenido usuario={usuario} userId={userId} />
+      )}
+      {interfaz === 'Inscripcion' && (
+          <Inscripcion fk_idPublicacionDon={"1"} userId={userId} cambiarInterfaz={cambiarInterfaz}/>
       )}
     </>
   );
