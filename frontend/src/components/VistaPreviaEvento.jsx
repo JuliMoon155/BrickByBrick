@@ -10,7 +10,7 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
     const [materialActual, setMaterialActual] = useState(0);
     const [imagenActual, setImagenActual] = useState(0);
 
-    useEffect(() => {
+    /*useEffect(() => {
         const obtenerMateriales = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/api/materiales/${idPublicacion}`);
@@ -24,7 +24,7 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
         };
 
         obtenerMateriales();
-    }, [idPublicacion]);
+    }, [idPublicacion]);*/
 
     const cambiarImagen = (direccion) => {
         const totalImagenes = materiales[materialActual].Imagenes.length;
@@ -83,7 +83,7 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
                         </div>
                     )}
                 </div>
-                <button className="boton" onClick={() => Inscript(idPublicacion)}>
+                <button className="boton" onClick={() => Inscript(publicacion.id)}>
                     Ir a Inscripción
                 </button>
             </div>
