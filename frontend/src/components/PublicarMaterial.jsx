@@ -65,6 +65,15 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
       }
 
       let elementoFechaEvento = document.getElementById("entrada-fecha-evento");
+      let elementoHoraEvento = document.getElementById("entrada-hora-evento");
+      let elementoUbicacionEvento = document.getElementById("entrada-ubicacion-evento");
+      let elementoFechaCierre = document.getElementById("entrada-fecha-cierre");
+
+      if (elementoFechaCierre.value <= elementoFechaEvento.value) {
+        alert("La fecha de cierre de la publicación tiene que ser mayor a la fecha del evento.");
+        return;
+      }
+
       const userId = 1; // Cambia esto según sea necesario
       // 1. Crear la publicación principal
       const responsePublicacion = await fetch('http://localhost:5000/api/crearpublicacion', {
@@ -77,6 +86,9 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
           userId, // Usuario que crea la publicación
           descripcion: descripcionPublicacion, // Enviar la descripción capturada desde el popup
           fechaEvento: elementoFechaEvento.value,
+          horaEvento: elementoHoraEvento.value,
+          ubicacionEvento: elementoUbicacionEvento.value,
+          fechaCierre: elementoFechaCierre.value,
         }),
       });
 
@@ -145,19 +157,27 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
         <div className="contenido-publicacion">
           <div className="seccion-formulario">
             <FormularioPublicacionMateriales
-              material={materiales[indiceMaterialSeleccionado]}
-              onCambioMaterial={manejarCambioMaterial}
-              usuario={usuario}
+                material={materiales[indiceMaterialSeleccionado]}
+                onCambioMaterial={manejarCambioMaterial}
+                usuario={usuario}
             />
+            <label htmlFor="entrada-fecha-cierre">Fecha de cierre de la publicación</label>
+            <input type="date" className="campo-entrada" id="entrada-fecha-cierre"/>
+            <h2>Evento</h2>
             <label htmlFor="entrada-fecha-evento">Fecha del evento</label>
             <input type="date" className="campo-entrada" id="entrada-fecha-evento"/>
+            <label htmlFor="entrada-hora-evento">Hora del evento</label>
+            <input type="time" className="campo-entrada" id="entrada-hora-evento"/>
+            <label htmlFor="entrada-ubicacion-evento">Ubicación del evento</label>
+            <input type="text" className="campo-entrada" id="entrada-ubicacion-evento"
+                   placeholder="Da indicaciones de cómo llegar al lugar del evento"/>
             <button className="boton boton-primario" onClick={crearNuevoMaterial}>
               Otro material
             </button>
             {materiales.length > 1 && (
-              <button className="boton boton-secundario" onClick={eliminarMaterial}>
-                Eliminar material
-              </button>
+                <button className="boton boton-secundario" onClick={eliminarMaterial}>
+                  Eliminar material
+                </button>
             )}
             <div className="seccion-boton-publicacion">
               <button className="boton-crear-publicacion" onClick={crearPublicacion}>
@@ -168,7 +188,7 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
           <div className="seccion-vista-previa">
             <div className="vista-previa-material">
               <button
-                className="boton-navegacion arriba"
+                  className="boton-navegacion arriba"
                 onClick={seleccionarMaterialAnterior}
                 disabled={indiceMaterialSeleccionado === 0}
               >
