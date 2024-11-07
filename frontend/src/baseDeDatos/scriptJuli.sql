@@ -47,6 +47,8 @@ create table publicaciondon
     titulo              varchar(100) not null,
     fecha_publicacion   date         not null,
     fecha_evento        date         not null,
+    hora_evento         time not null,
+    ubicacion_evento    varchar(200) not null,
     estado              varchar(100) not null,
     cantidad_disponible integer      not null,
     descripcion         varchar(100) not null,
@@ -84,6 +86,8 @@ create type publicacion_parcial as
     descripcion       varchar(100),
     fecha_publicacion date,
     fecha_evento      date,
+    hora_evento       time,
+    ubicacion_evento  varchar(200),
     fecha_cierre      date
 );
 
@@ -194,7 +198,7 @@ begin
             -- se asignan los valores al resultado
             resultado.publicacion
                 := (publicacion.id_publicacion, publicacion.titulo, publicacion.descripcion,
-                    publicacion.fecha_publicacion, publicacion.fecha_evento,
+                    publicacion.fecha_publicacion, publicacion.fecha_evento, publicacion.hora_evento, publicacion.ubicacion_evento,
                     publicacion.fecha_cierre)::publicacion_parcial;
             resultado.empresa
                 := vempresa;
@@ -230,7 +234,7 @@ insert into empresa
 values (default, 'Paulo', '1234', 'Una empresa feliz', 'Juan');
 
 insert into publicaciondon
-values (default, 'ladrillos de varios colores', now(), now() + interval '1 day', 'ok', 10,
+values (default, 'ladrillos de varios colores', now(), now() + interval '1 day', '10:00 am'::time, 'En el centro', 'ok', 10,
         'esta es la primera publicación',
         now() + interval '10 day', 1);
 insert into material_donar
@@ -246,7 +250,7 @@ insert into material_donar
 values (default, 'ladrillo morado', 20, 'nuevo', 'como los ladrillos grises, pero morado', 'AGLOMERADOS', 1);
 
 insert into publicaciondon
-values (default, 'ladrillos de colores varios', now(), now() + interval '1 day', 'ok', 10,
+values (default, 'ladrillos de colores varios', now(), now() + interval '1 day', '10:00 am'::time, 'En el norte', 'ok', 10,
         'esta es la segunda publicación',
         now() + interval '20 day', 2);
 insert into material_donar
@@ -264,7 +268,7 @@ values (default, 'ladrillo rosado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
 
 
 insert into publicaciondon
-values (default, 'más ladrillos', now(), now() + interval '1 day', 'ok', 10, 'esta es la tercera publicación',
+values (default, 'más ladrillos', now(), now() + interval '1 day', '10:00 am'::time, 'En el sur', 'ok', 10, 'esta es la tercera publicación',
         now() + interval '30 day', 3);
 insert into material_donar
 values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
