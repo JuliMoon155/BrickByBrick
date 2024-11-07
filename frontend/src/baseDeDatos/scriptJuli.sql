@@ -47,7 +47,7 @@ create table publicaciondon
     titulo              varchar(100) not null,
     fecha_publicacion   date         not null,
     fecha_evento        date         not null,
-    hora_evento         time not null,
+    hora_evento         time         not null,
     ubicacion_evento    varchar(200) not null,
     estado              varchar(100) not null,
     cantidad_disponible integer      not null,
@@ -77,6 +77,19 @@ create table imagenes_material
     fk_id_material integer not null,
     foreign key (fk_id_material) references material_donar (id_material),
     unique (fk_id_material, id_imagen) -- garantiza que cada imagen tenga un id único por material
+);
+
+create table inscripcion
+(
+    id_inscripcion      serial primary key,
+    fk_idpublicaciondon integer             not null,
+    fk_idbeneficiario   integer             not null,
+    nombre              varchar(100)        not null,
+    apellido            varchar(100)        not null,
+    celular             varchar(100)        not null,
+    correo              varchar(100) unique not null,
+    foreign key (fk_idpublicaciondon) references publicaciondon (id_publicacion),
+    foreign key (fk_idbeneficiario) references beneficiario (id)
 );
 
 create type publicacion_parcial as
@@ -198,7 +211,8 @@ begin
             -- se asignan los valores al resultado
             resultado.publicacion
                 := (publicacion.id_publicacion, publicacion.titulo, publicacion.descripcion,
-                    publicacion.fecha_publicacion, publicacion.fecha_evento, publicacion.hora_evento, publicacion.ubicacion_evento,
+                    publicacion.fecha_publicacion, publicacion.fecha_evento, publicacion.hora_evento,
+                    publicacion.ubicacion_evento,
                     publicacion.fecha_cierre)::publicacion_parcial;
             resultado.empresa
                 := vempresa;
@@ -218,7 +232,7 @@ insert into beneficiario
 values (default, 'andrés moreno', 'andmoreduro', 'safic913@gmail.com', '3045879324', '1193228375', 'contravivir',
         '2002-05-10');
 insert into beneficiario
-values (default, 'Pul', 'teo', 'spdpsdad', '2313131', '1000101', '1234', now());
+values (default, 'pul', 'teo', 'spdpsdad', '2313131', '1000101', '1234', now());
 
 insert into empresa
 values (default, 'basureros del centro', 'centro', 'recogemos basura, adivinado dónde, en el centro', 'centro');
@@ -231,54 +245,57 @@ values (default, 'basureros del este', 'este', 'recogemos basura, adivina dónde
 insert into empresa
 values (default, 'basureros del oeste', 'oeste', 'recogemos basura, adivina dónde, en el oeste', 'oeste');
 insert into empresa
-values (default, 'Paulo', '1234', 'Una empresa feliz', 'Juan');
+values (default, 'paulo', '1234', 'una empresa feliz', 'juan');
 
 insert into publicaciondon
-values (default, 'ladrillos de varios colores', now(), now() + interval '1 day', '10:00 am'::time, 'En el centro', 'ok', 10,
+values (default, 'ladrillos de varios colores', now(), now() + interval '1 day', '10:00 am'::time, 'en el centro', 'ok',
+        10,
         'esta es la primera publicación',
         now() + interval '10 day', 1);
 insert into material_donar
 values (default, 'ladrillo rojo', floor(random() * 25 - 10 + 1) + 10, 'nuevo', 'como los ladrillos grises, pero rojo',
-        'AGLOMERADOS', 1);
+        'aglomerados', 1);
 insert into material_donar
 values (default, 'ladrillo azul', floor(random() * 25 - 10 + 1) + 10, 'nuevo', 'como los ladrillos grises, pero azul',
-        'AGLOMERADOS', 1);
+        'aglomerados', 1);
 insert into material_donar
 values (default, 'ladrillo verde', floor(random() * 25 - 10 + 1) + 10, 'nuevo', 'como los ladrillos grises, pero verde',
-        'AGLOMERADOS', 1);
+        'aglomerados', 1);
 insert into material_donar
-values (default, 'ladrillo morado', 20, 'nuevo', 'como los ladrillos grises, pero morado', 'AGLOMERADOS', 1);
+values (default, 'ladrillo morado', 20, 'nuevo', 'como los ladrillos grises, pero morado', 'aglomerados', 1);
 
 insert into publicaciondon
-values (default, 'ladrillos de colores varios', now(), now() + interval '1 day', '10:00 am'::time, 'En el norte', 'ok', 10,
+values (default, 'ladrillos de colores varios', now(), now() + interval '1 day', '10:00 am'::time, 'en el norte', 'ok',
+        10,
         'esta es la segunda publicación',
         now() + interval '20 day', 2);
 insert into material_donar
 values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero plateado', 'AGLOMERADOS', 2);
+        'como los ladrillos grises, pero plateado', 'aglomerados', 2);
 insert into material_donar
 values (default, 'ladrillo dorado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero dorado', 'AGLOMERADOS', 2);
+        'como los ladrillos grises, pero dorado', 'aglomerados', 2);
 insert into material_donar
 values (default, 'ladrillo carmesí', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero carmesí', 'AGLOMERADOS', 2);
+        'como los ladrillos grises, pero carmesí', 'aglomerados', 2);
 insert into material_donar
 values (default, 'ladrillo rosado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero rosado', 'AGLOMERADOS', 2);
+        'como los ladrillos grises, pero rosado', 'aglomerados', 2);
 
 
 insert into publicaciondon
-values (default, 'más ladrillos', now(), now() + interval '1 day', '10:00 am'::time, 'En el sur', 'ok', 10, 'esta es la tercera publicación',
+values (default, 'más ladrillos', now(), now() + interval '1 day', '10:00 am'::time, 'en el sur', 'ok', 10,
+        'esta es la tercera publicación',
         now() + interval '30 day', 3);
 insert into material_donar
 values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero plateado', 'AGLOMERADOS', 3);
+        'como los ladrillos grises, pero plateado', 'aglomerados', 3);
 insert into material_donar
 values (default, 'ladrillo dorado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero dorado', 'AGLOMERADOS', 3);
+        'como los ladrillos grises, pero dorado', 'aglomerados', 3);
 insert into material_donar
 values (default, 'ladrillo carmesí', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero carmesí', 'AGLOMERADOS', 3);
+        'como los ladrillos grises, pero carmesí', 'aglomerados', 3);
 insert into material_donar
 values (default, 'ladrillo rosado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero rosado', 'AGLOMERADOS', 3);
+        'como los ladrillos grises, pero rosado', 'aglomerados', 3);
