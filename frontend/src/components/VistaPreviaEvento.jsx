@@ -7,8 +7,26 @@ import PropTypes from "prop-types";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 
 function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Inscript}) {
-    return (
-        <div className="contenedor-vista-previa">
+  function elPopup(){
+    <Popup trigger={
+      <div className="detalles-material">
+      {materiales.map((material) =>
+          <>
+              <h2>Material {material.id}</h2>
+              <p><strong>Nombre:</strong> {material.nombre}</p>
+              <p><strong>Descripción:</strong> {material.descripcion}</p>
+              <p><strong>Cantidad:</strong> {material.cantidad}</p>
+              <p><strong>Estado:</strong> {material.estado}</p>
+              <p><strong>Categoría:</strong> {material.categoria}</p>
+          </>
+      )}
+  </div>
+    } position={"center center"}>
+
+    </Popup>
+  }  
+  return (
+        <div className="contenedor-vista-previa" onClick={elPopup}>
             <div className="material-info">
                 <img
                     src={`https://picsum.photos/200/300?random=${publicacion.id}`}
@@ -18,22 +36,6 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
                 <div className="contenedor-vista-previa-informacion">
                     <h2 className="titulo-material">{publicacion.titulo}</h2>
                     <p className="descripcion-material">{publicacion.descripcion}</p>
-                    <Popup trigger={
-                      <div className="detalles-material">
-                      {materiales.map((material) =>
-                          <>
-                              <h2>Material {material.id}</h2>
-                              <p><strong>Nombre:</strong> {material.nombre}</p>
-                              <p><strong>Descripción:</strong> {material.descripcion}</p>
-                              <p><strong>Cantidad:</strong> {material.cantidad}</p>
-                              <p><strong>Estado:</strong> {material.estado}</p>
-                              <p><strong>Categoría:</strong> {material.categoria}</p>
-                          </>
-                      )}
-                  </div>
-                    } position={"center center"}>
-
-                    </Popup>
 
                     {/*{materiales[0].Imagenes.length > 1 && (*/}
                     {/*    <div className="navegacion-imagenes">*/}
