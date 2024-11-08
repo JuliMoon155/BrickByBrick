@@ -45,7 +45,7 @@ function App() {
         <Registro onLogin={() => cambiarInterfaz('Login')} />
       )}
       {interfaz === 'HomePage' && (
-        <HomePage usuario={usuario} userId={userId} userRol={userRol} />
+        <HomePage usuario={usuario} userId={userId} userRol={userRol} inscript={InscripcionDatos} />
       )}
       {interfaz === 'PublicacionMateriales' && (
 
