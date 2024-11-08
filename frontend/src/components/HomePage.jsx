@@ -7,7 +7,7 @@ import {Donaciones} from "./Donaciones";
 import profileDefault from '../imgTemp/profileDefault.png';
 
 
-export const HomePage = ({ userId, usuario, userRol, inscript }) => {
+export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz }) => {
     const [contenido_foryou, setContenido_foryou] = useState(<Contenido userId={userId} usuario={usuario} />);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export const HomePage = ({ userId, usuario, userRol, inscript }) => {
 
   return (
     <div className='HomePage'>
-      <Header />
+      <Header cambiarInterfaz={cambiarInterfaz} />
       <div className='Contenido'>
       <div className='perfil'>
           <div className='infoPersonal'>
@@ -30,11 +30,8 @@ export const HomePage = ({ userId, usuario, userRol, inscript }) => {
             <h4 className="titCorreoAct">Email</h4><input type="email" placeholder='UserEmail' className='correoAct'></input>
             <h4 className="titCelularAct">Celular</h4><input type="number" placeholder='UserPhone' className='celularAct'></input>
             <h4 className="titClaveAct">Clave</h4><input type="password" placeholder='Contraseña' className='claveAct'></input>
-<<<<<<< HEAD
             <button className='actDatos' onClick="#">Actualizar</button>
-=======
             <button className='actDatos'>Actualizar</button>
->>>>>>> 1eeed733525e3615394965100f59e86b787446d2
           </div>
         </div>
         <div className='forYou'>

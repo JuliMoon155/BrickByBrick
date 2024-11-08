@@ -152,7 +152,7 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
 
   return (
     <>
-      <Header />
+      <Header esEmpresa={true} cambiarInterfaz={cambiarInterfaz}/>
       <div className="contenedor-publicacion">
         <div className="contenido-publicacion">
           <div className="seccion-formulario">

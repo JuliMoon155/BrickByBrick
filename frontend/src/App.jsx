@@ -4,6 +4,7 @@ import { PublicacionMateriales } from './components/PublicarMaterial';
 import { HomePage } from './components/HomePage';
 import Inscripcion from './components/Inscripcion';
 import React, { useState } from 'react';
+import {VistaMaterialesPublicados} from "./components/VistaMaterialesPublicados";
 
 function App() {
   const [interfaz, setInterfaz] = useState('Login');
@@ -45,7 +46,7 @@ function App() {
         <Registro onLogin={() => cambiarInterfaz('Login')} />
       )}
       {interfaz === 'HomePage' && (
-        <HomePage usuario={usuario} userId={userId} userRol={userRol} inscript={InscripcionDatos} />
+        <HomePage usuario={usuario} userId={userId} userRol={userRol} inscript={InscripcionDatos} cambiarInterfaz={cambiarInterfaz}/>
       )}
       {interfaz === 'PublicacionMateriales' && (
 
@@ -53,6 +54,9 @@ function App() {
       )} 
       {interfaz === 'Inscripcion' && (
           <Inscripcion fk_idPublicacionDon={idPublicacion} userId={userId} cambiarInterfaz={cambiarInterfaz}/>
+      )}
+      {interfaz === 'ListaMateriales' && (
+          <VistaMaterialesPublicados idEmpresa={userId} cambiarInterfaz={cambiarInterfaz}/>
       )}
     </>
   );

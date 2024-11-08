@@ -1,6 +1,7 @@
 .container_grande {
     display: flex;
     background-color: lightgray;
+    margin-top: 3%;
 }
 
 .container_informacion {
