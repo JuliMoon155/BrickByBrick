@@ -11,6 +11,7 @@ export const Contenido = ({ userId, usuario}) => {
 
 // const fechaActual = new Date();
 const [showPopup, setShowPopup] = useState(false); 
+const [showPopupEdit, setShowPopupEdit] = useState(false); 
 const [contenido, setContenido] = useState(''); 
 const [fecha_publicacion, setFecha_publicacion] = useState(''); 
 const [fk_idbeneficiario, setFk_idbeneficiario] = useState(1);
@@ -75,6 +76,10 @@ const toggleCommentVisibility = (index) => {
     setShowPopup(!showPopup); 
   };
 
+  const handlePopupEdit = () => {
+    setShowPopupEdit(!showPopupEdit); 
+  };
+
   const handleContenidoChange = (e) => {
     setContenido(e.target.value);
   };
@@ -107,8 +112,32 @@ const toggleCommentVisibility = (index) => {
         console.error("Error al guardar la publicacion:", error);
         alert("error");
     }
-    
   };
+
+  const handleDelete = async (id) => {
+    try {
+        const endpoint = `http://localhost:5000/api/EliminarPublicacion/${id}`;
+        const response = await fetch(endpoint, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al eliminar la publicación');
+        }
+
+        const data = await response.json();
+        console.log('Publicación eliminada:', data);
+        alert('Publicación eliminada con éxito');
+
+        fetchPublicaciones(); 
+    } catch (error) {
+        console.error('Error al eliminar la publicación:', error);
+        alert('Error al eliminar la publicación');
+    }
+};
 
   const toggleDropdown = (index) => {  // Using index here
     setDropdownStates((prevStates) => {
@@ -144,8 +173,8 @@ const toggleCommentVisibility = (index) => {
               >⋮</div>
               {dropdownStates[index] && ( // Checking dropdownStates[index] for condition
                 <div className="dropdownMenu">
-                  <button id='editPBen' onClick={() => console.log("Edit post")}>Editar</button>
-                  <button id='deletePBen' onClick={() => console.log("Delete post")}>Eliminar</button>
+                  <button id='editPBen' onClick={handlePopupEdit}>Editar</button>
+                  <button id='deletePBen'onClick={() => handleDelete(publicacion.id)}>Eliminar</button>
                   <button onClick={() => console.log("Report post")}>Reportar</button>
                 </div>
               )}
@@ -198,6 +227,24 @@ const toggleCommentVisibility = (index) => {
             </div>
             </div>
         )}
+
+        {/* Popup editar */}
+        {showPopupEdit && (
+            <div className="popup">
+            <div className="popup-inner">
+                <h2>Editar Publicación</h2>
+                <textarea
+                placeholder="Edita la publicación..."
+                value={publicaciones.contenido}
+                onChange={handleContenidoChange}
+                />
+                <div className="popup-actions">
+                <button onClick={handleSubmit}>Guardar</button>
+                <button onClick={handlePopupEdit}>Cancelar</button>
+                </div>
+            </div>
+            </div>
+        )}        
         </>
   );
 };

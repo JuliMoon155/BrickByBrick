@@ -57,6 +57,28 @@ const obtenerPublicacionesBen = async (req, res) => {
     }
 };
 
+
+const deletePublicacionBen = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const resultado = await pool.query(
+            'DELETE FROM PUBLICACIONBEN WHERE id = $1 RETURNING *;',
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({ message: 'Publicación no encontrada' });
+        }
+
+        res.status(200).json({ message: 'Publicación eliminada con éxito' });
+    } catch (error) {
+        console.error('Error al eliminar la publicación:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+
+
 //interactuar con la publicacion
 // Agregar un like
 const likePublicacionBen = async (req, res) => {
@@ -102,4 +124,5 @@ module.exports = {
     obtenerPublicacionesBen,
     likePublicacionBen,
     removeLikePublicacionBen,
+    deletePublicacionBen,
 };
