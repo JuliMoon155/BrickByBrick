@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import VistaPreviaEvento from "./VistaPreviaEvento";
+import iconoFiltro from '../imgTemp/icons8-filter-solo.png';
 
 export function Donaciones( {inscript} ) {
     const categoriasDisponibles = ["aglomerantes", "aglomerados", "metálicos", "orgánicos"];
@@ -123,7 +124,7 @@ export function Donaciones( {inscript} ) {
         <>
             <button className='addPublicacion' onClick={() => {
                 setPopup(componentePopup)
-            }}>Filtros
+            }}><img src={iconoFiltro}/>
             </button>
             <input className='buscar' placeholder='Buscar' onChange={handleCambioTextoBusqueda}
                    onKeyUp={handleEnterBusqueda}/>
