@@ -3,8 +3,10 @@ import { Login } from './components/Login';
 import { PublicacionMateriales } from './components/PublicarMaterial';
 import { HomePage } from './components/HomePage';
 import Inscripcion from './components/Inscripcion';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {VistaMaterialesPublicados} from "./components/VistaMaterialesPublicados";
+
+
 
 function App() {
   const [interfaz, setInterfaz] = useState('Login');
@@ -12,16 +14,19 @@ function App() {
   const [usuario, setUsuario] = useState(null);
   const [idPublicacion, setIdPublicacion] = useState(null);
   const [userRol, setUserRol] = useState(null);
+  const [data, setData] = useState([]);
+
 
   const cambiarInterfaz = (nuevaInterfaz) => {
     setInterfaz(nuevaInterfaz);
   };
 
-  const handleLoginSuccess = (id, rol, usuario) => {
+  const handleLoginSuccess = (id, rol, usuario, data) => {
     setUserId(id);
     setUsuario(usuario);
     setUserRol(rol);
     console.log(id+" id"+usuario+" usuario"+rol+" rol");
+    setData(data);
     if (rol === 'Beneficiario') { 
       cambiarInterfaz('HomePage');
     } else if (rol === 'Empresario'){

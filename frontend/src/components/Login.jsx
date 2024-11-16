@@ -34,7 +34,6 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
     }
 
     try {
-      console.log(endpoint);
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -48,10 +47,8 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
       }
 
       const data = await response.json();
-
       if (credentials.usuario === data.usuario && credentials.password === data.password) {
-        onLoginSuccess(data.id, rol, data.usuario);
-        localStorage.setItem("usuarioActivo", data); //Cosas de Maycol para la vista de perfil, los amo
+        onLoginSuccess(data.id, rol, data.usuario, data);
       } else {
         alert("Usuario o contraseña incorrectos.");
       }

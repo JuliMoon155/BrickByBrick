@@ -55,6 +55,27 @@ create table publicaciondon
     fecha_cierre        date         not null,
     fk_idempresa        integer      not null,
     foreign key (fk_idempresa) references empresa (id)
+
+
+CREATE TABLE INTERACCION(
+  Id_interaccion SERIAL PRIMARY KEY,
+  Tipo VARCHAR(100) NOT NULL,
+  FK_idPublicacionBen INTEGER NOT NULL,
+  FK_idBeneficiario INTEGER NOT NULL,
+  FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen(ID),
+  FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
+);
+
+
+CREATE TABLE PublicacionDon (
+  Id_Publicacion SERIAL PRIMARY KEY,
+  Fecha_Publicacion DATE NOT NULL,
+  Estado VARCHAR(100) NOT NULL,
+  Descripcion VARCHAR(100) NOT NULL,
+  Cantidad_Disponible INTEGER NOT NULL,
+  Fecha_Cierre DATE NOT NULL,
+  FK_idEmpresa INTEGER NOT NULL,
+  FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa(ID)
 );
 
 

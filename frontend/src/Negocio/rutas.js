@@ -5,9 +5,8 @@ const { obtenerEmpresa, crearEmpresa } = require("./DataEmpresa");
 const { crearPublicacion, buscarPublicacion} = require("./DataPublicacionDonacion");
 const { agregarImagen } = require("./DataImagen");
 const { agregarMateriales, obtenerMaterialesDonados, setCantidadMaterial} = require("./DataMateriales");
-const { crearPublicacionBen,obtenerPublicacionesBen } = require('./DataPublicacion');
 const { crearInscripcion } = require("./DataInscripcion");
-
+const { crearPublicacionBen,obtenerPublicacionesBen, likePublicacionBen, removeLikePublicacionBen, deletePublicacionBen } = require('./DataPublicacion');
 
 const path = require("path");
 const multer = require("multer");
@@ -44,5 +43,8 @@ router.post("/BuscarPublicacion", buscarPublicacion);
 router.post("/CrearInscripcion", crearInscripcion);
 router.post("/BuscarMaterialesPorDonar", obtenerMaterialesDonados);
 router.post("/SetCantidadMaterial", setCantidadMaterial);
+router.delete('/EliminarPublicacion/:id', deletePublicacionBen);
+router.post("/like", likePublicacionBen);  // Para agregar un like
+router.delete("/like", removeLikePublicacionBen);  // Para eliminar un like
 
 module.exports = router;

@@ -37,7 +37,6 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
                     src={`https://picsum.photos/200/300?random=${publicacion.id}`}
                     alt={`Una imagen random`}
                     className="imagen-material"
-
                 />
                     <h2 className="titulo-material">{publicacion.titulo}</h2>
                     <p className="descripcion-material">{publicacion.descripcion}</p>
@@ -93,12 +92,9 @@ VistaPreviaEvento.propTypes = {
     publicacion: PropTypes.shape({
         descripcion: PropTypes.string,
         fecha_cierre: PropTypes.string,
-        fecha_evento: PropTypes.string,
         fecha_publicacion: PropTypes.string,
-        hora_evento: PropTypes.string,
         id: PropTypes.number,
         titulo: PropTypes.string,
-        ubicacion_evento: PropTypes.string,
     }),
     empresa: PropTypes.shape({
         descripcion: PropTypes.string,
