@@ -42,7 +42,7 @@ const Inscripcion = ({ userId, fk_idPublicacionDon, cambiarInterfaz }) => {
 
   const handleCloseCreatedModal = () => {
     setShowCreatedModal(false);
-    cambiarInterfaz("PublicacionMateriales");
+    cambiarInterfaz("HomePage");
   };
 
   const handleCloseCanceledModal = () => {
@@ -110,7 +110,7 @@ const Inscripcion = ({ userId, fk_idPublicacionDon, cambiarInterfaz }) => {
           </label>
         </div>
         <div className={styles["form-buttons"]}>
-          <button type="submit" className={styles["form-submit-button"]}>Crear Inscripción</button>
+          <button type="submit" className={styles["form-submit-button"]} >Crear Inscripción</button>
           <button type="button" className={styles["form-cancel-button"]} onClick={() => cambiarInterfaz("HomePage")}>
             Cancelar
           </button>

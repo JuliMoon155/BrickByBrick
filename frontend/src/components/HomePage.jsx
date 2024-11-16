@@ -30,11 +30,7 @@ export const HomePage = ({ userId, usuario, userRol, inscript }) => {
             <h4 className="titCorreoAct">Email</h4><input type="email" placeholder='UserEmail' className='correoAct'></input>
             <h4 className="titCelularAct">Celular</h4><input type="number" placeholder='UserPhone' className='celularAct'></input>
             <h4 className="titClaveAct">Clave</h4><input type="password" placeholder='Contraseña' className='claveAct'></input>
-<<<<<<< HEAD
-            <button className='actDatos' onClick="#">Actualizar</button>
-=======
             <button className='actDatos'>Actualizar</button>
->>>>>>> 1eeed733525e3615394965100f59e86b787446d2
           </div>
         </div>
         <div className='forYou'>
@@ -42,7 +38,7 @@ export const HomePage = ({ userId, usuario, userRol, inscript }) => {
           <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido />)}}>
             <span>Contenido</span>
           </div>
-          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones inscript = {inscript} />)}} >
+          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones inscript = {inscript}/>)}} >
             <span>Donaciones</span>
             </div>
           </div>
