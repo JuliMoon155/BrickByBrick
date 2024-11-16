@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react";
 import VistaPreviaEvento from "./VistaPreviaEvento";
+import iconoFiltro from '../imgTemp/icons8-filter-solo.png';
 
 export function Donaciones( {inscript} ) {
     const categoriasDisponibles = ["aglomerantes", "aglomerados", "metálicos", "orgánicos"];
 
     const [textoBusqueda, setTextoBusqueda] = useState("");
-    const [cantidadMinima, setCantidadMinima] = useState("");
-    const [cantidadMaxima, setCantidadMaxima] = useState("");
+    let [cantidadMinima, setCantidadMinima] = useState("");
+    let [cantidadMaxima, setCantidadMaxima] = useState("");
     const [listaCategorias, setListaCategorias] = useState([]);
     const [resultados, setResultados] = useState([]);
     const [popup, setPopup] = useState(<></>);
@@ -16,7 +17,7 @@ export function Donaciones( {inscript} ) {
         console.log(evento.target.value);
     };
 
-    const buscar = async (busqueda) => {
+    const obtenerResultadosBusqueda = async (busqueda) => {
         const respuestaBusqueda = await fetch("http://localhost:5000/api/BuscarPublicacion", {
             method: "POST",
             headers: {
@@ -30,27 +31,35 @@ export function Donaciones( {inscript} ) {
         return await respuestaBusqueda.json();
     }
 
+    const buscar = async () => {
+        const busqueda = {
+            texto: textoBusqueda,
+            categorias: listaCategorias,
+            cantidad_minima: cantidadMinima === "" ? "-1" : cantidadMinima,
+            cantidad_maxima: cantidadMaxima === "" ? "-1" : cantidadMaxima,
+        }
+        console.log(busqueda);
+        const data = await obtenerResultadosBusqueda(busqueda);
+        console.log(data);
+        setResultados(data);
+    }
+
     const handleEnterBusqueda = async (evento) => {
         if (evento.key === "Enter") {
-            const busqueda = {
-                texto: textoBusqueda,
-                categorias: listaCategorias,
-                cantidad_minima: cantidadMinima === "" ? "-1" : cantidadMinima,
-                cantidad_maxima: cantidadMaxima === "" ? "-1" : cantidadMaxima,
-            }
-            const data = await buscar(busqueda);
-            setResultados(data);
+            await buscar();
         }
     };
 
     const handleCambioCantidadMinima = (evento) => {
-        setCantidadMinima(evento.target.value);
-        console.log(evento.target.value);
+        cantidadMinima = evento.target.value;
+        setCantidadMinima(cantidadMinima);
+        console.log(cantidadMinima);
     };
 
     const handleCambioCantidadMaxima = (evento) => {
-        setCantidadMaxima(evento.target.value);
-        console.log(evento.target.value);
+        cantidadMaxima = evento.target.value;
+        setCantidadMaxima(cantidadMaxima);
+        console.log(cantidadMaxima);
     };
 
     const handleChangeCategoria = (evento, categoria) => {
@@ -60,6 +69,7 @@ export function Donaciones( {inscript} ) {
         } else {
             listaCategorias.splice(indice, 1);
         }
+        setListaCategorias(listaCategorias);
         console.log(listaCategorias);
     };
 
@@ -92,8 +102,9 @@ export function Donaciones( {inscript} ) {
                         </ul>
                     </div>
                     <div className="popup-actions">
-                        <button onClick={() => {
+                        <button onClick={async () => {
                             setPopup(<></>);
+                            await buscar();
                         }}>OK
                         </button>
                     </div>
@@ -104,15 +115,7 @@ export function Donaciones( {inscript} ) {
 
     useEffect(() => {
         async function cargarEventos() {
-            const busqueda = {
-                texto: "",
-                categorias: [],
-                cantidad_minima: "-1",
-                cantidad_maxima: "-1",
-            };
-            const data = await buscar(busqueda);
-            console.log(data);
-            setResultados(data);
+            await buscar();
         }
         cargarEventos().then(r => {});
     }, []);
@@ -121,7 +124,7 @@ export function Donaciones( {inscript} ) {
         <>
             <button className='addPublicacion' onClick={() => {
                 setPopup(componentePopup)
-            }}>Filtros
+            }}><img src={iconoFiltro}/>
             </button>
             <input className='buscar' placeholder='Buscar' onChange={handleCambioTextoBusqueda}
                    onKeyUp={handleEnterBusqueda}/>

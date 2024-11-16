@@ -39,21 +39,21 @@ const crearBeneficiario = async (req, res) => {
 };
 
 const obtenerBeneficiario = async (req, res) => {
-console.log("Obteniendo beneficiario...");
-const { usuario } = req.body;
-try {
-  const resultado = await pool.query("SELECT * FROM BENEFICIARIO WHERE usuario = $1", 
-    [usuario]);
-    console.log(resultado);
-    if (resultado.rows.length === 0) {
-      return res.status(404).json({ message: "Beneficiario no encontrado" });
-    }
-  console.log(resultado.rows[0]);
-  res.json(resultado.rows[0]);
-} catch (error) {
-  console.error(error);
-  res.status(500).send("Error en el servidor");
-}
+  console.log("Obteniendo beneficiario...");
+  const { usuario } = req.body;
+  try {
+    const resultado = await pool.query("SELECT * FROM BENEFICIARIO WHERE usuario = $1", 
+      [usuario]);
+      console.log(resultado);
+      if (resultado.rows.length === 0) {
+        return res.status(404).json({ message: "Beneficiario no encontrado" });
+      }
+    console.log(resultado.rows[0]);
+    res.json(resultado.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error en el servidor");
+  }
 };
 
 module.exports = {

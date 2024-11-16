@@ -55,6 +55,27 @@ create table publicaciondon
     fecha_cierre        date         not null,
     fk_idempresa        integer      not null,
     foreign key (fk_idempresa) references empresa (id)
+
+
+CREATE TABLE INTERACCION(
+  Id_interaccion SERIAL PRIMARY KEY,
+  Tipo VARCHAR(100) NOT NULL,
+  FK_idPublicacionBen INTEGER NOT NULL,
+  FK_idBeneficiario INTEGER NOT NULL,
+  FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen(ID),
+  FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
+);
+
+
+CREATE TABLE PublicacionDon (
+  Id_Publicacion SERIAL PRIMARY KEY,
+  Fecha_Publicacion DATE NOT NULL,
+  Estado VARCHAR(100) NOT NULL,
+  Descripcion VARCHAR(100) NOT NULL,
+  Cantidad_Disponible INTEGER NOT NULL,
+  Fecha_Cierre DATE NOT NULL,
+  FK_idEmpresa INTEGER NOT NULL,
+  FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa(ID)
 );
 
 create table material_donar
@@ -139,17 +160,12 @@ create function buscar(
 as
 $$
 declare
-    resultado resultado_busqueda;
-    resultados
-              resultado_busqueda[] := array []::resultado_busqueda[];
-    publicacion
-              publicaciondon%rowtype;
-    vempresa
-              empresa_parcial;
-    material
-              material_donar%rowtype;
-    materiales
-              material_parcial[]   := array []::material_parcial[];
+    resultado   resultado_busqueda;
+    resultados  resultado_busqueda[] := array []::resultado_busqueda[];
+    publicacion publicaciondon%rowtype;
+    vempresa    empresa_parcial;
+    material    material_donar%rowtype;
+    materiales  material_parcial[]   := array []::material_parcial[];
 begin
     for publicacion in
         select *
@@ -163,8 +179,6 @@ begin
                                                             material_donar.nombre ~* texto or
                                                             material_donar.descripcion ~* texto)
                                                          and (
-                                                            publicaciondon.fecha_cierre >= now())
-                                                         and (
                                                             upper(material_donar.categoria) = any
                                                             (categorias) or
                                                             cardinality(categorias) = 0)
@@ -176,7 +190,9 @@ begin
                                                             cantidad_maxima = -1)
                                                          and (
                                                             material_donar.cantidad != 0)
-                                                         and publicaciondon.estado != 'false')
+                                                         and publicaciondon.fecha_cierre >= now()
+                                                         and publicaciondon.estado != 'false'
+                                                         and material_donar.fk_idpublicaciondon = publicaciondon.id_publicacion)
         order by fecha_publicacion
         limit 100
         loop
@@ -191,17 +207,17 @@ begin
                 select *
                 from material_donar
                 where fk_idpublicaciondon = publicacion.id_publicacion
-                  and (
-                    upper(material_donar.categoria) = any (categorias) or
-                    cardinality(categorias) = 0)
-                  and (
-                    material_donar.cantidad >= cantidad_minima or
-                    cantidad_minima = -1)
-                  and (
-                    material_donar.cantidad <= cantidad_maxima or
-                    cantidad_maxima = -1)
-                  and (
-                    material_donar.cantidad != 0)
+--                   and (
+--                     upper(material_donar.categoria) = any (categorias) or
+--                     cardinality(categorias) = 0)
+--                   and (
+--                     material_donar.cantidad >= cantidad_minima or
+--                     cantidad_minima = -1)
+--                   and (
+--                     material_donar.cantidad <= cantidad_maxima or
+--                     cantidad_maxima = -1)
+--                   and (
+--                     material_donar.cantidad != 0)
                 loop
                     materiales := array_append(materiales, (material.id_material, material.nombre, material.descripcion,
                                                             material.categoria, material.estado_material,
@@ -291,14 +307,14 @@ values (default, 'más ladrillos', now(), now() + interval '1 day', '10:00 am'::
         'esta es la tercera publicación',
         now() + interval '30 day', 3);
 insert into material_donar
-values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero plateado', 'aglomerados', 3);
+values (default, 'ladrillo amarillo', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+        'como los ladrillos grises, pero amarillo', 'aglomerados', 3);
 insert into material_donar
-values (default, 'ladrillo dorado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero dorado', 'aglomerados', 3);
+values (default, 'ladrillo sangre', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+        'como los ladrillos grises, pero sangre', 'aglomerados', 3);
 insert into material_donar
-values (default, 'ladrillo carmesí', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero carmesí', 'aglomerados', 3);
+values (default, 'ladrillo terracota', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+        'como los ladrillos grises, pero terracota', 'aglomerados', 3);
 insert into material_donar
-values (default, 'ladrillo rosado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
-        'como los ladrillos grises, pero rosado', 'aglomerados', 3);
+values (default, 'ladrillo negro', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+        'como los ladrillos grises, pero negro', 'aglomerados', 3);

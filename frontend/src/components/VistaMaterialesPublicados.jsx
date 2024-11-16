@@ -1,8 +1,9 @@
 import styles from "../styles/VistaMaterialesPublicados.module.css"
 
 import {useEffect, useState} from "react";
+import {Header} from "./Header";
 
-export function VistaMaterialesPublicados({idEmpresa}) {
+export function VistaMaterialesPublicados({idEmpresa, cambiarInterfaz}) {
     const [materialesPorDonar, setMaterialesPorDonar] = useState([]);
     const buscarMaterialesPorDonar = async () => {
         const respuestaBusqueda = await fetch("http://localhost:5000/api/buscarMaterialesPorDonar", {
@@ -48,6 +49,7 @@ export function VistaMaterialesPublicados({idEmpresa}) {
 
     return (
         <>
+            <Header esEmpresa={true} cambiarInterfaz={cambiarInterfaz} activa={6}/>
             {materialesPorDonar.map((materialPorDonar) =>
                 <div key={materialPorDonar.id_material} className={styles.container_grande}>
                     <div className={styles.container_informacion}>
