@@ -32,10 +32,7 @@ export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz }
             <h4 className="titCorreoAct">Email</h4><input type="email" placeholder={data.email} className='correoAct'></input>
             <h4 className="titCelularAct">Celular</h4><input type="number" placeholder={data.celular} className='celularAct'></input>
             <h4 className="titClaveAct">Clave</h4><input type="password" placeholder='Contraseña' className='claveAct'></input>
-<<<<<<< HEAD
-=======
             <button className='actDatos' onClick="#">Actualizar</button>
->>>>>>> 0b1edd9b318035c7db2556d0cdcc6103fa567bc9
             <button className='actDatos'>Actualizar</button>
           </div>
         </div>
