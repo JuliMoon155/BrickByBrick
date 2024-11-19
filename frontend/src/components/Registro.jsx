@@ -30,14 +30,13 @@ export const Registro = ({ onLogin }) => {
 
     const handelClickCambioRol = () =>{
         if (textoCambioRol === 'Para Empresas') {
-          setRol('Empresario')
-          setTextoCambioRol('Para Beneficiarios')
+          setRol('Empresario');
+          setTextoCambioRol('Para Beneficiarios');
         }else if (textoCambioRol === 'Para Beneficiarios') {
-          setRol('Beneficiario')
-          setTextoCambioRol('Para Empresas')
+          setRol('Beneficiario');
+          setTextoCambioRol('Para Empresas');
         };
       };
-    
 
     const guardarUsuario = async () => {
         try {
@@ -55,7 +54,7 @@ export const Registro = ({ onLogin }) => {
                     Fecha_nacimiento: fechaNacimiento 
                 };
                 endpoint = "http://localhost:5000/api/Beneficiarios";
-            } else if (rol === 'Empresa') {
+            } else if (rol === 'Empresario') {
                 datos = {
                     nombre,
                     password,
@@ -64,7 +63,7 @@ export const Registro = ({ onLogin }) => {
                 };
                 endpoint = "http://localhost:5000/api/Empresas";
             }
-    
+            
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {

@@ -55,7 +55,7 @@ create table publicaciondon
     fecha_cierre        date         not null,
     fk_idempresa        integer      not null,
     foreign key (fk_idempresa) references empresa (id)
-
+);
 
 CREATE TABLE INTERACCION(
   Id_interaccion SERIAL PRIMARY KEY,
@@ -223,7 +223,7 @@ begin
                                                             material.categoria, material.estado_material,
                                                             material.cantidad)::material_parcial);
                 end loop;
-
+    
             -- se asignan los valores al resultado
             resultado.publicacion
                 := (publicacion.id_publicacion, publicacion.titulo, publicacion.descripcion,

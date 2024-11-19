@@ -41,12 +41,14 @@ export const Login = ({ onRegistro, onLoginSuccess }) => {
         },
         body: JSON.stringify({ usuario: credentials.usuario }),
       });
-
+      console.log(response);
       if (!response.ok) {
         alert("Error de autenticación");
       }
 
       const data = await response.json();
+      console.log(data.password);
+      console.log(credentials.password);
       if (credentials.usuario === data.usuario && credentials.password === data.password) {
         onLoginSuccess(data.id, rol, data.usuario, data);
       } else {
