@@ -1,0 +1,140 @@
+.HomePage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    background-color: rgb(196, 196, 196);
+}
+
+.Contenido {
+    display: flex; /* Usar flexbox para alinear los componentes de contenido */
+    flex: 1; /* Ocupa el espacio restante */
+    padding: 10px; /* Espaciado interno */
+    flex-direction: row;
+    margin: 40px 15px;
+}
+
+.perfil {
+    flex: 1; /* Ocupa un tercio del ancho */
+    background-color: rgb(196, 196, 196); /* Color de fondo claro */
+    margin-right: 25px; /* Espacio a la derecha */
+    display: flex;
+    flex-direction: column;
+}
+.infoPersonal{
+    flex: 2;
+    background: linear-gradient(#4D8D31 50%, #fff 50%);
+    margin-bottom: 20px;
+}
+
+.otraInfo{
+    flex: 2;
+    background-color: #fff;
+}
+
+.forYou {
+    flex: 2; /* Ocupa dos tercios del ancho */
+    background-color: white; /* Color de fondo blanco */
+    margin-right: 25px; /* Espacio a la derecha */
+    padding: 0;
+    display: block;
+     /* Espaciado interno */
+    
+}
+
+.extras {
+    flex: 1; /* Ocupa un tercio del ancho */
+    background-color: #f5f8fa; /* Color de fondo claro */
+    padding: 10px; /* Espaciado interno */
+}
+
+.addPublicacion{
+    justify-content: center;
+    padding: 0;
+    margin-left: 30px;
+    width: 60px;
+    background-color: #4D8D31;
+    border-radius: 9px;
+    color: #fff;
+}
+
+.addPublicacion:hover{
+    outline: 2px solid #4D8D31;
+    background-color: #fff;
+    color: #4D8D31;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro tras el popup */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-inner {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+  }
+  
+  .popup-inner h2 {
+    margin-bottom: 15px;
+  }
+  
+  .popup-inner textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+  
+  .popup-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .PublicacionesExistentes{
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-top: 3px solid #4D8D31;
+    margin-top: 20px;
+    margin-left: 30px;
+    background-color: #ffffff;
+    width: 90%;
+    height: 85%;
+  }
+
+  .PublicacionBen{
+    border-radius: 6px;
+    width: 96%;
+    flex: 2;
+    background-color: #fff;
+    outline: 2px solid #4D8D31;
+    padding: 5px;
+    margin-bottom: 10px;
+    display: flex; /* Usar flexbox */
+    flex-direction: column; /* Organizar en columnas */
+    position: relative; 
+  }
+
+  .contenido_PublicacionBen{
+    font-size: 18px;
+    flex: 1;
+  }
+
+  .fecha_PublicacionBen{
+    font-size: 12px;
+    color: #4D8D31;
+    position: absolute; /* Posicionamiento absoluto */
+    bottom: 5px; /* Espacio desde la parte inferior */
+    right: 5px;
+  }

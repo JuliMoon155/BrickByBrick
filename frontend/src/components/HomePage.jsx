@@ -40,7 +40,7 @@ export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz, 
           <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido userId={userId} usuario={usuario}/>)}}>
             <span>Contenido</span>
           </div>
-          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones inscript = {inscript} />)}} >
+          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones inscript = {inscript}/>)}} >
             <span>Donaciones</span>
             </div>
           </div>

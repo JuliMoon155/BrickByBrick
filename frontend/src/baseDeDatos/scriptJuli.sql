@@ -57,6 +57,7 @@ create table publicaciondon
     foreign key (fk_idempresa) references empresa (id)
 );
 
+<<<<<<< HEAD
 CREATE TABLE INTERACCION(
   Id_interaccion SERIAL PRIMARY KEY,
   Tipo VARCHAR(100) NOT NULL,
@@ -64,18 +65,53 @@ CREATE TABLE INTERACCION(
   FK_idBeneficiario INTEGER NOT NULL,
   FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen(ID),
   FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
+=======
+CREATE TABLE INTERACCION
+(
+    Id_interaccion      SERIAL PRIMARY KEY,
+    Tipo                VARCHAR(100) NOT NULL,
+    FK_idPublicacionBen INTEGER      NOT NULL,
+    FK_idBeneficiario   INTEGER      NOT NULL,
+    FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen (ID),
+    FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario (ID)
+>>>>>>> 686482a3c818375bbcb248fc2c3698d44d35fde6
 );
 
 
-CREATE TABLE PublicacionDon (
-  Id_Publicacion SERIAL PRIMARY KEY,
-  Fecha_Publicacion DATE NOT NULL,
-  Estado VARCHAR(100) NOT NULL,
-  Descripcion VARCHAR(100) NOT NULL,
-  Cantidad_Disponible INTEGER NOT NULL,
-  Fecha_Cierre DATE NOT NULL,
-  FK_idEmpresa INTEGER NOT NULL,
-  FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa(ID)
+CREATE TABLE PublicacionDon
+(
+    Id_Publicacion      SERIAL PRIMARY KEY,
+    Fecha_Publicacion   DATE         NOT NULL,
+    Estado              VARCHAR(100) NOT NULL,
+    Descripcion         VARCHAR(100) NOT NULL,
+    Cantidad_Disponible INTEGER      NOT NULL,
+    Fecha_Cierre        DATE         NOT NULL,
+    FK_idEmpresa        INTEGER      NOT NULL,
+    FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa (ID)
+);
+
+
+CREATE TABLE INTERACCION
+(
+    Id_interaccion      SERIAL PRIMARY KEY,
+    Tipo                VARCHAR(100) NOT NULL,
+    FK_idPublicacionBen INTEGER      NOT NULL,
+    FK_idBeneficiario   INTEGER      NOT NULL,
+    FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen (ID),
+    FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario (ID)
+);
+
+
+CREATE TABLE PublicacionDon
+(
+    Id_Publicacion      SERIAL PRIMARY KEY,
+    Fecha_Publicacion   DATE         NOT NULL,
+    Estado              VARCHAR(100) NOT NULL,
+    Descripcion         VARCHAR(100) NOT NULL,
+    Cantidad_Disponible INTEGER      NOT NULL,
+    Fecha_Cierre        DATE         NOT NULL,
+    FK_idEmpresa        INTEGER      NOT NULL,
+    FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa (ID)
 );
 
 create table material_donar
@@ -192,7 +228,8 @@ begin
                                                             material_donar.cantidad != 0)
                                                          and publicaciondon.fecha_cierre >= now()
                                                          and publicaciondon.estado != 'false'
-                                                         and material_donar.fk_idpublicaciondon = publicaciondon.id_publicacion)
+                                                         and material_donar.fk_idpublicaciondon =
+                                                             publicaciondon.id_publicacion)
         order by fecha_publicacion
         limit 100
         loop
@@ -207,7 +244,7 @@ begin
                 select *
                 from material_donar
                 where fk_idpublicaciondon = publicacion.id_publicacion
---                   and (
+                --                   and (
 --                     upper(material_donar.categoria) = any (categorias) or
 --                     cardinality(categorias) = 0)
 --                   and (

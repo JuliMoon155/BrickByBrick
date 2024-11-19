@@ -1,0 +1,203 @@
+.contenedor_visualizacion {
+    display: flex;
+    min-height: auto;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.titulo_material{
+  color: #874328;
+  font-size: 50px;
+}
+
+/* Cosas que tocó traer */
+
+.elPopUp {
+    background-color: #fff;
+}
+
+.material{
+    display: inline;
+    border-bottom: 3px solid #000;
+    background-color: #fff;
+    width: 200px;
+    height: 550px;
+    position: relative;
+}
+
+.info {
+    width: 100%;
+    float: left;
+}
+
+.h1tit {
+    color: #874328;
+    text-align: center;
+}
+
+.cantp, .statusp, .descriptionp{
+    font-size: 24px;
+    font-weight: 100;
+    text-align: center;
+}
+
+/* Hasta acá */
+
+.botondelPopUp{
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.contenedor_vista_previa {
+    display: flex;
+}
+
+.contenedor_vista_previa img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.contenedor_vista_previa:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.contenedor_categorias ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: scroll;
+}
+
+.contenedor_categorias li {
+    float: left;
+}
+
+.contenedor_categorias li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+.contenedor_categorias li a:hover {
+    background-color: lightgray;
+}
+
+.marginado_filtros {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.contenedor_cantidades {
+    display: flex;
+}
+
+.seccion_formulario,
+.seccion_resultados {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 24px;
+    position: absolute;
+}
+
+.seccion_formulario {
+    top: 110px;
+    left: 15px;
+    height: 860px;
+    width: 400px;
+}
+
+.seccion_resultados {
+    overflow: scroll;
+    top: 130px;
+    left: 491px;
+    height: 834px;
+    width: 1077px;
+}
+
+.formulario_busqueda {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.titulo_formulario {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.subtitulo_formulario {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.preview_imagen,
+.placeholder_imagen {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #d1d5db;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.preview_imagen img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.placeholder_imagen {
+    cursor: pointer;
+}
+
+.campo_entrada {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+
+.campo_descripcion {
+    height: 128px;
+    resize: vertical;
+}
+
+.contenedor_botones {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.boton {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.boton_primario {
+    background-color: #10B981;
+    color: white;
+}
+
+.boton_secundario {
+    margin-left: 7vmax;
+    background-color: #EF4444;
+    color: white;
+} 
