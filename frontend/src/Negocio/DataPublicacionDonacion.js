@@ -36,10 +36,21 @@ const crearPublicacion = async (req, res) => {
     }
 };
 
+const editarPublicacionDonacion = async (req, res) => {
+    const {idPublicacion, titulo, descripcion, fechaCierre, estado} = req.body;
+    try {
+        const resultadoPublicacion = await pool.query("UPDATE publicaciondon SET titulo = $1, descripcion = $2, fecha_cierre = $3, estado = $4 WHERE id_publicacion = $5", [titulo, descripcion, fechaCierre, estado, idPublicacion]);
+        res.status(201).json(resultadoPublicacion.rows);
+    } catch (error) {
+        console.error("Error ACAAAAAAAAAAAAA:", error);
+        res.status(500).json({message: "Error en el servidor"});
+    }
+}
+
 const buscarPublicacion = async (req, res) => {
     const {texto, categorias, cantidad_minima, cantidad_maxima} = req.body;
     for (let i = 0; i < categorias.length; i++) {
-        categorias[i] = "'" + categorias[i].toUpperCase() + "'";
+        categorias[i] = "'" + categorias[i] + "'";
     }
     try {
         const result = await pool.query(`select * from buscar($1, array[${categorias.join("','")}]::text[], $2, $3)`, [texto, cantidad_minima, cantidad_maxima])
@@ -54,7 +65,24 @@ const buscarPublicacion = async (req, res) => {
     }
 }
 
+const obtenerPublicacionesDeEmpresa = async (req, res) => {
+    const {idEmpresa} = req.body;
+    try {
+        const result = await pool.query(`select * from obtener_publicaciones_de_empresa($1)`, [idEmpresa]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({message: "No hay publicaciones activas"});
+        }
+        console.log(result.rows[0].obtener_publicaciones_de_empresa);
+        res.status(201).json(result.rows[0].obtener_publicaciones_de_empresa);
+    } catch (error) {
+        console.error("Error ACAAAAAAAAAAAAA:", error);
+        res.status(500).json({message: "Error en el servidor"});
+    }
+}
+
 module.exports = {
     crearPublicacion,
-    buscarPublicacion
+    buscarPublicacion,
+    obtenerPublicacionesDeEmpresa,
+    editarPublicacionDonacion
 };

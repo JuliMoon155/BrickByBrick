@@ -3,8 +3,8 @@ import { Login } from './components/Login';
 import { PublicacionMateriales } from './components/PublicarMaterial';
 import { HomePage } from './components/HomePage';
 import Inscripcion from './components/Inscripcion';
-import React, { useState, useEffect } from 'react';
-import {VistaMaterialesPublicados} from "./components/VistaMaterialesPublicados";
+import React, { useState } from 'react';
+import {GestionEventos} from "./components/GestionEventos";
 
 
 
@@ -60,8 +60,8 @@ function App() {
       {interfaz === 'Inscripcion' && (
           <Inscripcion fk_idPublicacionDon={idPublicacion} userId={userId} cambiarInterfaz={cambiarInterfaz}/>
       )}
-      {interfaz === 'ListaMateriales' && (
-          <VistaMaterialesPublicados idEmpresa={userId} cambiarInterfaz={cambiarInterfaz}/>
+      {interfaz === 'GestionEventos' && (
+          <GestionEventos idEmpresa={userId} cambiarInterfaz={cambiarInterfaz}/>
       )}
     </>
   );

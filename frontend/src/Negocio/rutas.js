@@ -2,9 +2,9 @@
 const express = require("express");
 const { crearBeneficiario, obtenerBeneficiario } = require("./DataBeneficiario");
 const { obtenerEmpresa, crearEmpresa } = require("./DataEmpresa");
-const { crearPublicacion, buscarPublicacion} = require("./DataPublicacionDonacion");
+const { crearPublicacion, buscarPublicacion, obtenerPublicacionesDeEmpresa, editarPublicacionDonacion} = require("./DataPublicacionDonacion");
 const { agregarImagen } = require("./DataImagen");
-const { agregarMateriales, obtenerMaterialesDonados, setCantidadMaterial} = require("./DataMateriales");
+const { agregarMateriales, editarMaterial} = require("./DataMateriales");
 const { crearInscripcion } = require("./DataInscripcion");
 const { crearPublicacionBen,obtenerPublicacionesBen, likePublicacionBen, removeLikePublicacionBen, deletePublicacionBen } = require('./DataPublicacion');
 
@@ -35,14 +35,15 @@ router.post("/Beneficiarios", crearBeneficiario);
 router.post("/ObEmpresas", obtenerEmpresa);
 router.post("/Empresas", crearEmpresa);
 router.post("/crearMaterial", agregarMateriales);
+router.post("/editarMaterial", editarMaterial);
 router.post("/crearpublicacion", crearPublicacion);
+router.post("/editarPublicacionDonacion", editarPublicacionDonacion);
+router.post("/ObPublicacionesDeEmpresa", obtenerPublicacionesDeEmpresa);
 router.post("/crearimagen", upload.single("imagen"), agregarImagen);
 router.get("/ObPublicacionesBen", obtenerPublicacionesBen);
 router.post("/PublicacionesBen", crearPublicacionBen);
 router.post("/BuscarPublicacion", buscarPublicacion);
 router.post("/CrearInscripcion", crearInscripcion);
-router.post("/BuscarMaterialesPorDonar", obtenerMaterialesDonados);
-router.post("/SetCantidadMaterial", setCantidadMaterial);
 router.delete('/EliminarPublicacion/:id', deletePublicacionBen);
 router.post("/like", likePublicacionBen);  // Para agregar un like
 router.delete("/like", removeLikePublicacionBen);  // Para eliminar un like
