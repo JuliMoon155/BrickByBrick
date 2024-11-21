@@ -57,15 +57,6 @@ create table publicaciondon
     foreign key (fk_idempresa) references empresa (id)
 );
 
-<<<<<<< HEAD
-CREATE TABLE INTERACCION(
-  Id_interaccion SERIAL PRIMARY KEY,
-  Tipo VARCHAR(100) NOT NULL,
-  FK_idPublicacionBen INTEGER NOT NULL,
-  FK_idBeneficiario INTEGER NOT NULL,
-  FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen(ID),
-  FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
-=======
 CREATE TABLE INTERACCION
 (
     Id_interaccion      SERIAL PRIMARY KEY,
@@ -74,44 +65,6 @@ CREATE TABLE INTERACCION
     FK_idBeneficiario   INTEGER      NOT NULL,
     FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen (ID),
     FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario (ID)
->>>>>>> 686482a3c818375bbcb248fc2c3698d44d35fde6
-);
-
-
-CREATE TABLE PublicacionDon
-(
-    Id_Publicacion      SERIAL PRIMARY KEY,
-    Fecha_Publicacion   DATE         NOT NULL,
-    Estado              VARCHAR(100) NOT NULL,
-    Descripcion         VARCHAR(100) NOT NULL,
-    Cantidad_Disponible INTEGER      NOT NULL,
-    Fecha_Cierre        DATE         NOT NULL,
-    FK_idEmpresa        INTEGER      NOT NULL,
-    FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa (ID)
-);
-
-
-CREATE TABLE INTERACCION
-(
-    Id_interaccion      SERIAL PRIMARY KEY,
-    Tipo                VARCHAR(100) NOT NULL,
-    FK_idPublicacionBen INTEGER      NOT NULL,
-    FK_idBeneficiario   INTEGER      NOT NULL,
-    FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen (ID),
-    FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario (ID)
-);
-
-
-CREATE TABLE PublicacionDon
-(
-    Id_Publicacion      SERIAL PRIMARY KEY,
-    Fecha_Publicacion   DATE         NOT NULL,
-    Estado              VARCHAR(100) NOT NULL,
-    Descripcion         VARCHAR(100) NOT NULL,
-    Cantidad_Disponible INTEGER      NOT NULL,
-    Fecha_Cierre        DATE         NOT NULL,
-    FK_idEmpresa        INTEGER      NOT NULL,
-    FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa (ID)
 );
 
 create table material_donar
@@ -260,7 +213,7 @@ begin
                                                             material.categoria, material.estado_material,
                                                             material.cantidad)::material_parcial);
                 end loop;
-    
+
             -- se asignan los valores al resultado
             resultado.publicacion
                 := (publicacion.id_publicacion, publicacion.titulo, publicacion.descripcion,
@@ -304,54 +257,56 @@ insert into empresa
 values (default, 'paulo', '1234', 'una empresa feliz', 'juan');
 
 insert into publicaciondon
-values (default, 'ladrillos de varios colores', now(), now() + interval '1 day', '10:00 am'::time, 'en el centro', 'ok',
+values (default, 'ladrillos de varios colores', now(), now() + interval '1 day', '10:00 am'::time, 'en el centro',
+        'Activo',
         10,
         'esta es la primera publicación',
         now() + interval '10 day', 1);
 insert into material_donar
-values (default, 'ladrillo rojo', floor(random() * 25 - 10 + 1) + 10, 'nuevo', 'como los ladrillos grises, pero rojo',
+values (default, 'ladrillo rojo', floor(random() * 25 - 10 + 1) + 10, 'Activo', 'como los ladrillos grises, pero rojo',
         'aglomerados', 1);
 insert into material_donar
-values (default, 'ladrillo azul', floor(random() * 25 - 10 + 1) + 10, 'nuevo', 'como los ladrillos grises, pero azul',
+values (default, 'ladrillo azul', floor(random() * 25 - 10 + 1) + 10, 'Activo', 'como los ladrillos grises, pero azul',
         'aglomerados', 1);
 insert into material_donar
-values (default, 'ladrillo verde', floor(random() * 25 - 10 + 1) + 10, 'nuevo', 'como los ladrillos grises, pero verde',
+values (default, 'ladrillo verde', floor(random() * 25 - 10 + 1) + 10, 'Activo', 'como los ladrillos grises, pero verde',
         'aglomerados', 1);
 insert into material_donar
-values (default, 'ladrillo morado', 20, 'nuevo', 'como los ladrillos grises, pero morado', 'aglomerados', 1);
+values (default, 'ladrillo morado', 20, 'Activo', 'como los ladrillos grises, pero morado', 'aglomerados', 1);
 
 insert into publicaciondon
-values (default, 'ladrillos de colores varios', now(), now() + interval '1 day', '10:00 am'::time, 'en el norte', 'ok',
+values (default, 'ladrillos de colores varios', now(), now() + interval '1 day', '10:00 am'::time, 'en el norte',
+        'Activo',
         10,
         'esta es la segunda publicación',
         now() + interval '20 day', 2);
 insert into material_donar
-values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+values (default, 'ladrillo plateado', floor(random() * 25 - 10 + 1) + 10, 'Activo',
         'como los ladrillos grises, pero plateado', 'aglomerados', 2);
 insert into material_donar
-values (default, 'ladrillo dorado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+values (default, 'ladrillo dorado', floor(random() * 25 - 10 + 1) + 10, 'Activo',
         'como los ladrillos grises, pero dorado', 'aglomerados', 2);
 insert into material_donar
-values (default, 'ladrillo carmesí', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+values (default, 'ladrillo carmesí', floor(random() * 25 - 10 + 1) + 10, 'Activo',
         'como los ladrillos grises, pero carmesí', 'aglomerados', 2);
 insert into material_donar
-values (default, 'ladrillo rosado', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+values (default, 'ladrillo rosado', floor(random() * 25 - 10 + 1) + 10, 'Activo',
         'como los ladrillos grises, pero rosado', 'aglomerados', 2);
 
 
 insert into publicaciondon
-values (default, 'más ladrillos', now(), now() + interval '1 day', '10:00 am'::time, 'en el sur', 'ok', 10,
+values (default, 'más ladrillos', now(), now() + interval '1 day', '10:00 am'::time, 'en el sur', 'Activo', 10,
         'esta es la tercera publicación',
         now() + interval '30 day', 3);
 insert into material_donar
-values (default, 'ladrillo amarillo', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+values (default, 'ladrillo amarillo', floor(random() * 25 - 10 + 1) + 10, 'Activo',
         'como los ladrillos grises, pero amarillo', 'aglomerados', 3);
 insert into material_donar
-values (default, 'ladrillo sangre', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+values (default, 'ladrillo sangre', floor(random() * 25 - 10 + 1) + 10, 'Activo',
         'como los ladrillos grises, pero sangre', 'aglomerados', 3);
 insert into material_donar
-values (default, 'ladrillo terracota', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+values (default, 'ladrillo terracota', floor(random() * 25 - 10 + 1) + 10, 'Activo',
         'como los ladrillos grises, pero terracota', 'aglomerados', 3);
 insert into material_donar
-values (default, 'ladrillo negro', floor(random() * 25 - 10 + 1) + 10, 'nuevo',
+values (default, 'ladrillo negro', floor(random() * 25 - 10 + 1) + 10, 'Activo',
         'como los ladrillos grises, pero negro', 'aglomerados', 3);
