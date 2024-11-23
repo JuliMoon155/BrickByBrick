@@ -5,13 +5,16 @@ import  '../styles/HomePage.css';
 
 import {Donaciones} from "./Donaciones";
 import profileDefault from '../imgTemp/profileDefault.png';
+import {ListaAmistades} from "./ListaAmistades";
 
 
 export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz, data }) => {
     const [contenido_foryou, setContenido_foryou] = useState(<Contenido userId={userId} usuario={usuario} />);
+    const [extras, setExtras] = useState(<></>);
 
     useEffect(() => {
       setContenido_foryou(<Contenido userId={userId} usuario={usuario}/>);
+      setExtras(<ListaAmistades setExtras={setExtras} />);
     }, [userId, usuario]);
 
 
@@ -46,7 +49,9 @@ export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz, 
           </div>
           {contenido_foryou}
         </div>
-        <div className='extras'></div>
+        <div className='extras'>
+            {extras}
+        </div>
       </div>
 
     </div>
