@@ -1,4 +1,4 @@
-import back_icon from "../imgTemp/icon-share.png";
+import back_icon from "../imgTemp/back.png";
 import {ListaAmistades} from "./ListaAmistades";
 import React from "react";
 import PropTypes from "prop-types";

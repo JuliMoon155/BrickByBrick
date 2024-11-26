@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import back_icon from '../imgTemp/icon-share.png'
-import profileDefault from "../imgTemp/profileDefault.png";
+import back_icon from '../imgTemp/back.png'
+import profileDefault from "../imgTemp/profile.png";
 import React from "react";
 import {ListaAmistades} from "./ListaAmistades";
 
