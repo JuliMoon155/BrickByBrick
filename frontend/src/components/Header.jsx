@@ -3,12 +3,7 @@ import "../styles/Header.css";
 import PropTypes from "prop-types";
 import NotificacionesConst from './NotificacionesConst';
 
-<<<<<<< HEAD
-export const Header = ({ esEmpresa, cambiarInterfaz, activa = 1 }) => {
-
-=======
 export const Header = ({ esEmpresa = false, cambiarInterfaz, activa = 1, usuarioId }) => {
->>>>>>> a8b8fdbc3c10e5a0deec105f0a82eb7fc95e5d34
     const [paso, setPaso] = useState(activa);
     const [mostrarNotificaciones, setMostrarNotificaciones] = useState(false);
 
@@ -24,7 +19,6 @@ export const Header = ({ esEmpresa = false, cambiarInterfaz, activa = 1, usuario
                             cambiarInterfaz('HomePage');
                         }
                     }}><a href="#">Inicio</a></li>
-<<<<<<< HEAD
 
                     <li
                         className={paso === 2 ? "elementoSel" : "elemento"}
@@ -39,18 +33,22 @@ export const Header = ({ esEmpresa = false, cambiarInterfaz, activa = 1, usuario
                         <a href="#">Calendario</a>
                     </li>
                     <li className={paso === 3 ? 'elementoSel' : 'elemento'} onClick={() => { setPaso(3) }}><a href="#">Comunidad</a></li>
+                    <li className={paso === 4 ? 'elementoSel' : 'elemento'} onClick={() => { setPaso(4) }}><a href="#">Mensajes</a></li>
                     <li
-                        className={paso === 2 ? "elementoSel" : "elemento"}
+                        className={paso === 5 ? "elementoSel" : "elemento"}
                         onClick={() => {
-                            setPaso(4);
+                            setPaso(5);
                             if (esEmpresa) {
-                                cambiarInterfaz("NotiEmpresas");
+                                <NotificacionesConst activar={true} empresaId={usuarioId} />
+                                setMostrarNotificaciones(true);
                             } else {
-                                
+                                //cuado sea False hara esto pero es apra usuarios no empresas pero toca configurar lo
+                                <NotificacionesConst activar={true} empresaId={usuarioId} /> 
+                                setMostrarNotificaciones(true);
                             }
                         }}
                     >
-                        <a href="#">Mensajes</a>
+                        <a href="#">Notificaciones</a>
                     </li>
                     <li className={paso === 5 ? 'elementoSel' : 'elemento'} onClick={() => { setPaso(5) }}><a href="#">Notificaciones</a></li>
                     {esEmpresa && (<li className={paso === 6 ? 'elementoSel' : 'elemento'} onClick={() => {
@@ -58,20 +56,6 @@ export const Header = ({ esEmpresa = false, cambiarInterfaz, activa = 1, usuario
                         cambiarInterfaz('GestionEventos');
                     }}><a
                         href="#">Eventos</a></li>)}
-                </ul>
-            </nav>
-=======
-                    <li className={paso === 2 ? 'elementoSel' : 'elemento'} onClick={() => { setPaso(2) }}><a href="#">Calendario</a></li>
-                    <li className={paso === 3 ? 'elementoSel' : 'elemento'} onClick={() => { setPaso(3) }}><a href="#">Comunidad</a></li>
-                    <li className={paso === 4 ? 'elementoSel' : 'elemento'} onClick={() => { setPaso(4) }}><a href="#">Mensajes</a></li>
-                        <li className={paso === 5 ? 'elementoSel' : 'elemento'} onClick={() => {
-                            setPaso(5);
-                            setMostrarNotificaciones(true);
-                        }}><a href="#">Notificaciones</a></li>
-                    {esEmpresa && (<li className={paso === 6 ? 'elementoSel' : 'elemento'} onClick={() => {
-                        setPaso(6);
-                        cambiarInterfaz('GestionEventos');
-                    }}><a href="#">Eventos</a></li>)}
                 </ul>
             </nav>
             {/* Popup de Notificaciones para Constructoras */}
@@ -82,7 +66,6 @@ export const Header = ({ esEmpresa = false, cambiarInterfaz, activa = 1, usuario
                     empresaId={usuarioId}
                 />
             )}
->>>>>>> a8b8fdbc3c10e5a0deec105f0a82eb7fc95e5d34
         </div>
     );
 };
