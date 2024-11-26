@@ -11,7 +11,7 @@ function NotificacionesConst({ activar, cerrarPopup, empresaId }) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ empresa: idEmpresa }), // Envía el ID de la empresa
+            body: JSON.stringify({ empresa: idEmpresa }),
         });
 
         if (!response.ok) {
