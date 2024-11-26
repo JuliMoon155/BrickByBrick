@@ -1,5 +1,5 @@
-import add_friend_icon from "../imgTemp/add-friend.png";
-import search_icon from "../imgTemp/search.png";
+import add_friend_icon from "../imgTemp/icon-share.png";
+import search_icon from "../imgTemp/icon-share.png";
 import {VistaPreviaAmistad} from "./VistaPreviaAmistad";
 import React, {useState} from "react";
 import PropTypes from "prop-types";

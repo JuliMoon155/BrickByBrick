@@ -44,7 +44,6 @@ const obtenerPublicacionesBen = async (req, res) => {
     const {fk_idbeneficiario} = req.body;
     try {
         const resultado = await pool.query("SELECT * FROM PUBLICACIONBEN");
-        // [fk_idbeneficiario]);
         console.log(resultado);
         if (resultado.rows.length === 0) {
             return res.status(404).json({message: "No hay publicaciones existentes"});
@@ -80,15 +79,80 @@ const deletePublicacionBen = async (req, res) => {
 
 
 //interactuar con la publicacion
+//consultar likes generales de cada publicacion
+const obtenerLikesPublicacion = async (req, res) => {
+    console.log("Obteniendo cantidad de likes...");
+    try {
+        const conteo = await pool.query(`
+            SELECT 
+                p.id AS id_publicacion,
+                COUNT(CASE WHEN i.tipo = 'like' THEN 1 END) AS cantidad_likes
+            FROM 
+                publicacionben p
+            LEFT JOIN 
+                interaccion i
+            ON 
+                p.id = i.fk_idPublicacionBen
+            GROUP BY 
+                p.id;
+        `);
+
+        if (conteo.rows.length === 0) {
+            return res.status(404).json({ message: "No hay interacciones existentes" });
+        }
+        
+        console.log(conteo.rows);
+        res.json(conteo.rows);
+    } catch (error) {
+        console.error("Error al obtener cantidad de likes:", error);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
+const obtenerMisLikes = async (req, res) => {
+    const { fk_idBeneficiario } = req.params;
+    console.log("Obteniendo mis likes...");
+    try {
+        const resultado = await pool.query(`
+            SELECT 
+                p.id AS id_publicacion,
+                CASE 
+                    WHEN i.id_interaccion IS NOT NULL THEN 1
+                    ELSE 0
+                END AS dio_like,
+                i.id_interaccion
+            FROM 
+                publicacionben p
+            LEFT JOIN 
+                interaccion i
+            ON 
+                p.id = i.fk_idPublicacionBen
+                AND i.fk_idBeneficiario = $1
+                AND i.tipo = 'like';
+        `, [fk_idBeneficiario]);
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({ message: "No hay interacciones existentes" });
+        }
+        
+        console.log(resultado.rows);
+        res.json(resultado.rows);
+    } catch (error) {
+        console.error("Error al obtener likes:", error);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
 // Agregar un like
 const likePublicacionBen = async (req, res) => {
-    const { id_beneficiario, id_contenidoBeneficiario } = req.body;
+    const { fk_idbeneficiario, fK_idPublicacionBen} = req.body;
     const tipo = 'like';
 
     try {
         const resultado = await pool.query(
-            'INSERT INTO INTERACCION (tipo, id_beneficiario, id_contenidoBeneficiario) OUTPUT INSERTED.* VALUES (@tipo, @id_beneficiario, @id_contenidoBeneficiario);',
-            [tipo, id_beneficiario, id_contenidoBeneficiario]
+            'INSERT INTO INTERACCION (tipo, fK_idPublicacionBen, fk_idbeneficiario)'+
+            'VALUES($1, $2, $3) RETURNING *;',
+            [tipo, fK_idPublicacionBen, fk_idbeneficiario]
         );
         res.status(201).json(resultado.recordset[0]);
     } catch (error) {
@@ -103,7 +167,7 @@ const removeLikePublicacionBen = async (req, res) => {
 
     try {
         const resultado = await pool.query(
-            'DELETE FROM INTERACCION OUTPUT DELETED.* WHERE id_interaccion = @id_interaccion;',
+           'DELETE FROM INTERACCION WHERE id = $1 RETURNING *;',
             [id_interaccion]
         );
 
@@ -122,7 +186,11 @@ const removeLikePublicacionBen = async (req, res) => {
 module.exports = {
     crearPublicacionBen,
     obtenerPublicacionesBen,
-    likePublicacionBen,
-    removeLikePublicacionBen,
     deletePublicacionBen,
+
+    //metodos para interaccion tipo like
+    obtenerLikesPublicacion,
+    obtenerMisLikes,
+    likePublicacionBen,
+    removeLikePublicacionBen
 };

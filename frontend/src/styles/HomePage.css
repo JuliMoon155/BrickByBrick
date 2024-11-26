@@ -629,3 +629,26 @@
 .submitComment:hover {
     background-color: #45a049;
 }
+
+#like{
+    display: flex;
+}
+
+#like img{
+    margin-right: 2px;
+}
+
+.contador_likes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #874328;
+    font-size: small;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    margin-left: -10px;
+    margin-top: 45%;
+}

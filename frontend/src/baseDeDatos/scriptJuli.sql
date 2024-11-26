@@ -61,6 +61,7 @@ CREATE TABLE INTERACCION
 (
     Id_interaccion      SERIAL PRIMARY KEY,
     Tipo                VARCHAR(100) NOT NULL,
+    Descripcion         VARCHAR(300),
     FK_idPublicacionBen INTEGER      NOT NULL,
     FK_idBeneficiario   INTEGER      NOT NULL,
     FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen (ID),

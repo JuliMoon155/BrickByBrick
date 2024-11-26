@@ -18,9 +18,10 @@ const [fk_idbeneficiario, setFk_idbeneficiario] = useState(1);
 const [publicaciones, setPublicaciones] = useState([]);
 const [dropdownStates, setDropdownStates] = useState([]); // Array to track each dropdown
 const [commentVisibility, setCommentVisibility] = useState(Array(publicaciones.length).fill(false));
+const [likesPorPublicacion, setLikesPorPublicacion] = useState({});
 
 //interacciones
-const [likeStates, setLikeStates] = useState([]);
+const [likeStates, setLikeStates] = useState({});
 const [dislikeStates, setDislikeStates] = useState([]);
 
 
@@ -38,7 +39,45 @@ const [dislikeStates, setDislikeStates] = useState([]);
     }
   };
 
-  const toggleLike = async (index, id_interaccion, id_beneficiario, id_contenidoBeneficiario) => {
+  const fetchLikes = async () =>{
+    try{
+      const endpoint = 'http://localhost:5000/api/ObLikes';
+      const response = await fetch(endpoint, { method: 'GET' });
+      if (!response.ok) throw new Error('Error1 al obtener likes');
+      
+      const data = await response.json();
+
+      const likesMap = data.reduce((acc, like) => {
+        acc[like.id_publicacion] = parseInt(like.cantidad_likes, 10);
+        return acc;
+      }, {});
+      setLikesPorPublicacion(likesMap);
+    }catch (error) {
+      console.error('Error2 al obtener likes: ', error);
+    }
+  };
+
+
+  const fetchMyLikes = async (userId) =>{
+    try{
+      const endpoint = `http://localhost:5000/api/ObMisLikes/${userId}`;
+      const response = await fetch(endpoint, { method: 'GET' });
+      if (!response.ok) throw new Error('Error1 al obtener mis likes');
+      
+      const data = await response.json();
+      const likesMap = data.reduce((acc, item) => {
+        acc[item.id_publicacion] = item.dio_like === 1; // true si dio_like es 1
+        return acc;
+      }, {});
+
+      setLikeStates(likesMap); 
+    }catch (error) {
+      console.error('Error2 al obtener mis likes: ', error);
+    }
+  };
+
+
+  const toggleLike = async (index, id_interaccion, fk_idbeneficiario, fK_idPublicacionBen) => {
     const newLikeState = !likeStates[index];
     setLikeStates((prevStates) => {
         const newStates = [...prevStates];
@@ -51,7 +90,7 @@ const [dislikeStates, setDislikeStates] = useState([]);
       const options = {
           method: newLikeState ? 'POST' : 'DELETE',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id_beneficiario, id_contenidoBeneficiario }),
+          body: JSON.stringify({ fk_idbeneficiario, fK_idPublicacionBen, id_interaccion}),
       };
 
       const response = await fetch(endpoint, options);
@@ -133,6 +172,7 @@ const toggleCommentVisibility = (index) => {
         alert('Publicación eliminada con éxito');
 
         fetchPublicaciones(); 
+        fetchLikes();
     } catch (error) {
         console.error('Error al eliminar la publicación:', error);
         alert('Error al eliminar la publicación');
@@ -152,6 +192,8 @@ const toggleCommentVisibility = (index) => {
       if (userId && usuario) {
         setFk_idbeneficiario(userId);
         fetchPublicaciones();
+        fetchLikes();
+        fetchMyLikes(userId);
       }
     }, [userId, usuario]);
 
@@ -163,7 +205,7 @@ const toggleCommentVisibility = (index) => {
         <div className='PublicacionesExistentes'>
         {/* Mapeo de publicaciones */}
         {publicaciones.map((publicacion, index) => ( 
-          <div className='PublicacionBen' key={publicacion.idpublicacion}>
+          <div className='PublicacionBen' key={publicacion.id}>
             <div className="header_PublicacionBen">
               <img src={UserIcon} alt="User Icon" className="userIcon_PublicacionBen" />
               <span className="userName_PublicacionBen">Username</span>
@@ -186,19 +228,9 @@ const toggleCommentVisibility = (index) => {
               <span className="icon" id='comment' onClick={() => toggleCommentVisibility(index)}>
                 <img src={commentVisibility[index] ? FilledCommentIcon : CommentIcon} />
               </span>              
-              <span 
-                className="icon" 
-                id="like" 
-                onClick={() => toggleLike(
-                  index, 
-                  fk_idbeneficiario, 
-                  publicaciones[index].idpublicacion 
-                )}
-              >
-                <img 
-                  src={likeStates[index] ? DislikeIcon : LikeIcon} 
-                  alt="Like Icon" 
-                />
+              <span className="icon" id="like">
+                <img src={likeStates[publicacion.id] ? DislikeIcon : LikeIcon} alt="Like Icon"/>
+                <div className='contador_likes'>{likesPorPublicacion[publicacion.id] || 0}</div>
               </span>
             </div>
             {commentVisibility[index] && (
