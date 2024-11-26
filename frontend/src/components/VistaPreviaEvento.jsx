@@ -9,20 +9,6 @@ import {ChevronLeft, ChevronRight} from "lucide-react";
 function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Inscript}) {
   const [materialActual, setMaterialActual] = useState(0); // Index of the current material
 
-  // function elPopup(){
-  //     // {materiales.map((material) =>
-  //     <div className="detalles-material">
-  //       <h2>Material {materiales}</h2>
-  //       <p><strong>Nombre:</strong> {materiales.nombre}</p>
-  //       <p><strong>Descripción:</strong> {materiales.descripcion}</p>
-  //       <p><strong>Cantidad:</strong> {materiales.cantidad}</p>
-  //       <p><strong>Estado:</strong> {materiales.estado}</p>
-  //       <p><strong>Categoría:</strong> {materiales.categoria}</p>
-  //       <button className="boton" onClick={() => Inscript(publicacion.id)}>Ir a Inscripción</button>      
-  //   </div>
-  //     // )}
-  // }  
-
   const cambiarMaterial = (direccion) => {
     const totalMateriales = materiales.length;
     setMaterialActual((prev) => (prev + direccion + totalMateriales) % totalMateriales);
@@ -40,7 +26,7 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
                 />
                     <h2 className="titulo-material">{publicacion.titulo}</h2>
                     <p className="descripcion-material">{publicacion.descripcion}</p>
-                    <Popup trigger={<button className='detalle-material-btn'>Mostrar Detalles</button>} position="right center">
+                    <Popup trigger={<button className='detalle-material-btn'>Mostrar Detalles</button>} position="right center" modal>
                       <div className="detalles-material">
                         <h2>Material {material.id}</h2>
                         <h3 className='nombreMat'>Nombre: </h3> <p>{material.nombre}</p>
@@ -61,27 +47,6 @@ function VistaPreviaEvento({publicacion, empresa, materiales, idPublicacion, Ins
                       )}
                       </div>  
                     </Popup>
-                    {/*{materiales[0].Imagenes.length > 1 && (*/}
-                    {/*    <div className="navegacion-imagenes">*/}
-                    {/*        <button onClick={() => cambiarImagen(-1)}>*/}
-                    {/*            <ChevronLeft/>*/}
-                    {/*        </button>*/}
-                    {/*        <button onClick={() => cambiarImagen(1)}>*/}
-                    {/*            <ChevronRight/>*/}
-                    {/*        </button>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
-
-                    {/*{materiales.length > 1 && (*/}
-                    {/*    <div className="navegacion-materiales">*/}
-                    {/*        <button onClick={() => cambiarMaterial(-1)}>*/}
-                    {/*            Material Anterior*/}
-                    {/*        </button>*/}
-                    {/*        <button onClick={() => cambiarMaterial(1)}>*/}
-                    {/*            Material Siguiente*/}
-                    {/*        </button>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
                 </div>
             </div>
     )

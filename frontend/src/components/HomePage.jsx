@@ -14,14 +14,14 @@ export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz, 
 
     useEffect(() => {
       setContenido_foryou(<Contenido userId={userId} usuario={usuario}/>);
-      setExtras(<ListaAmistades setExtras={setExtras} />);
+      setExtras(<ListaAmistades userId={userId} setExtras={setExtras} />);
     }, [userId, usuario]);
 
 
 
   return (
     <div className='HomePage'>
-      <Header cambiarInterfaz={cambiarInterfaz} />
+      <Header cambiarInterfaz={cambiarInterfaz} usuarioId = {userId} />
       <div className='Contenido'>
       <div className='perfil'>
           <div className='infoPersonal'>
