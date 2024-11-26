@@ -39,6 +39,25 @@ const crearPublicacionBen = async (req, res) => {
     }
 };
 
+const editarPublicacionBen = async (req, res) => {
+    const { id, contenido } = req.body;  // Asegúrate de que se pase el id y el contenido
+    try {
+        const resultado = await pool.query(
+            'UPDATE PUBLICACIONBEN SET contenido = $1 WHERE id = $2 RETURNING *;',
+            [contenido, id]
+        );
+
+        if (resultado.rows.length > 0) {
+            res.status(200).json(resultado.rows[0]);  // Retorna la publicación actualizada
+        } else {
+            res.status(404).json({ message: 'Publicación no encontrada' });
+        }
+    } catch (error) {
+        console.error('Error al editar la publicación:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+
 const ObPublicacionesBenPropias = async (req, res) => {
     console.log("Obteniendo publicaciones del beneficiario...");
     const { id } = req.query;
@@ -71,7 +90,6 @@ const obtenerPublicacionesBen = async (req, res) => {
     const {fk_idbeneficiario} = req.body;
     try {
         const resultado = await pool.query("SELECT * FROM PUBLICACIONBEN");
-        // [fk_idbeneficiario]);
         console.log(resultado);
         if (resultado.rows.length === 0) {
             return res.status(404).json({message: "No hay publicaciones existentes"});
@@ -107,15 +125,80 @@ const deletePublicacionBen = async (req, res) => {
 
 
 //interactuar con la publicacion
+//consultar likes generales de cada publicacion
+const obtenerLikesPublicacion = async (req, res) => {
+    console.log("Obteniendo cantidad de likes...");
+    try {
+        const conteo = await pool.query(`
+            SELECT 
+                p.id AS id_publicacion,
+                COUNT(CASE WHEN i.tipo = 'like' THEN 1 END) AS cantidad_likes
+            FROM 
+                publicacionben p
+            LEFT JOIN 
+                interaccion i
+            ON 
+                p.id = i.fk_idPublicacionBen
+            GROUP BY 
+                p.id;
+        `);
+
+        if (conteo.rows.length === 0) {
+            return res.status(404).json({ message: "No hay interacciones existentes" });
+        }
+        
+        console.log(conteo.rows);
+        res.json(conteo.rows);
+    } catch (error) {
+        console.error("Error al obtener cantidad de likes:", error);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
+const obtenerMisLikes = async (req, res) => {
+    const { fk_idBeneficiario } = req.params;
+    console.log("Obteniendo mis likes...");
+    try {
+        const resultado = await pool.query(`
+            SELECT 
+                p.id AS id_publicacion,
+                CASE 
+                    WHEN i.id_interaccion IS NOT NULL THEN 1
+                    ELSE 0
+                END AS dio_like,
+                i.id_interaccion
+            FROM 
+                publicacionben p
+            LEFT JOIN 
+                interaccion i
+            ON 
+                p.id = i.fk_idPublicacionBen
+                AND i.fk_idBeneficiario = $1
+                AND i.tipo = 'like';
+        `, [fk_idBeneficiario]);
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({ message: "No hay interacciones existentes" });
+        }
+        
+        console.log(resultado.rows);
+        res.json(resultado.rows);
+    } catch (error) {
+        console.error("Error al obtener likes:", error);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
 // Agregar un like
 const likePublicacionBen = async (req, res) => {
-    const { id_beneficiario, id_contenidoBeneficiario } = req.body;
+    const { fk_idbeneficiario, fK_idPublicacionBen} = req.body;
     const tipo = 'like';
 
     try {
         const resultado = await pool.query(
-            'INSERT INTO INTERACCION (tipo, FK_idBeneficiario, FK_idPublicacionBen) VALUES ($1, $2, $3) RETURNING *;',
-            [tipo, id_beneficiario, id_contenidoBeneficiario]
+            'INSERT INTO INTERACCION (tipo, fK_idPublicacionBen, fk_idbeneficiario)'+
+            'VALUES($1, $2, $3) RETURNING *;',
+            [tipo, fK_idPublicacionBen, fk_idbeneficiario]
         );
 
         // Contar likes en tiempo real
@@ -140,7 +223,7 @@ const removeLikePublicacionBen = async (req, res) => {
 
     try {
         const resultado = await pool.query(
-            'DELETE FROM INTERACCION WHERE id_interaccion = $1 RETURNING *;',
+           'DELETE FROM INTERACCION WHERE id = $1 RETURNING *;',
             [id_interaccion]
         );
 
@@ -220,11 +303,12 @@ const getComentariosPublicacionBen = async (req, res) => {
 module.exports = {
     crearPublicacionBen,
     obtenerPublicacionesBen,
-    likePublicacionBen,
-    removeLikePublicacionBen,
     deletePublicacionBen,
     ObPublicacionesBenPropias,
-    contaLikes,
-    getComentariosPublicacionBen,
-    comentarPublicacionBen,
+    editarPublicacionBen,
+    //metodos para interaccion tipo like
+    obtenerLikesPublicacion,
+    obtenerMisLikes,
+    likePublicacionBen,
+    removeLikePublicacionBen
 };

@@ -24,9 +24,9 @@ export const Header = ({ esEmpresa = false, cambiarInterfaz, activa = 1 }) => {
             <li className={paso === 5 ? 'elementoSel': 'elemento'} onClick={() => {setPaso(5)}}><a href="#">Notificaciones</a></li>
             {esEmpresa && (<li className={paso === 6 ? 'elementoSel': 'elemento'} onClick={() => {
                 setPaso(6);
-                cambiarInterfaz('ListaMateriales');
+                cambiarInterfaz('GestionEventos');
             }}><a
-                href="#">Materiales</a></li>)}
+                href="#">Eventos</a></li>)}
         </ul>
         </nav>
         </div>

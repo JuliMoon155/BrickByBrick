@@ -74,7 +74,6 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
         return;
       }
 
-      const userId = 1; // Cambia esto según sea necesario
       // 1. Crear la publicación principal
       const responsePublicacion = await fetch('http://localhost:5000/api/crearpublicacion', {
         method: 'POST',

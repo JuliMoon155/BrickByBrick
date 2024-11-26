@@ -1,0 +1,44 @@
+.container_evento {
+    display: flex;
+    background-color: lightgray;
+    margin: 3%;
+}
+
+.container_evento button {
+    margin: 0.5rem;
+}
+
+.container_botones_evento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container_informacion_evento {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.container_materiales {
+    max-height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.container_materiales::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+}
+.container_materiales::-webkit-scrollbar-thumb {
+    background: #393812;
+    -webkit-border-radius: 1ex;
+}
+.container_materiales::-webkit-scrollbar-corner {
+}
+
+.container_material {
+    background-color: lightgray;
+
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+}
