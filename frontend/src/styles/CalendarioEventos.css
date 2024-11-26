@@ -1,0 +1,149 @@
+.calendario {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #f0f8f0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cabecera-calendario {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cabecera-calendario button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cabecera-calendario h2 {
+  color: #4D8D31;
+  font-size: 2em;
+  text-transform: capitalize;
+}
+
+.dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.dias-semana div {
+  text-align: center;
+  font-weight: bold;
+  color: #4D8D31;
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.dias-mes {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.dia {
+  border: 1px solid #ddd;
+  background-color: white;
+  min-height: 120px;
+  padding: 5px;
+  position: relative;
+}
+
+.dia.vacio {
+  background-color: #f9f9f9;
+}
+
+.dia.con-evento {
+  background-color: #e8f5e9;
+}
+
+.numero-dia {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-weight: bold;
+  color: #2E7D32;
+}
+
+.evento-dia {
+  background-color: #4CAF50;
+  color: white;
+  padding: 4px 6px;
+  margin-top: 25px;
+  margin-bottom: 4px;
+  font-size: 0.9em;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .contenido-popup {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+  }
+  
+  .contenido-popup h3 {
+    color: #2E7D32;
+    margin-bottom: 15px;
+  }
+  
+  .contenido-popup p {
+    margin-bottom: 10px;
+  }
+  
+  .cerrar-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #2E7D32;
+  }
+  
+  .cancelar-inscripcion {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .cancelar-inscripcion:hover {
+    background-color: #d32f2f;
+  }

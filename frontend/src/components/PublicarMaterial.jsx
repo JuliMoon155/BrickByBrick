@@ -143,6 +143,7 @@ export const PublicacionMateriales = ({ userId, usuario, cambiarInterfaz }) => {
       }
 
       alert('Publicación creada con éxito!');
+      cambiarInterfaz("HomePageDon");
     } catch (error) {
       console.error('Error al crear la publicación:', error);
       alert('Hubo un error al crear la publicación');

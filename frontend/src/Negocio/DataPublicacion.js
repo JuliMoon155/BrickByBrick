@@ -39,6 +39,52 @@ const crearPublicacionBen = async (req, res) => {
     }
 };
 
+const editarPublicacionBen = async (req, res) => {
+    const { id, contenido } = req.body;  // Asegúrate de que se pase el id y el contenido
+    try {
+        const resultado = await pool.query(
+            'UPDATE PUBLICACIONBEN SET contenido = $1 WHERE id = $2 RETURNING *;',
+            [contenido, id]
+        );
+
+        if (resultado.rows.length > 0) {
+            res.status(200).json(resultado.rows[0]);  // Retorna la publicación actualizada
+        } else {
+            res.status(404).json({ message: 'Publicación no encontrada' });
+        }
+    } catch (error) {
+        console.error('Error al editar la publicación:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+
+const ObPublicacionesBenPropias = async (req, res) => {
+    console.log("Obteniendo publicaciones del beneficiario...");
+    const { id } = req.query;
+
+    if (!id) {
+        return res.status(400).json({ message: "El parámetro id es requerido" });
+    }
+
+    try {
+        const resultado = await pool.query(
+            "SELECT * FROM PUBLICACIONBEN WHERE fk_idbeneficiario = $1",
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({ message: "No hay publicaciones existentes para este beneficiario" });
+        }
+
+        console.log(resultado.rows);
+        res.json(resultado.rows);
+    } catch (error) {
+        console.error("Error al obtener las publicaciones:", error);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
+
 const obtenerPublicacionesBen = async (req, res) => {
     console.log("Obteniendo publicacion...");
     const {fk_idbeneficiario} = req.body;
@@ -155,7 +201,17 @@ const likePublicacionBen = async (req, res) => {
             'VALUES($1, $2, $3) RETURNING *;',
             [tipo, fK_idPublicacionBen, fk_idbeneficiario]
         );
-        res.status(201).json(resultado.recordset[0]);
+
+        // Contar likes en tiempo real
+        const contador = await pool.query(
+            'SELECT COUNT(*) AS total FROM INTERACCION WHERE tipo = $1 AND FK_idPublicacionBen = $2;',
+            [tipo, id_contenidoBeneficiario]
+        );
+
+        res.status(201).json({
+            like: resultado.rows[0],
+            totalLikes: contador.rows[0].total
+        });
     } catch (error) {
         console.error('Error al agregar like:', error);
         res.status(500).json({ message: 'Error en el servidor' });
@@ -164,7 +220,7 @@ const likePublicacionBen = async (req, res) => {
 
 // Eliminar un like
 const removeLikePublicacionBen = async (req, res) => {
-    const { id_interaccion } = req.body;
+    const { id_interaccion, id_contenidoBeneficiario } = req.body;
 
     try {
         const resultado = await pool.query(
@@ -172,8 +228,17 @@ const removeLikePublicacionBen = async (req, res) => {
             [id_interaccion]
         );
 
-        if (resultado.rowsAffected > 0) {
-            res.status(200).json({ message: 'Like eliminado correctamente' });
+        if (resultado.rowCount > 0) {
+            // Contar likes en tiempo real
+            const contador = await pool.query(
+                'SELECT COUNT(*) AS total FROM INTERACCION WHERE tipo = $1 AND FK_idPublicacionBen = $2;',
+                ['like', id_contenidoBeneficiario]
+            );
+
+            res.status(200).json({
+                message: 'Like eliminado correctamente',
+                totalLikes: contador.rows[0].total
+            });
         } else {
             res.status(404).json({ message: 'No se encontró el like para eliminar' });
         }
@@ -233,12 +298,31 @@ const comentarPublicacion = async (req, res) => {
     }
 };
 
+// Consultar comentarios, probar
+const getComentariosPublicacionBen = async (req, res) => {
+    const { id_contenidoBeneficiario } = req.body;
+
+    try {
+        const comentarios = await pool.query(
+            'SELECT Detalle, FK_idBeneficiario FROM INTERACCION WHERE tipo = $1 AND FK_idPublicacionBen = $2;',
+            ['Comentario', id_contenidoBeneficiario]
+        );
+
+        res.status(200).json(comentarios.rows);
+    } catch (error) {
+        console.error('Error al consultar comentarios:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+
 
 module.exports = {
     crearPublicacionBen,
     obtenerPublicacionesBen,
     deletePublicacionBen,
-
+    ObPublicacionesBenPropias,
+    editarPublicacionBen,
+    
     //metodos para interaccion tipo like
     obtenerLikesPublicacion,
     obtenerMisLikes,
@@ -247,5 +331,6 @@ module.exports = {
 
     //metodo para interaccion tipo comentario
     obtenerComentarios,
+    getComentariosPublicacionBen,
     comentarPublicacion
 };

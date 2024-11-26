@@ -176,7 +176,7 @@ export function GestionEventos({idEmpresa, cambiarInterfaz}) {
 
     return (
         <>
-            <Header esEmpresa={true} cambiarInterfaz={cambiarInterfaz} activa={6}/>
+            <div className="DOMMMM">
             {eventos.map((evento) => {
                 if (evento.materiales instanceof Array) {
                     evento.materiales = evento.materiales.reduce((accumulator, currentValue) => {
@@ -207,6 +207,8 @@ export function GestionEventos({idEmpresa, cambiarInterfaz}) {
                 );
             })}
             {popup}
+            </div>
         </>
+
     );
 }
