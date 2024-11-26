@@ -307,9 +307,6 @@ begin
 end;
 $$;
 
-select * from amistad;
-select beneficiario.nombre, beneficiario.usuario, amistad.id_amistad from amistad left join beneficiario on (amistad.id_solicitado = beneficiario.id or amistad.id_solicitante = beneficiario.id) WHERE beneficiario.id != 3 and (beneficiario.nombre ~* 'mor' or beneficiario.usuario ~* 'mor') and amistad.estado = 'activa';
-
 insert into beneficiario
 values (default, 'andrés moreno', 'andmoreduro', 'safic913@gmail.com', '3045879324', '1193228375', 'contravivir',
         '2002-05-10');
