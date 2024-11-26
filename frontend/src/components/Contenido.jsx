@@ -106,28 +106,11 @@ const [comentarios, setComentarios] = useState([]);
   };
 
 
-  const toggleLike = async (index, id_interaccion, fk_idbeneficiario, fK_idPublicacionBen) => {
-    const newLikeState = !likeStates[index];
-    setLikeStates((prevStates) => {
-      const newStates = [...prevStates];
-      newStates[index] = newLikeState;
-      return newStates;
-    });
-
-    try {
-      const endpoint = 'http://localhost:5000/api/publicaciones/like';
-      const options = {
-        method: newLikeState ? 'POST' : 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fk_idbeneficiario, fK_idPublicacionBen, id_interaccion }),
-      };
-
-      const response = await fetch(endpoint, options);
-
-      if (!response.ok) throw new Error('Error en la interacción de like');
-      console.log(newLikeState ? 'Like agregado' : 'Like eliminado');
-    } catch (error) {
-      console.error('Error al cambiar el estado de like:', error);
+  const toggleLike = async (likeStates) => {
+    if (likeStates == true) {
+      console.log('dislikeando');
+    }if (likeStates == false){
+      console.log('likeando');
     }
   };
 
@@ -305,7 +288,7 @@ const [comentarios, setComentarios] = useState([]);
               <span className="icon" id='comment' onClick={() => {fetchComentarios(publicacion.id); toggleCommentVisibility(index); }}>
                 <img src={commentVisibility[index] ? FilledCommentIcon : CommentIcon} />
               </span>
-              <span className="icon" id="like">
+              <span className="icon" id="like" onClick={() => toggleLike(likeStates[publicacion.id])}>
                 <img src={likeStates[publicacion.id] ? DislikeIcon : LikeIcon} alt="Like Icon" />
                 <div className='contador_likes'>{likesPorPublicacion[publicacion.id] || 0}</div>
               </span>
