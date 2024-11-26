@@ -6,245 +6,152 @@ import FilledCommentIcon from '../imgTemp/icon-comment-clicked.png';
 import ShareIcon from '../imgTemp/icon-share.png';
 import UserIcon from '../imgTemp/icons8-usuario-50.png';
 
+export const Contenido = ({ userId, usuario, Consulta }) => {
+  const [showPopup, setShowPopup] = useState(false); 
+  const [showPopupEdit, setShowPopupEdit] = useState(false); 
+  const [contenido, setContenido] = useState(''); 
+  const [fk_idbeneficiario, setFk_idbeneficiario] = useState(1);
+  const [publicaciones, setPublicaciones] = useState([]);
+  const [dropdownStates, setDropdownStates] = useState([]); 
+  const [commentVisibility, setCommentVisibility] = useState([]);
+  const [likeStates, setLikeStates] = useState([]);
+  const [likeCounts, setLikeCounts] = useState([]); 
+  const [comments, setComments] = useState({}); 
 
-export const Contenido = ({ userId, usuario}) => {
-
-// const fechaActual = new Date();
-const [showPopup, setShowPopup] = useState(false); 
-const [showPopupEdit, setShowPopupEdit] = useState(false); 
-const [contenido, setContenido] = useState(''); 
-const [fecha_publicacion, setFecha_publicacion] = useState(''); 
-const [fk_idbeneficiario, setFk_idbeneficiario] = useState(1);
-const [publicaciones, setPublicaciones] = useState([]);
-const [dropdownStates, setDropdownStates] = useState([]); // Array to track each dropdown
-const [commentVisibility, setCommentVisibility] = useState(Array(publicaciones.length).fill(false));
-
-//interacciones
-const [likeStates, setLikeStates] = useState([]);
-const [dislikeStates, setDislikeStates] = useState([]);
-
+  useEffect(() => {
+    fetchPublicaciones();
+  }, [Consulta]);
 
   const fetchPublicaciones = async () => {
     try {
-      const endpoint = 'http://localhost:5000/api/ObPublicacionesBen';
+      let endpoint = Consulta === "General"
+        ? 'http://localhost:5000/api/ObPublicacionesBen'
+        : `http://localhost:5000/api/ObPublicacionesBenPropias?id=${userId}`;
+      
       const response = await fetch(endpoint, { method: 'GET' });
       if (!response.ok) throw new Error('Error al obtener publicaciones');
       
       const data = await response.json();
       setPublicaciones(data);
       setDropdownStates(new Array(data.length).fill(false));
+      setCommentVisibility(new Array(data.length).fill(false));
+      setLikeStates(data.map(pub => pub.userHasLiked || false)); 
+      setLikeCounts(data.map(pub => pub.likesCount || 0)); 
+      setComments(data.reduce((acc, pub) => {
+        acc[pub.idpublicacion] = pub.comments || [];
+        return acc;
+      }, {}));
     } catch (error) {
       console.error('Error al obtener publicaciones:', error);
     }
   };
 
-  const toggleLike = async (index, id_interaccion, id_beneficiario, id_contenidoBeneficiario) => {
+  const toggleLike = async (index, id_beneficiario, id_contenidoBeneficiario) => {
     const newLikeState = !likeStates[index];
-    setLikeStates((prevStates) => {
-        const newStates = [...prevStates];
-        newStates[index] = newLikeState;
-        return newStates;
+    setLikeStates(prev => {
+      const updated = [...prev];
+      updated[index] = newLikeState;
+      return updated;
+    });
+    setLikeCounts(prev => {
+      const updated = [...prev];
+      updated[index] += newLikeState ? 1 : -1;
+      return updated;
     });
 
     try {
       const endpoint = 'http://localhost:5000/api/publicaciones/like';
       const options = {
-          method: newLikeState ? 'POST' : 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id_beneficiario, id_contenidoBeneficiario }),
+        method: newLikeState ? 'POST' : 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_beneficiario, id_contenidoBeneficiario }),
       };
-
-      const response = await fetch(endpoint, options);
-
-      if (!response.ok) throw new Error('Error en la interacción de like');
-      console.log(newLikeState ? 'Like agregado' : 'Like eliminado');
-  } catch (error) {
+      await fetch(endpoint, options);
+    } catch (error) {
       console.error('Error al cambiar el estado de like:', error);
-  }
-};
-
-
-const toggleCommentVisibility = (index) => {
-  setCommentVisibility((prevState) => {
-    const newState = [...prevState];
-    newState[index] = !newState[index]; // Toggle comment visibility
-    return newState;
-  });
-};
-
-  const handlePopup = () => {
-    setShowPopup(!showPopup); 
-  };
-
-  const handlePopupEdit = () => {
-    setShowPopupEdit(!showPopupEdit); 
-  };
-
-  const handleContenidoChange = (e) => {
-    setContenido(e.target.value);
-  };
-
-  const handleSubmit = async () => {
-    console.log("Publicación creada:", contenido);
-    try{
-        let datos = {contenido, fecha_publicacion, fk_idbeneficiario};
-        let endpoint = "http://localhost:5000/api/PublicacionesBen";
-
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-            },
-            body: JSON.stringify(datos),
-        });
-
-        if (!response.ok) {
-            throw new Error('Error en el servidor');
-        }
-
-        const data = await response.json();
-        console.log('Publicacion Creada:', data);
-        alert('Publicacion creada con exito');
-
-        setShowPopup(false);
-        fetchPublicaciones(); 
-    } catch (error) {
-        console.error("Error al guardar la publicacion:", error);
-        alert("error");
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleCommentSubmit = async (index, id_contenidoBeneficiario, newComment) => {
     try {
-        const endpoint = `http://localhost:5000/api/EliminarPublicacion/${id}`;
-        const response = await fetch(endpoint, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+      const endpoint = 'http://localhost:5000/api/publicaciones/comment';
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_contenidoBeneficiario, comentario: newComment }),
+      });
 
-        if (!response.ok) {
-            throw new Error('Error al eliminar la publicación');
-        }
+      if (!response.ok) throw new Error('Error al agregar comentario');
 
-        const data = await response.json();
-        console.log('Publicación eliminada:', data);
-        alert('Publicación eliminada con éxito');
-
-        fetchPublicaciones(); 
+      setComments(prev => {
+        const updated = { ...prev };
+        updated[id_contenidoBeneficiario] = [
+          ...updated[id_contenidoBeneficiario],
+          { comentario: newComment, autor: usuario },
+        ];
+        return updated;
+      });
     } catch (error) {
-        console.error('Error al eliminar la publicación:', error);
-        alert('Error al eliminar la publicación');
+      console.error('Error al agregar comentario:', error);
     }
-};
+  };
 
-  const toggleDropdown = (index) => {  // Using index here
-    setDropdownStates((prevStates) => {
-      const newStates = [...prevStates];
-      newStates[index] = !newStates[index]; // Toggle only the clicked dropdown
-      return newStates;
+  const toggleCommentVisibility = index => {
+    setCommentVisibility(prev => {
+      const updated = [...prev];
+      updated[index] = !updated[index];
+      return updated;
     });
   };
 
-
-    useEffect(() => {
-      if (userId && usuario) {
-        setFk_idbeneficiario(userId);
-        fetchPublicaciones();
-      }
-    }, [userId, usuario]);
-
-
-    return (
-        <>
-        <button className='addPublicacion' onClick={handlePopup}>+</button>
-        <input className='buscar' placeholder='Buscar'></input>
-        <div className='PublicacionesExistentes'>
-        {/* Mapeo de publicaciones */}
-        {publicaciones.map((publicacion, index) => ( 
+  return (
+    <>
+      <button className='addPublicacion' onClick={() => setShowPopup(true)}>+</button>
+      <div className='PublicacionesExistentes'>
+        {publicaciones.map((publicacion, index) => (
           <div className='PublicacionBen' key={publicacion.idpublicacion}>
             <div className="header_PublicacionBen">
               <img src={UserIcon} alt="User Icon" className="userIcon_PublicacionBen" />
               <span className="userName_PublicacionBen">Username</span>
               <div 
                 className="menuIcon" 
-                onClick={() => toggleDropdown(index)} // Using index here
+                onClick={() => toggleDropdown(index)}
               >⋮</div>
-              {dropdownStates[index] && ( // Checking dropdownStates[index] for condition
+              {dropdownStates[index] && (
                 <div className="dropdownMenu">
-                  <button id='editPBen' onClick={handlePopupEdit}>Editar</button>
-                  <button id='deletePBen'onClick={() => handleDelete(publicacion.id)}>Eliminar</button>
-                  <button onClick={() => console.log("Report post")}>Reportar</button>
-                </div>
+                {Consulta !== "General" && (
+                  <button id='editPBen' onClick={() => setShowPopupEdit(true)}>Editar</button>
+                )}
+                <button id='deletePBen' onClick={() => handleDelete(publicacion.id)}>Eliminar</button>
+              </div>
               )}
             </div>
             <p className='contenido_PublicacionBen'>{publicacion.contenido}</p>
             <p className='fecha_PublicacionBen'>{new Date(publicacion.fecha_publicacion).toLocaleDateString()}</p>
             <div className="interactionIcons_PublicacionBen">
-              <span className="icon" id='share'><img src={ShareIcon}/></span>
+              <span className="icon" id='like' onClick={() => toggleLike(index, fk_idbeneficiario, publicacion.idpublicacion)}>
+                <img src={likeStates[index] ? DislikeIcon : LikeIcon} />
+                <span>{likeCounts[index]}</span>
+              </span>
               <span className="icon" id='comment' onClick={() => toggleCommentVisibility(index)}>
                 <img src={commentVisibility[index] ? FilledCommentIcon : CommentIcon} />
-              </span>              
-              <span 
-                className="icon" 
-                id="like" 
-                onClick={() => toggleLike(
-                  index, 
-                  fk_idbeneficiario, 
-                  publicaciones[index].idpublicacion 
-                )}
-              >
-                <img 
-                  src={likeStates[index] ? DislikeIcon : LikeIcon} 
-                  alt="Like Icon" 
-                />
               </span>
             </div>
             {commentVisibility[index] && (
               <div className="commentSection">
-                <textarea className="commentInput" placeholder="Escribe un comentario..."></textarea>
-                <button className="submitComment">Comentar</button>
+                {comments[publicacion.idpublicacion]?.map((comment, idx) => (
+                  <p key={idx}><strong>{comment.autor}</strong>: {comment.comentario}</p>
+                ))}
+                <textarea 
+                  className="commentInput" 
+                  placeholder="Escribe un comentario..." 
+                  onBlur={(e) => handleCommentSubmit(index, publicacion.idpublicacion, e.target.value)}
+                />
               </div>
             )}
           </div>
         ))}
-        </div>
-        {/* Popup */}
-        {showPopup && (
-            <div className="popup">
-            <div className="popup-inner">
-                <h2>Nueva Publicación</h2>
-                <textarea
-                placeholder="Escribe una descripción..."
-                value={contenido}
-                onChange={handleContenidoChange}
-                />
-                <div className="popup-actions">
-                <button onClick={handleSubmit}>Publicar</button>
-                <button onClick={handlePopup}>Cancelar</button>
-                </div>
-            </div>
-            </div>
-        )}
-
-        {/* Popup editar */}
-        {showPopupEdit && (
-            <div className="popup">
-            <div className="popup-inner">
-                <h2>Editar Publicación</h2>
-                <textarea
-                placeholder="Edita la publicación..."
-                value={publicaciones.contenido}
-                onChange={handleContenidoChange}
-                />
-                <div className="popup-actions">
-                <button onClick={handleSubmit}>Guardar</button>
-                <button onClick={handlePopupEdit}>Cancelar</button>
-                </div>
-            </div>
-            </div>
-        )}        
-        </>
+      </div>
+    </>
   );
 };

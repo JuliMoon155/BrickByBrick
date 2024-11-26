@@ -57,24 +57,15 @@ create table publicaciondon
     foreign key (fk_idempresa) references empresa (id)
 );
 
-<<<<<<< HEAD
-CREATE TABLE INTERACCION(
-  Id_interaccion SERIAL PRIMARY KEY,
-  Tipo VARCHAR(100) NOT NULL,
-  FK_idPublicacionBen INTEGER NOT NULL,
-  FK_idBeneficiario INTEGER NOT NULL,
-  FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen(ID),
-  FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario(ID)
-=======
 CREATE TABLE INTERACCION
 (
     Id_interaccion      SERIAL PRIMARY KEY,
     Tipo                VARCHAR(100) NOT NULL,
+    Detalle             VARCHAR(100) NOT NULL,
     FK_idPublicacionBen INTEGER      NOT NULL,
     FK_idBeneficiario   INTEGER      NOT NULL,
     FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen (ID),
     FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario (ID)
->>>>>>> 686482a3c818375bbcb248fc2c3698d44d35fde6
 );
 
 
@@ -90,16 +81,6 @@ CREATE TABLE PublicacionDon
     FOREIGN KEY (FK_idEmpresa) REFERENCES Empresa (ID)
 );
 
-
-CREATE TABLE INTERACCION
-(
-    Id_interaccion      SERIAL PRIMARY KEY,
-    Tipo                VARCHAR(100) NOT NULL,
-    FK_idPublicacionBen INTEGER      NOT NULL,
-    FK_idBeneficiario   INTEGER      NOT NULL,
-    FOREIGN KEY (FK_idPublicacionBen) REFERENCES PublicacionBen (ID),
-    FOREIGN KEY (FK_idBeneficiario) REFERENCES Beneficiario (ID)
-);
 
 
 CREATE TABLE PublicacionDon

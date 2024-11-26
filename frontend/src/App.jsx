@@ -5,6 +5,8 @@ import { HomePage } from './components/HomePage';
 import Inscripcion from './components/Inscripcion';
 import React, { useState, useEffect } from 'react';
 import {VistaMaterialesPublicados} from "./components/VistaMaterialesPublicados";
+import {HomePages} from "./components/HomePageDon";
+
 
 
 
@@ -30,7 +32,7 @@ function App() {
     if (rol === 'Beneficiario') { 
       cambiarInterfaz('HomePage');
     } else if (rol === 'Empresario'){
-      cambiarInterfaz('PublicacionMateriales');
+      cambiarInterfaz('HomePageDon');
     }
   };
 
@@ -52,6 +54,9 @@ function App() {
       )}
       {interfaz === 'HomePage' && (
         <HomePage usuario={usuario} userId={userId} userRol={userRol} inscript={InscripcionDatos} cambiarInterfaz={cambiarInterfaz} data={data}/>
+      )}
+      {interfaz === 'HomePageDon' && (
+        <HomePages usuario={usuario} userId={userId} userRol={userRol} inscript={InscripcionDatos} cambiarInterfaz={cambiarInterfaz} data={data}/>
       )}
       {interfaz === 'PublicacionMateriales' && (
 

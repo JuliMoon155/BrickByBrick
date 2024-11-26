@@ -32,12 +32,13 @@ export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz, 
             <h4 className="titCorreoAct">Email</h4><input type="email" placeholder={data.email} className='correoAct'></input>
             <h4 className="titCelularAct">Celular</h4><input type="number" placeholder={data.celular} className='celularAct'></input>
             <h4 className="titClaveAct">Clave</h4><input type="password" placeholder='Contraseña' className='claveAct'></input>
+            <h3 className="tit" onClick={()=>{setContenido_foryou(<Contenido userId={userId} usuario={usuario} Consulta={'MisConte'}/>)}}>Mis Publicaciones</h3>
             <button className='actDatos' onClick="#">Actualizar</button>
           </div>
         </div>
         <div className='forYou'>
           <div className='Separador'>
-          <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido userId={userId} usuario={usuario}/>)}}>
+          <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido userId={userId} usuario={usuario} Consulta={'General'}/>)}}>
             <span>Contenido</span>
           </div>
           <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones inscript = {inscript}/>)}} >
@@ -46,7 +47,8 @@ export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz, 
           </div>
           {contenido_foryou}
         </div>
-        <div className='extras'></div>
+        <div className='extras'>
+        </div>
       </div>
 
     </div>
