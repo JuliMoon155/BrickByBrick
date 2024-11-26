@@ -5,7 +5,7 @@ const { obtenerEmpresa, crearEmpresa } = require("./DataEmpresa");
 const { crearPublicacion, buscarPublicacion, obtenerPublicacionesDeEmpresa, editarPublicacionDonacion} = require("./DataPublicacionDonacion");
 const { agregarImagen } = require("./DataImagen");
 const { agregarMateriales, editarMaterial} = require("./DataMateriales");
-const { crearInscripcion } = require("./DataInscripcion");
+const { crearInscripcion, eliminarInscripcion ,consultarInscripcion} = require("./DataInscripcion");
 const { crearPublicacionBen,editarPublicacionBen,obtenerPublicacionesBen,ObPublicacionesBenPropias ,deletePublicacionBen, obtenerLikesPublicacion, obtenerMisLikes, likePublicacionBen, removeLikePublicacionBen } = require('./DataPublicacion');
 
 const path = require("path");
@@ -46,6 +46,8 @@ router.get("/ObPublicacionesBenPropias", ObPublicacionesBenPropias);
 router.post("/PublicacionesBen", crearPublicacionBen);
 router.post("/BuscarPublicacion", buscarPublicacion);
 router.post("/CrearInscripcion", crearInscripcion);
+router.get("/consultarInscripcion", consultarInscripcion);
+router.delete("/EliminarInscripcion/:idInscripcion", eliminarInscripcion);
 router.delete('/EliminarPublicacion/:id', deletePublicacionBen);
 router.post("/like", likePublicacionBen);  // Para agregar un like
 router.delete("/like", removeLikePublicacionBen);  // Para eliminar un like

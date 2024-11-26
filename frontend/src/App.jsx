@@ -6,6 +6,7 @@ import Inscripcion from './components/Inscripcion';
 import React, { useState } from 'react';
 import {GestionEventos} from "./components/GestionEventos";
 import {HomePages} from "./components/HomePageDon";
+import { CalendarioEventos } from "./components/CalendarioEventos";
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
     setIdPublicacion(IdPubli);
     cambiarInterfaz('Inscripcion');
   }
-
+  //NotiEmpresas
   return (
     <>
       {interfaz === 'Login' && (
@@ -66,6 +67,9 @@ function App() {
       {interfaz === 'GestionEventos' && (
           <GestionEventos idEmpresa={userId} cambiarInterfaz={cambiarInterfaz}/>
       )}
+      {interfaz === 'CalendarioEventoUsr' && (
+        <CalendarioEventos userId={userId} cambiarInterfaz={cambiarInterfaz}/>
+    )}
     </>
   );
 }
