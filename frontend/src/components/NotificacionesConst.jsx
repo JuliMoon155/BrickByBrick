@@ -39,6 +39,7 @@ function NotificacionesConst({ activar, cerrarPopup, empresaId }) {
 
   return (
       <Popup open={activar} onClose={cerrarPopup} modal>
+        <h1>{empresaId}</h1>
         {loading ? (
           // <p>Cargando notificaciones...</p>
         // ) : notificaciones.length > 0 ? (

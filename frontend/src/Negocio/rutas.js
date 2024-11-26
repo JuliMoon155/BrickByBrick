@@ -5,9 +5,8 @@ const { obtenerEmpresa, crearEmpresa } = require("./DataEmpresa");
 const { crearPublicacion, buscarPublicacion, obtenerPublicacionesDeEmpresa, editarPublicacionDonacion} = require("./DataPublicacionDonacion");
 const { agregarImagen } = require("./DataImagen");
 const { agregarMateriales, editarMaterial} = require("./DataMateriales");
-const { crearPublicacionBen,obtenerPublicacionesBen, deletePublicacionBen, obtenerLikesPublicacion, obtenerMisLikes, likePublicacionBen, removeLikePublicacionBen, obtenerComentarios } = require('./DataPublicacion');
+const { editarPublicacionBen,ObPublicacionesBenPropias, crearPublicacionBen,obtenerPublicacionesBen, deletePublicacionBen, obtenerLikesPublicacion, obtenerMisLikes, likePublicacionBen, removeLikePublicacionBen, obtenerComentarios } = require('./DataPublicacion');
 const { crearInscripcion, eliminarInscripcion ,consultarInscripcion,obtenerInscripcionesXEmpresa} = require("./DataInscripcion");
-const { crearPublicacionBen,editarPublicacionBen,obtenerPublicacionesBen,ObPublicacionesBenPropias ,deletePublicacionBen, obtenerLikesPublicacion, obtenerMisLikes, likePublicacionBen, removeLikePublicacionBen } = require('./DataPublicacion');
 
 const path = require("path");
 const multer = require("multer");
