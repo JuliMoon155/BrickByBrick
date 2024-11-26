@@ -99,6 +99,7 @@ create table inscripcion
     apellido            varchar(100)        not null,
     celular             varchar(100)        not null,
     correo              varchar(100) unique not null,
+    fecha_creacion TIMESTAMP DEFAULT NOW(),
     foreign key (fk_idpublicaciondon) references publicaciondon (id_publicacion),
     foreign key (fk_idbeneficiario) references beneficiario (id)
 );
