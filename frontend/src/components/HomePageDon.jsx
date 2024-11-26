@@ -40,10 +40,12 @@ export const HomePages = ({ userId, usuario, userRol, cambiarInterfaz, data }) =
         </div>
         <div className='forYou'>
           <div className='Separador'>
-            <h3>jola</h3>
+            <h3>Mis publicaciones</h3>
           </div>
-          <h2>sss</h2>
           {contenido_foryou}
+          <br />
+          <br />
+          <button className='actDatos' onClick={() => cambiarInterfaz("PublicacionMateriales")}>Crear publicacion</button>
         </div>
         <div className='extras'></div>
       </div>
