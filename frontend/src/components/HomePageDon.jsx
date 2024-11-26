@@ -7,7 +7,7 @@ import {Donaciones} from "./Donaciones";
 import profileDefault from '../imgTemp/profileDefault.png';
 
 
-export const HomePage = ({ userId, usuario, userRol, data}) => {
+export const HomePages = ({ userId, usuario, userRol, data}) => {
     const [contenido_foryou, setContenido_foryou] = useState(<Contenido userId={userId} usuario={usuario}/>);
 
     useEffect(() => {
@@ -37,12 +37,6 @@ export const HomePage = ({ userId, usuario, userRol, data}) => {
         </div>
         <div className='forYou'>
           <div className='Separador'>
-          <div className='seleccion_separador1' onClick={()=>{setContenido_foryou(<Contenido userId={userId} usuario={usuario}/>)}}>
-            <span>Contenido</span>
-          </div>
-          <div className='seleccion_separador2' onClick={()=>{setContenido_foryou(<Donaciones />)}} >
-            <span>Donaciones</span>
-            </div>
           </div>
           {contenido_foryou}
         </div>

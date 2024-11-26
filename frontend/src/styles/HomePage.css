@@ -364,24 +364,25 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 5px 10px;
-    display: block;
+    padding: 0; /* Cambia el padding general */
     z-index: 1000; /* Ensure it’s above other elements */
 }
 
 .dropdownMenu button {
     background: none;
     border: none;
-    padding: 8px 12px;
+    padding: 8px 12px; /* Controla el espaciado aquí */
     text-align: left;
     width: 100%;
     cursor: pointer;
     font-size: 14px;
+    margin: 0; /* Evita márgenes entre botones */
 }
 
 .dropdownMenu button:hover {
     background-color: #f0f0f0;
 }
+
 
 .Separador {
     align-items: center;

@@ -6,7 +6,7 @@ const { crearPublicacion, buscarPublicacion, obtenerPublicacionesDeEmpresa, edit
 const { agregarImagen } = require("./DataImagen");
 const { agregarMateriales, editarMaterial} = require("./DataMateriales");
 const { crearInscripcion } = require("./DataInscripcion");
-const { crearPublicacionBen,obtenerPublicacionesBen, deletePublicacionBen, obtenerLikesPublicacion, obtenerMisLikes, likePublicacionBen, removeLikePublicacionBen } = require('./DataPublicacion');
+const { crearPublicacionBen,editarPublicacionBen,obtenerPublicacionesBen,ObPublicacionesBenPropias ,deletePublicacionBen, obtenerLikesPublicacion, obtenerMisLikes, likePublicacionBen, removeLikePublicacionBen } = require('./DataPublicacion');
 
 const path = require("path");
 const multer = require("multer");
@@ -37,10 +37,12 @@ router.post("/Empresas", crearEmpresa);
 router.post("/crearMaterial", agregarMateriales);
 router.post("/editarMaterial", editarMaterial);
 router.post("/crearpublicacion", crearPublicacion);
+router.put("/editarPublicacionBen", editarPublicacionBen);
 router.post("/editarPublicacionDonacion", editarPublicacionDonacion);
 router.post("/ObPublicacionesDeEmpresa", obtenerPublicacionesDeEmpresa);
 router.post("/crearimagen", upload.single("imagen"), agregarImagen);
 router.get("/ObPublicacionesBen", obtenerPublicacionesBen);
+router.get("/ObPublicacionesBenPropias", ObPublicacionesBenPropias);
 router.post("/PublicacionesBen", crearPublicacionBen);
 router.post("/BuscarPublicacion", buscarPublicacion);
 router.post("/CrearInscripcion", crearInscripcion);
