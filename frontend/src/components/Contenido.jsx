@@ -23,6 +23,7 @@ const [likesPorPublicacion, setLikesPorPublicacion] = useState({});
 //interacciones
 const [likeStates, setLikeStates] = useState({});
 const [dislikeStates, setDislikeStates] = useState([]);
+const [comentarios, setComentarios] = useState([]);
 
 
   const fetchPublicaciones = async () => {
@@ -73,6 +74,22 @@ const [dislikeStates, setDislikeStates] = useState([]);
       setLikeStates(likesMap); 
     }catch (error) {
       console.error('Error2 al obtener mis likes: ', error);
+    }
+  };
+
+  const fetchComentarios = async (id) => {
+    console.log("Obteniendo comentarios para la publicación con ID:", id);
+
+    try {
+      const endpoint = `http://localhost:5000/api/ObComentarios/${id}`;
+      console.log(endpoint);
+      const response = await fetch(endpoint, { method: 'GET' });
+      if (!response.ok) throw new Error('Error al obtener los comentarios');
+      
+      const data = await response.json();
+      setComentarios(data);
+    } catch (error) {
+      console.error('Error al obtener publicaciones:', error);
     }
   };
 
@@ -225,7 +242,7 @@ const toggleCommentVisibility = (index) => {
             <p className='fecha_PublicacionBen'>{new Date(publicacion.fecha_publicacion).toLocaleDateString()}</p>
             <div className="interactionIcons_PublicacionBen">
               <span className="icon" id='share'><img src={ShareIcon}/></span>
-              <span className="icon" id='comment' onClick={() => toggleCommentVisibility(index)}>
+              <span className="icon" id='comment' onClick={() => {fetchComentarios(publicacion.id); toggleCommentVisibility(index); }}>
                 <img src={commentVisibility[index] ? FilledCommentIcon : CommentIcon} />
               </span>              
               <span className="icon" id="like">
@@ -235,6 +252,14 @@ const toggleCommentVisibility = (index) => {
             </div>
             {commentVisibility[index] && (
               <div className="commentSection">
+                <div className='commentsVisibility'>
+                {/* Mapeo de comentarios */}
+                {comentarios.map((comentario) => (
+                  <span key={comentario.id_comentario}>
+                    {comentario.comentario} @{comentario.id_autor}
+                  </span>
+                ))}
+                </div>
                 <textarea className="commentInput" placeholder="Escribe un comentario..."></textarea>
                 <button className="submitComment">Comentar</button>
               </div>

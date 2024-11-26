@@ -109,6 +109,7 @@ const obtenerLikesPublicacion = async (req, res) => {
     }
 };
 
+//consulta de likes del logged in user
 const obtenerMisLikes = async (req, res) => {
     const { fk_idBeneficiario } = req.params;
     console.log("Obteniendo mis likes...");
@@ -182,6 +183,56 @@ const removeLikePublicacionBen = async (req, res) => {
     }
 };
 
+//busqueda de comentarios por publicacion.
+const obtenerComentarios = async (req, res) => {
+    const { fK_idPublicacionBen } = req.body;
+    console.log("Obteniendo comentarios...");
+    
+    try {
+        const resultado = await pool.query(`
+            SELECT 
+                i.id_interaccion AS id_comentario,
+                i.detalle AS comentario,
+                i.fk_idbeneficiario AS id_autor
+            FROM 
+                interaccion i
+            WHERE 
+                i.tipo = 'comentario'
+                AND i.fk_idpublicacionben = $1
+            ORDER BY 
+                i.id_interaccion;
+        `, [fK_idPublicacionBen]);
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({message: "No hay comentarios existentes"});
+        }
+
+        console.log(resultado.rows);
+        res.json(resultado.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
+//inserción de comentarios.
+const comentarPublicacion = async (req, res) => {
+    const {detalle, fK_idPublicacionBen, fk_idbeneficiario} = req.body;
+    const tipo = 'comentario';
+    try {
+        const resultado = await pool.query(
+            'INSERT INTO INTERACCION (tipo, detalle, fK_idPublicacionBen, fk_idbeneficiario)'+
+            'VALUES($1, $2, $3, $4) RETURNING *;',
+            [tipo, detalle, fK_idPublicacionBen, fk_idbeneficiario]
+        );
+
+        res.status(201).json(resultado.rows[0]); // Devuelve el beneficiario insertado
+    } catch (error) {
+        console.error('Error al crear la publicacion:', error);
+        res.status(500).json({message: 'Error en el servidor'}); // Asegúrate de devolver siempre JSON
+    }
+};
+
 
 module.exports = {
     crearPublicacionBen,
@@ -192,5 +243,9 @@ module.exports = {
     obtenerLikesPublicacion,
     obtenerMisLikes,
     likePublicacionBen,
-    removeLikePublicacionBen
+    removeLikePublicacionBen,
+
+    //metodo para interaccion tipo comentario
+    obtenerComentarios,
+    comentarPublicacion
 };

@@ -606,7 +606,7 @@
 
 .commentInput {
     width: 80%;
-    height: 60px; /* Adjust based on your preference */
+    height: 30px; /* Adjust based on your preference */
     padding: 8px;
     margin-left: 50px;
     border: 1px solid #ddd;
@@ -651,4 +651,13 @@
     width: 15px;
     margin-left: -10px;
     margin-top: 45%;
+}
+
+.commentsVisibility{
+    margin-left: 50px;
+    margin-bottom: 5px;
+    width: 80%;
+    max-height: 30px;
+    padding: 8px;
+    font-size: small;
 }
