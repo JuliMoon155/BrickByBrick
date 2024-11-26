@@ -104,6 +104,44 @@ create table inscripcion
     foreign key (fk_idbeneficiario) references beneficiario (id)
 );
 
+create table NotificacionesBen
+(
+    id_notification serial primary key,
+    id_recipiente   integer      not null,
+    id_emisor       integer      not null,
+    id_objeto       integer      not null,
+    tipo            varchar(100) not null,
+    fecha           date         not null,
+    hora            time         not null,
+    por_leer        bool         not null,
+    foreign key (id_recipiente) references beneficiario (id),
+    foreign key (id_emisor) references beneficiario (id)
+);
+
+create table solicitud_amistad
+(
+    id_solicitud   serial primary key,
+    id_solicitante integer      not null,
+    id_solicitado  integer      not null,
+    estado         varchar(100) not null,
+    foreign key (id_solicitante) references beneficiario (id),
+    foreign key (id_solicitado) references beneficiario (id)
+);
+
+create table amistad
+(
+    id_amistad     serial primary key,
+    id_solicitante integer not null,
+    id_solicitado  integer not null,
+    id_solicitud   integer not null,
+    fecha_inicial  date    not null,
+    fecha_final    date,
+    estado varchar(100) not null,
+    foreign key (id_solicitante) references beneficiario (id),
+    foreign key (id_solicitado) references beneficiario (id),
+    foreign key (id_solicitud) references solicitud_amistad (id_solicitud)
+);
+
 create type publicacion_parcial as
 (
     id                integer,
@@ -140,7 +178,7 @@ create type resultado_busqueda as
     materiales  material_parcial[]
 );
 
-create function buscar(
+create function buscar_eventos(
     texto text,
     categorias text[],
     cantidad_minima integer,
@@ -268,6 +306,9 @@ begin
     return to_json(resultados);
 end;
 $$;
+
+select * from amistad;
+select beneficiario.nombre, beneficiario.usuario, amistad.id_amistad from amistad left join beneficiario on (amistad.id_solicitado = beneficiario.id or amistad.id_solicitante = beneficiario.id) WHERE beneficiario.id != 3 and (beneficiario.nombre ~* 'mor' or beneficiario.usuario ~* 'mor') and amistad.estado = 'activa';
 
 insert into beneficiario
 values (default, 'andrés moreno', 'andmoreduro', 'safic913@gmail.com', '3045879324', '1193228375', 'contravivir',

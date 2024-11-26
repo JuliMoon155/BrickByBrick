@@ -14,7 +14,7 @@ export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz, 
 
     useEffect(() => {
       setContenido_foryou(<Contenido userId={userId} usuario={usuario}/>);
-      setExtras(<ListaAmistades setExtras={setExtras} />);
+      setExtras(<ListaAmistades userId={userId} setExtras={setExtras} />);
     }, [userId, usuario]);
 
 

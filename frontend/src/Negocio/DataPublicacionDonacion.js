@@ -53,12 +53,12 @@ const buscarPublicacion = async (req, res) => {
         categorias[i] = "'" + categorias[i] + "'";
     }
     try {
-        const result = await pool.query(`select * from buscar($1, array[${categorias.join("','")}]::text[], $2, $3)`, [texto, cantidad_minima, cantidad_maxima])
+        const result = await pool.query(`select * from buscar_eventos($1, array[${categorias.join("','")}]::text[], $2, $3)`, [texto, cantidad_minima, cantidad_maxima])
         if (result.rows.length === 0) {
             return res.status(404).json({message: "No hay resultados de búsqueda."});
         }
-        console.log(result.rows[0].buscar);
-        res.status(201).json(result.rows[0].buscar);
+        console.log(result.rows[0].buscar_eventos);
+        res.status(201).json(result.rows[0].buscar_eventos);
     } catch (error) {
         console.error("Error ACAAAAAAAAAAAAA:", error);
         res.status(500).json({message: "Error en el servidor"});

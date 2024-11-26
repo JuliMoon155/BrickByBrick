@@ -20,6 +20,14 @@
     height: 40px;
 }
 
+.acciones-amistad {
+    display: flex;
+    flex-grow: 1;
+    padding: 2rem;
+    align-items: start;
+    justify-content: center;
+}
+
 .solicitudes-amistad {
     display: flex;
     margin: 0.5rem 0;
@@ -72,6 +80,7 @@
 .perfil-amistad {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 .info-amistad {
@@ -98,8 +107,51 @@
     font-size: medium;
 }
 
+.boton-amistad:disabled {
+    opacity: 50%;
+}
+
 .nombre-amistad {
     color: white;
+}
+
+.buscar-amistad {
+    height: 0.5%;
+    width: 80%;
+    margin: 0 6%;
+    background-color: rgba(128, 128, 128, 0.235);
+    font-size: small;
+    border-radius: 4px;
+}
+
+.resultados-busqueda-amistad {
+    display: flex;
+}
+
+.resultado-busqueda-amistad {
+    display: flex;
+    flex-grow: 1;
+    margin-top: 5%;
+}
+
+.contenedor-foto-amistad {
+    display: flex;
+    align-items: center;
+}
+
+.contenedor-foto-amistad img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.contenedor-informacion-amistad {
+
+}
+
+.contenedor-boton-solicitud-amistad {
+    text-align: end;
+    align-content: center;
+    flex-grow: 1;
 }
 
 .Categorias {
