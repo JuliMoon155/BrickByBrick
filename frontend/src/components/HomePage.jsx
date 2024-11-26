@@ -21,7 +21,7 @@ export const HomePage = ({ userId, usuario, userRol, inscript, cambiarInterfaz, 
 
   return (
     <div className='HomePage'>
-      <Header cambiarInterfaz={cambiarInterfaz} />
+      <Header cambiarInterfaz={cambiarInterfaz} usuarioId = {userId} />
       <div className='Contenido'>
       <div className='perfil'>
           <div className='infoPersonal'>
