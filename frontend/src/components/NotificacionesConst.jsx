@@ -8,59 +8,56 @@ function NotificacionesConst({ activar, cerrarPopup, empresaId }) {
   const [notificaciones, setNotificaciones] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchNotificaciones = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const response = await fetch("/api/inscripciones", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ empresa: empresaId }),
-  //       });
+  useEffect(() => {
+    const fetchNotificaciones = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`http://localhost:5000/api/obtenerInscripcionesXEmpresa/${empresaId}`, {
+          method: "GET",
+          headers: {"Content-Type": "application/json"},
+        });
 
-  //       if (!response.ok) {
-  //         throw new Error("Error al obtener las notificaciones");
-  //       }
+        if (!response.ok) {
+          throw new Error("Error al obtener las notificaciones");
+        }
 
-  //       const data = await response.json();
-  //       setNotificaciones(data); // Guarda las notificaciones en el estado
-  //     } catch (error) {
-  //       console.error("Error al obtener notificaciones:", error);
-  //       setNotificaciones([]);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+        const data = await response.json();
+        console.log(data);
+        setNotificaciones(data);
 
-  //   fetchNotificaciones();
-  // }, [empresaId]);
+      } catch (error) {
+        console.error("Error al obtener notificaciones:", error);
+        setNotificaciones([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNotificaciones();
+  }, [empresaId]);
 
   return (
       <Popup open={activar} onClose={cerrarPopup} modal>
-        <h1>{empresaId}</h1>
         {loading ? (
-          // <p>Cargando notificaciones...</p>
-        // ) : notificaciones.length > 0 ? (
-          // notificaciones.map((notificacion) => (
+          <p>Cargando notificaciones...</p>
+        ) : notificaciones.length > 0 ? (
+          notificaciones.map((notificacion) => (
           <ItemNotiConst
-          key={1}
-          // key={notificacion.id_inscripcion}
-          nombreConstructora={"Constructora Patitos"}
-          // nombreConstructora={notificacion.nombre_empresa}
-          fechaCreacionRegistro={"24-11-2024"}
-          // fechaCreacionRegistro={new Date(notificacion.fecha_creacion).toLocaleString()}
-          nombreCompletoBeneficiarioRegistrado={"Raúl Perez"}
-          // nombreCompletoBeneficiarioRegistrado={`${notificacion.nombre_beneficiario} ${notificacion.apellido_beneficiario}`}
-          tituloPublicacion={"Ladrillos Calientes"}
-          // tituloPublicacion={notificacion.titulo_publicacion}
-          celularBeneficiario={"30588091060"}
-          // celularBeneficiario={notificacion.celular}
-          correoBeneficiario={"correo@real.com"}
-          // correoBeneficiario={notificacion.correo}
+          // key={1}
+          key={notificacion.id_inscripcion}
+          // nombreConstructora={"Constructora Patitos"}
+          nombreConstructora={notificacion.nombre_empresa}
+          // fechaCreacionRegistro={"24-11-2024"}
+          fechaCreacionRegistro={new Date(notificacion.fecha_creacion).toLocaleString()}
+          // nombreCompletoBeneficiarioRegistrado={"Raúl Perez"}
+          nombreCompletoBeneficiarioRegistrado={`${notificacion.nombre_beneficiario} ${notificacion.apellido_beneficiario}`}
+          // tituloPublicacion={"Ladrillos Calientes"}
+          tituloPublicacion={notificacion.titulo_publicacion}
+          // celularBeneficiario={"30588091060"}
+          celularBeneficiario={notificacion.celular}
+          // correoBeneficiario={"correo@real.com"}
+          correoBeneficiario={notificacion.correo}
           />
-        // ))
+        ))
       ) : (
       <p><center><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
       <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>

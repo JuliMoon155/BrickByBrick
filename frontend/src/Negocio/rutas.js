@@ -56,8 +56,13 @@ router.post("/like", likePublicacionBen);  // Para agregar un like
 router.post("/Dislike", removeLikePublicacionBen);  // Para eliminar un like
 router.get("/ObLikes", obtenerLikesPublicacion);
 router.get("/ObMisLikes/:fk_idBeneficiario", obtenerMisLikes);
+<<<<<<< HEAD
 router.get("/ObComentarios/:fk_idPublicacionBen", obtenerComentarios);
 router.post("/obtenerInscripcionesXEmpresa", obtenerInscripcionesXEmpresa);
+=======
+router.get("/ObComentarios/:fK_idPublicacionBen", obtenerComentarios);
+router.get("/obtenerInscripcionesXEmpresa/:empresa", obtenerInscripcionesXEmpresa);
+>>>>>>> 0ecb3be493309bd0004b4c1a0c902c4a845bf457
 router.post("/CrearSolicitudAmistad", crearSolicitudAmistad);
 router.post("/ObMisSolicitudesAmistad", obtenerMisSolicitudesAmistad);
 router.post("/EditarEstadoSolicitud", editarEstadoSolicitud);
