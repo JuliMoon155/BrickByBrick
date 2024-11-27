@@ -38,6 +38,22 @@ const crearBeneficiario = async (req, res) => {
     }
 };
 
+const actualizarBeneficiario = async (req, res) => {
+    const {id, nombre, usuario, email, celular, cedula, password, fecha_nacimiento} = req.body;
+    try {
+        const resultado = await pool.query(
+            'INSERT INTO BENEFICIARIO (nombre, usuario, email, celular, cedula, password, fecha_nacimiento) ' +
+            'VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *;',
+            [nombre, usuario, email, celular, cedula, password, fecha_nacimiento]
+        );
+
+        res.status(201).json(resultado.rows[0]); // Devuelve el beneficiario insertado
+    } catch (error) {
+        console.error('Error al crear beneficiario:', error);
+        res.status(500).json({message: 'Error en el servidor'}); // Asegúrate de devolver siempre JSON
+    }
+};
+
 const obtenerBeneficiario = async (req, res) => {
     console.log("Obteniendo beneficiario...");
     const {usuario} = req.body;
