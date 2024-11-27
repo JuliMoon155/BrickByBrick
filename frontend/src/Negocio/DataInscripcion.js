@@ -118,29 +118,29 @@ const eliminarInscripcion = async (req, res) => {
 
 const obtenerInscripcionesXEmpresa = async(req, res) =>{
     console.log("Obteniendo notificaciones...");
-    const { empresa } = req.body;
+    const { empresa } = req.params;
     try {
-        const resultado = await pool.query("SELECT" +
-            "i.id_inscripcion AS id_inscripcion, "+
-            "i.nombre AS nombre_beneficiario, "+
-            "i.apellido AS apellido_beneficiario, "+
-            "i.celular, "+
-            "i.correo, "+
-            "i.fecha_creacion, "+
-            "p.titulo AS titulo_publicacion, "+
-            "e.nombre AS nombre_empresa "+
-            "FROM empresa e "+
-            "JOIN publicaciondon p ON e.id = p.fk_idempresa "+
-            "JOIN inscripcion i ON p.id_publicacion = i.fk_idpublicaciondon "+
-            "WHERE e.id = $1 "+
-            "ORDER BY i.fecha_creacion DESC;", 
+        const resultado = await pool.query(`SELECT
+            i.id_inscripcion AS id_inscripcion,
+            i.nombre AS nombre_beneficiario,
+            i.apellido AS apellido_beneficiario,
+            i.celular,
+            i.correo,
+            i.fecha_creacion,
+            p.titulo AS titulo_publicacion,
+            e.nombre AS nombre_empresa 
+            FROM empresa e
+            JOIN publicaciondon p ON e.id = p.fk_idempresa
+            JOIN inscripcion i ON p.id_publicacion = i.fk_idpublicaciondon
+            WHERE e.id = $1
+            ORDER BY i.fecha_creacion DESC;`, 
             [empresa]);
             console.log(resultado);
             if (resultado.rows.length === 0) {
                 return res.status(404).json({ message: "No existen notificaciones" });
             }
-            console.log(resultado.rows[0]);
-            res.json(resultado.rows[0]);
+            console.log(resultado.rows);
+            res.json(resultado.rows);
         } catch (error) {
             console.error(error);
             res.status(500).send("Error en el servidor");
@@ -152,5 +152,5 @@ module.exports = {
     crearInscripcion,
     consultarInscripcion,
     eliminarInscripcion,
-    obtenerInscripcionesXEmpresa,
+    obtenerInscripcionesXEmpresa
 };

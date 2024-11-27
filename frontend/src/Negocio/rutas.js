@@ -57,7 +57,7 @@ router.delete("/like", removeLikePublicacionBen);  // Para eliminar un like
 router.get("/ObLikes", obtenerLikesPublicacion);
 router.get("/ObMisLikes/:fk_idBeneficiario", obtenerMisLikes);
 router.get("/ObComentarios/:fK_idPublicacionBen", obtenerComentarios);
-router.post("/obtenerInscripcionesXEmpresa", obtenerInscripcionesXEmpresa);
+router.get("/obtenerInscripcionesXEmpresa/:empresa", obtenerInscripcionesXEmpresa);
 router.post("/CrearSolicitudAmistad", crearSolicitudAmistad);
 router.post("/ObMisSolicitudesAmistad", obtenerMisSolicitudesAmistad);
 router.post("/EditarEstadoSolicitud", editarEstadoSolicitud);

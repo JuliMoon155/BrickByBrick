@@ -18,7 +18,7 @@ export const HomePages = ({ userId, usuario, userRol, cambiarInterfaz, data }) =
 
   return (
     <div className='HomePage'>
-      <Header />
+      <Header usuarioId={userId} />
       <div className='Contenido'>
         <div className='perfil'>
           <div className='infoPersonal'>
