@@ -24,33 +24,24 @@ export const Contenido = ({ userId, usuario, Consulta }) => {
 
 //interacciones
 const [likeStates, setLikeStates] = useState({});
+const [likeId, setLikeId] = useState({});
 const [dislikeStates, setDislikeStates] = useState([]);
 const [comentarios, setComentarios] = useState([]);
 
 
-  const fetchPublicaciones = async () => {
-    try {
-      let endpoint = Consulta === "General"
-        ? 'http://localhost:5000/api/ObPublicacionesBen'
-        : `http://localhost:5000/api/ObPublicacionesBenPropias?id=${userId}`;
+const fetchPublicaciones = async () => {
+  try {
+    const endpoint = 'http://localhost:5000/api/ObPublicacionesBen';
+    const response = await fetch(endpoint, { method: 'GET' });
+    if (!response.ok) throw new Error('Error al obtener publicaciones');
 
-      const response = await fetch(endpoint, { method: 'GET' });
-      if (!response.ok) throw new Error('Error al obtener publicaciones');
-
-      const data = await response.json();
-      setPublicaciones(data);
-      setDropdownStates(new Array(data.length).fill(false));
-      setCommentVisibility(new Array(data.length).fill(false));
-      setLikeStates(data.map(pub => pub.userHasLiked || false));
-      setLikeCounts(data.map(pub => pub.likesCount || 0));
-      setComments(data.reduce((acc, pub) => {
-        acc[pub.idpublicacion] = pub.comments || [];
-        return acc;
-      }, {}));
-    } catch (error) {
-      console.error('Error al obtener publicaciones:', error);
-    }
-  };
+    const data = await response.json();
+    setPublicaciones(data);
+    setDropdownStates(new Array(data.length).fill(false));
+  } catch (error) {
+    console.error('Error al obtener publicaciones:', error);
+  }
+};
 
   const fetchLikes = async () => {
     try {
@@ -83,7 +74,13 @@ const [comentarios, setComentarios] = useState([]);
         return acc;
       }, {});
 
+      const likesMap2 = data.reduce((acc, item) => {
+        acc[item.id_publicacion] = item.id_interaccion; 
+        return acc;
+      }, {});
+
       setLikeStates(likesMap);
+      setLikeId(likesMap2);
     } catch (error) {
       console.error('Error2 al obtener mis likes: ', error);
     }
@@ -105,14 +102,6 @@ const [comentarios, setComentarios] = useState([]);
     }
   };
 
-
-  const toggleLike = async (likeStates) => {
-    if (likeStates == true) {
-      console.log('dislikeando');
-    }if (likeStates == false){
-      console.log('likeando');
-    }
-  };
 
 
   const toggleCommentVisibility = (index) => {
@@ -228,6 +217,56 @@ const [comentarios, setComentarios] = useState([]);
     }
 };
 
+const handleLike = async (fK_idPublicacionBen) => {
+  try {
+    const fk_idbeneficiario = userId;
+
+    let datos = { fk_idbeneficiario, fK_idPublicacionBen };
+    let endpoint = "http://localhost:5000/api/like";
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(datos),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error en el servidor');
+    }
+
+    
+  } catch (error) {
+    fetchLikes();
+    console.error("Error al dar like:", error);
+  }
+};
+
+const handleDisLike = async (id_interaccion) => {
+  try {
+    let endpoint = "http://localhost:5000/api/Dislike";
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(id_interaccion),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error en el servidor');
+    }
+
+    fetchLikes();
+  } catch (error) {
+    console.error("Error al dar like:", error);
+    alert("error");
+  }
+};
+
+
 
   const toggleDropdown = (index) => {  // Using index here
     setDropdownStates((prevStates) => {
@@ -288,8 +327,16 @@ const [comentarios, setComentarios] = useState([]);
               <span className="icon" id='comment' onClick={() => {fetchComentarios(publicacion.id); toggleCommentVisibility(index); }}>
                 <img src={commentVisibility[index] ? FilledCommentIcon : CommentIcon} />
               </span>
-              <span className="icon" id="like" onClick={() => toggleLike(likeStates[publicacion.id])}>
-                <img src={likeStates[publicacion.id] ? DislikeIcon : LikeIcon} alt="Like Icon" />
+              <span className="icon" id="like" onClick={() => {
+                  const isLiked = likeStates[publicacion.id]; 
+                  if (isLiked) {
+                    const id_interaccion = likeId[publicacion.id].id_interaccion; 
+                    handleDisLike(id_interaccion);  
+                  } else {
+                    handleLike(publicacion.id); 
+                  }
+                }}>
+                <img src={likeStates[publicacion.id] ? DislikeIcon : LikeIcon} alt="Like Icon"/>
                 <div className='contador_likes'>{likesPorPublicacion[publicacion.id] || 0}</div>
               </span>
             </div>

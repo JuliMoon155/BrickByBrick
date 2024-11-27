@@ -713,4 +713,7 @@
     max-height: 30px;
     padding: 8px;
     font-size: small;
+    display: flex;
+    flex-direction: column;
 }
+

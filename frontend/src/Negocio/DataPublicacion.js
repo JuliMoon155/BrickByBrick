@@ -201,17 +201,7 @@ const likePublicacionBen = async (req, res) => {
             'VALUES($1, $2, $3) RETURNING *;',
             [tipo, fK_idPublicacionBen, fk_idbeneficiario]
         );
-
-        // Contar likes en tiempo real
-        const contador = await pool.query(
-            'SELECT COUNT(*) AS total FROM INTERACCION WHERE tipo = $1 AND FK_idPublicacionBen = $2;',
-            [tipo, id_contenidoBeneficiario]
-        );
-
-        res.status(201).json({
-            like: resultado.rows[0],
-            totalLikes: contador.rows[0].total
-        });
+        res.status(201).json(resultado.recordset[0]);
     } catch (error) {
         console.error('Error al agregar like:', error);
         res.status(500).json({ message: 'Error en el servidor' });
@@ -220,25 +210,16 @@ const likePublicacionBen = async (req, res) => {
 
 // Eliminar un like
 const removeLikePublicacionBen = async (req, res) => {
-    const { id_interaccion, id_contenidoBeneficiario } = req.body;
+    const { id_interaccion } = req.body;
 
     try {
         const resultado = await pool.query(
-           'DELETE FROM INTERACCION WHERE id = $1 RETURNING *;',
+        'DELETE FROM INTERACCION OUTPUT DELETED.* WHERE id_interaccion = @id_interaccion;',
             [id_interaccion]
         );
 
-        if (resultado.rowCount > 0) {
-            // Contar likes en tiempo real
-            const contador = await pool.query(
-                'SELECT COUNT(*) AS total FROM INTERACCION WHERE tipo = $1 AND FK_idPublicacionBen = $2;',
-                ['like', id_contenidoBeneficiario]
-            );
-
-            res.status(200).json({
-                message: 'Like eliminado correctamente',
-                totalLikes: contador.rows[0].total
-            });
+        if (resultado.rowsAffected > 0) {
+            res.status(200).json({ message: 'Like eliminado correctamente' });
         } else {
             res.status(404).json({ message: 'No se encontró el like para eliminar' });
         }
@@ -250,7 +231,7 @@ const removeLikePublicacionBen = async (req, res) => {
 
 //busqueda de comentarios por publicacion.
 const obtenerComentarios = async (req, res) => {
-    const { fK_idPublicacionBen } = req.body;
+    const { fk_idPublicacionBen } = req.params;
     console.log("Obteniendo comentarios...");
     
     try {
@@ -266,7 +247,7 @@ const obtenerComentarios = async (req, res) => {
                 AND i.fk_idpublicacionben = $1
             ORDER BY 
                 i.id_interaccion;
-        `, [fK_idPublicacionBen]);
+        `, [fk_idPublicacionBen]);
 
         if (resultado.rows.length === 0) {
             return res.status(404).json({message: "No hay comentarios existentes"});
@@ -326,8 +307,8 @@ module.exports = {
     //metodos para interaccion tipo like
     obtenerLikesPublicacion,
     obtenerMisLikes,
-    likePublicacionBen,
     removeLikePublicacionBen,
+    likePublicacionBen,
 
     //metodo para interaccion tipo comentario
     obtenerComentarios,
